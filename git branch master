@@ -1,0 +1,35 @@
+[33mcommit 1dd81aa32c33632999c2491aa3ea670c5ef6cc41[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Tue Mar 19 15:19:28 2019 -0500
+
+    Arreglo en el filtro aprobado modulo gastos para cargar las fechas de aprobacion
+
+[33mcommit baa8ed3fb8eefaf543bfdd0646c000ec391f0368[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Sat Mar 16 10:48:12 2019 -0500
+
+    Correcion total pagos modulo gastos
+
+[33mcommit e057a6423cab005a2b133346d8d855e06dac0988[m[33m ([m[1;32me057a6423cab005a2b133346d8d855e06dac0988[m[33m)[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Sat Mar 16 10:38:14 2019 -0500
+
+    Correcion total de pagos en modulo gastos
+
+[33mcommit a82b4b9b59ff1a6cd24b6776aaefbd1ef9166b4c[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Tue Mar 5 16:46:36 2019 -0500
+
+    Contratos, insercion y formato PDF
+
+[33mcommit 2b734d57245c8733178572741797ee5a44ae31f1[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Mon Feb 18 17:42:15 2019 -0500
+
+    Modulo RRHH creacion
+
+[33mcommit 61adb195ab2a40cfb2bfed205b43c8b9da81c005[m
+Author: Kronos <desarrollador.grupoempresarial@gmail.com>
+Date:   Mon Feb 18 15:05:58 2019 -0500
+
+    Inicial

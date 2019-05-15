@@ -1,0 +1,6 @@
+#--ignorando las subidas
+vistas/subidas/*
+server/php/files/*
+
+#ignorando el archivo de configuracion
+Conexion/datos.php

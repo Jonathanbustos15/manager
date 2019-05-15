@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^login$ vistas/login.php [NC]

@@ -1,0 +1,102 @@
+
+body {
+    background-image: url(../../img/fondotech2.jpg) !important;
+}
+.logologin {
+    background-image: url(../../img/logolunel1.png);
+    height: 113px;
+}
+.btn-success {
+    color: #fff;
+    background-color: #2E3092;
+    border-color: #2E3092;
+}
+.panel-default {
+    background-color: rgba(255,255,255,0.8);
+}
+#wrapper {
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+}
+.logo_header {
+    background-image: url(../../img/logo_lunel_optim.png);
+    height: 110px;
+    width: 214px;
+    display: block;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 4px;
+}
+.navbar-default {
+    background-color: rgba(255,255,255,0.6);
+    }
+    @media (min-width: 768px)
+#page-wrapper {
+    border-left: none;
+}
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #2F3192;
+    border-color: #2F3192;
+}
+.panel-green .panel-heading {
+    border-color: #4EB948;
+    color: #fff;
+    background-color: #4EB948;
+}
+.panel-red .panel-heading {
+    border-color: #EB1C24;
+    color: #fff;
+    background-color: #EB1C24;
+}
+.panel-yellow .panel-heading {
+    border-color: #FBAA39;
+    color: #fff;
+    background-color: #FBAA39;
+}
+
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+    color: #C9C9CE;
+    font-size: 24px;
+    font-family: helvetica;
+}
+a {
+    color: #888587;
+    text-decoration: none;
+}
+.hvicon {
+    background-image: url(../../img/icono_hv.png);
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+.hvicon1 {
+    background-image: url(../../img/formulario.png);
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+.hvicon2 {
+    background-image: url(../../img/proyectos.png);
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+.hvicon3 {
+    background-image: url(../../img/procesos.png);
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+/*---------------------------------------------*/
+.tabla-en-y {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 20px;
+}
+/*---------------------------------------------*/

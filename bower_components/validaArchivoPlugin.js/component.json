@@ -1,0 +1,8 @@
+{
+	"name" : "validaArchivoPlugin.js",
+	"version" : "1.0.1",
+	"main" : "./validaArchivoPlugin.js",
+	"dependencies" : {
+		"jquery" : "2.2.3"		
+	}
+}

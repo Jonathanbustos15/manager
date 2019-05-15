@@ -1,0 +1,18 @@
+select hoja_vida.*, estado.nombre as nom_estado, usuarios.alias, usuarios.pkID as pkID_usuario, estudio.nombre as nom_estudio, tipo_estudio.nombre as nom_tipoEstudio
+
+								from hoja_vida
+
+								INNER JOIN estado ON estado.pkID = hoja_vida.fkID_estado
+																
+								INNER JOIN usuarios ON usuarios.pkID = hoja_vida.fkID_usuario
+
+
+								INNER JOIN hoja_estudio on hoja_vida.pkID = hoja_estudio.pkID_hojaVida
+
+								INNER JOIN estudio ON hoja_estudio.pkID_estudio = estudio.pkID
+
+								INNER JOIN tipo_estudio on estudio.fkID_tipoEstudio = tipo_estudio.pkID
+
+								WHERE hoja_estudio.pkID_hojaVida IN (1,5,8,13)
+
+								GROUP BY hoja_vida.pkID

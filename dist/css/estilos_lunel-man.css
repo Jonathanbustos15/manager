@@ -1,0 +1,373 @@
+.logo_header {
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 4px;
+    max-width: 300px;
+}
+.containerlogin {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+#container-login-left {
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center top;
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+/*
+#container-login-right {
+    width: 50%;
+    padding: 40px 10% 0 10%;
+    background: #FFF;
+    max-height: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+}*/
+
+#container-login-right {
+    width: 50%;
+    padding: 40px 10% 0 10%;
+    background: #FFF;
+    max-height: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+.login-panel.panel.panel-default.login-marg-top {
+    margin-bottom: 100%;
+}
+#btn_login {
+    background-color: #ED2725;
+    border-color: #ED2725;
+}
+.login-panel.panel.panel-default.login-marg-top {
+    max-width: 400px;
+    min-width: 200px;
+}
+.contt_li {
+    width: 80%!important;
+    margin: 0 auto;
+}
+body {
+    background-image: url(../../img/fondopago3-1.jpg);
+}
+#page-wrapper {
+    padding: 0px!important;
+}
+.panel-default {
+    /*margin-top: 1%;*/
+}
+.titulo-barra-amarilla {
+    /*margin-top: 1%;*/
+    color: #ffffff;
+    background-color: #a5a4a2;
+    font-size: 17px;
+}
+.ancho_boton_hvs {
+    width: 115%;
+    max-width: 350px;
+}
+.ancho_boton_formatos {
+    width: 95%;
+    max-width: 282px;
+}
+.ancho_boton_proyectos {
+    width: 93%;
+    margin-top: -55px;
+    max-width: 295px;
+}
+.ancho_boton_process {
+    width: 117%;
+    margin-left: -54px;
+    max-width: 350px;
+}
+.usuario-top {
+    margin-top: 3%;
+}
+.icono_index {
+    background-image: url(../../img/icon-prin-menu.png);
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_RRHH {
+    background-image: url(../../img/CONT.png);
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_reuniones {
+    background-image: url(../../img/icono-reuniones-peq.png);
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_hvs {
+    background-image: url(../../img/icon-hvs-secc.png);
+    width: 35px;
+    height: 41px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -7px;
+}
+.icono_rrhh {
+    background-image: url(../../img/icon-rrhh-secc.png);
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -7px;
+}
+.icono_notificaciones {
+    background-image: url(../../img/icon-notificaciones.png);
+    width: 32px;
+    height: 33px;
+    float: left;
+    margin-top: -5px;
+    margin-right: 10px;
+}
+.icono_profesionales {
+    background-image: url(../../img/icon-profesionales.png);
+    width: 32px;
+    height: 33px;
+    float: left;
+    margin-top: -5px;
+    margin-right: 10px;
+}
+.icono_formatos {
+    background-image: url(../../img/icon-formatos-secc.png);
+    width: 35px;
+    height: 30px;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_proyectos {
+    background-image: url(../../img/icon-proyectos-secc.png);
+    width: 35px;
+    height: 31px;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_procesos {
+    background-image: url(../../img/icon-procesos-secc.png);
+    width: 38px;
+    height: 31px;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.icono_dgenerales {
+    background-image: url(../../img/icon-hvs-datos.png);
+    width: 29px;
+    height: 30px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+.icono_destudios {
+    background-image: url(../../img/icon-hvs-estudios.png);
+    width: 35px;
+    height: 30px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+.icono_hvs-foto {
+    background-image: url(../../img/icon-hvs-foto.png);
+    width: 108px;
+    height: 108px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+    margin-left: 30%;
+    margin-bottom: -3px;
+}
+.icono_modals {
+    background-image: url(../../img/icon-modals-edit.png);
+    width: 34px;
+    height: 35px;
+    float: left;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: -3px;
+}
+.titulos-panel {
+    color: #fff!important;
+    background-color: #ED2725!important;
+    font-size: 16px!important;
+    border-color: #fff!important;
+}
+.btn-limang {
+    background-color: #ED2725!important;
+    border-color: #ED2725!important;
+}
+.pagination {
+    background-color: #1330b4!important;
+}
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background-color: #1330b4!important;
+    border-color: #1330b4!important;
+}
+.titulo-hvs-det-fot {
+    margin-top: 1%;
+    font-size: 23px;
+    color: #fff;
+}
+.modal-header {
+    background-color: #a5a4a2;
+    color: #fff;
+}
+.modal-title {
+    margin-top: 6px;
+}
+.body-login {
+    background-image: none;
+}
+.tabla-form-ancho {
+    /*min-width: 130px;*/
+    min-width: 67px;
+}
+.ancho-min-menu-prin {
+    min-width: 1098px;
+}
+/*------------------------------------------------*/
+
+.borde-sort {
+    border: 1px solid orange!important;
+}
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+
+/*clases nuevas limanager-------------------------*/
+
+.ajuste_index {
+    height: 130px;
+    /*width: 130px;*/
+}
+/*------------------------------------------------*/
+
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+.custom-combobox {
+    position: relative;
+    /*display: inline-block;*/
+}
+.custom-combobox-toggle {
+    display: inline-block;
+    padding: 6px;
+    /**/
+    margin-top: -5px;
+    margin-left: -13px;
+}
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+    display: inline-block;
+    width: 95%;
+}
+.label-block {
+    display: block;
+}
+.div-group-tema-agenda {
+    /*width: 45%;
+    display: inline-table;*/
+    padding: 3px;
+}
+/*---------------------------------------------*/
+
+/*clase para selects filtros*/
+
+.sel-filter {
+    max-width: 160px;
+}
+/*---------------------------------------------*/
+
+.modal-content-extended {
+    width: 130%;
+    margin: auto;
+    margin-left: -90px;
+}
+.text-left-important {
+    text-align: left!important;
+}
+.btn-add-compromisos {
+    margin-top: 20px;
+}
+/*---------------------------------------------*/
+
+.custom-combobox-toggle-out {
+    margin-top: -1px;
+    margin-left: 0px;
+}
+/*---------------------------------------------*/
+
+/*---------------------------------------------*/
+
+/*Estilos de ingresos_gral formulario*/
+
+.tax_percent {
+    width: 100px!important;
+}
+.tax_label {
+    display: block!important;
+    padding: 3px!important;
+}
+.tax_mask {
+    width: 393px!important;
+}
+/*---------------------------------------------*/
+
+.div-hide-control {
+    display: none!important;
+}
+/*---------------------------------------------*/
+
+/*ajuste controles de filtro ingresos_gral*/
+
+.select-filtro {
+    width: 213px!important;
+}
+/*---------------------------------------------*/
+
+.tabla-max-ancho {
+    width: 340px;
+    min-width: 60px;
+}

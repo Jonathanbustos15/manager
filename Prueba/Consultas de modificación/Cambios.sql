@@ -1,0 +1,7 @@
+/*Se agrega campo a la tabla hoja_vida para realizar eliminación logica */
+ALTER TABLE `hoja_vida` ADD `estadoV` INT NOT NULL DEFAULT '1' COMMENT 'Campo para validar la visibilidad del registro' AFTER `obs_hvida`;
+/*consulta de bd HvidaDao linea 38 */
+select *,CONCAT(hoja_vida.nombre,' ',apellido) AS nombres,hoja_vida.pkID AS pkID,estado.nombre AS nom_estado,hoja_vida.nombre AS nombre,(SELECT b.nombre FROM hoja_estudio a JOIN estudio b ON a.pkID_estudio=b.pkID WHERE b.fkID_tipoEstudio=8 and a.pkID_hojaVida=hoja_vida.pkID limit 0,1) as tecnicos,(SELECT b.nombre FROM hoja_estudio a JOIN estudio b ON a.pkID_estudio=b.pkID WHERE b.fkID_tipoEstudio=9 and a.pkID_hojaVida=hoja_vida.pkID limit 0,1) as tecnologos,(SELECT b.nombre FROM hoja_estudio a JOIN estudio b ON a.pkID_estudio=b.pkID WHERE b.fkID_tipoEstudio=1 and a.pkID_hojaVida=hoja_vida.pkID limit 0,1) as pregrados,(SELECT b.nombre FROM hoja_estudio a JOIN estudio b ON a.pkID_estudio=b.pkID WHERE (b.fkID_tipoEstudio=3 or b.fkID_tipoEstudio=4 or b.fkID_tipoEstudio=5 or b.fkID_tipoEstudio=6)  and a.pkID_hojaVida=hoja_vida.pkID limit 0,1) as posgrados,(SELECT b.nombre FROM hoja_estudio a JOIN estudio b ON a.pkID_estudio=b.pkID WHERE b.fkID_tipoEstudio=7 and a.pkID_hojaVida=hoja_vida.pkID limit 0,1) as certificaciones FROM hoja_vida
+	 					 INNER JOIN estado ON estado.pkID = hoja_vida.fkID_estado
+	 					 LEFT JOIN hoja_estudio ON hoja_estudio.pkID_hojaVida = hoja_vida.pkID WHERE hoja_vida.estadoV=1
+	 					 GROUP BY hoja_vida.pkID

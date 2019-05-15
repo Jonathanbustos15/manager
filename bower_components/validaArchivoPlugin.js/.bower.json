@@ -1,0 +1,19 @@
+{
+  "name": "validaArchivoPlugin.js",
+  "version": "1.0.1",
+  "main": "./validaArchivoPlugin.js",
+  "dependencies": {
+    "jquery": "2.2.3"
+  },
+  "homepage": "https://github.com/jsmorales/validaArchivoPlugin.js",
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.1",
+    "commit": "a95f6fc17d45d89b65cf56baf0a34d5add96e194"
+  },
+  "_source": "https://github.com/jsmorales/validaArchivoPlugin.js.git",
+  "_target": "^1.0.1",
+  "_originalSource": "validaArchivoPlugin.js",
+  "_direct": true
+}

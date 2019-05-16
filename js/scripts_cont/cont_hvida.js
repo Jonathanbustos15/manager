@@ -82,10 +82,10 @@ $(function() {
         if (verPkIdHoja()) {
             $("#btn_actionHvida").removeAttr('disabled');
         } else {
-            console.log($("#fileupload")[0].files[0]);
+            console.log($("#archivos[]")[0].files[0]);
             //var hidden = $("#selectEstudioPos").attr('hidden');
             /**/
-            if (($("#fileupload")[0].files[0] != undefined)) {
+            if (($("#archivos[]")[0].files[0] != undefined)) {
                 $("#btn_actionHvida").removeAttr('disabled');
             } else {
                 console.log('falta seleccionar un estudio o cargar archivos!');
@@ -622,7 +622,74 @@ $(function() {
         $("#url_archivo").val(fileName);
         console.log("Archivo para subir: " + fileName + ", peso total: " + fileSize + " de tipo:" + fileType);
     }
+    var numero = 0; //Esta es una variable de control para mantener nombres
+            //diferentes de cada campo creado dinamicamente.
+var numero = 0; //Esta es una variable de control para mantener nombres
+            //diferentes de cada campo creado dinamicamente.
+evento = function (evt) { //esta funcion nos devuelve el tipo de evento disparado
+   return (!evt) ? event : evt;
+}
 
+//Aqui se hace lamagia... jejeje, esta funcion crea dinamicamente los nuevos campos file
+addCampo = function () { 
+//Creamos un nuevo div para que contenga el nuevo campo
+   nDiv = document.createElement('div');
+//con esto se establece la clase de la div
+   nDiv.className = 'archivo';
+//este es el id de la div, aqui la utilidad de la variable numero
+//nos permite darle un id unico
+   nDiv.id = 'file' + (++numero);
+//creamos el input para el formulario:
+   nCampo = document.createElement('input');
+//le damos un nombre, es importante que lo nombren como vector, pues todos los campos
+//compartiran el nombre en un arreglo, asi es mas facil procesar posteriormente con php
+   nCampo.name = 'archivos[]';
+//Establecemos el tipo de campo
+   nCampo.type = 'file';
+//Ahora creamos un link para poder eliminar un campo que ya no deseemos
+   a = document.createElement('a');
+   nCampo.style = 'width: 90%;display: inline';
+//El link debe tener el mismo nombre de la div padre, para efectos de localizarla y eliminarla
+   a.name = nDiv.id;
+//Este link no debe ir a ningun lado
+   a.href = '#';
+//Establecemos que dispare esta funcion en click
+   a.onclick = elimCamp;
+//Con esto ponemos el texto del link
+   a.innerHTML = 'Eliminar';
+//Bien es el momento de integrar lo que hemos creado al documento,
+//primero usamos la función appendChild para adicionar el campo file nuevo
+   nDiv.appendChild(nCampo);
+//Adicionamos el Link
+   nDiv.appendChild(a);
+//Ahora si recuerdan, en el html hay una div cuyo id es 'adjuntos', bien
+//con esta función obtenemos una referencia a ella para usar de nuevo appendChild
+//y adicionar la div que hemos creado, la cual contiene el campo file con su link de eliminación:
+   container = document.getElementById('adjuntos');
+   container.appendChild(nDiv);
+}
+//con esta función eliminamos el campo cuyo link de eliminación sea presionado
+elimCamp = function (evt){
+   evt = evento(evt);
+   nCampo = rObj(evt);
+   div = document.getElementById(nCampo.name);
+   div.parentNode.removeChild(div);
+}
+//con esta función recuperamos una instancia del objeto que disparo el evento
+rObj = function (evt) { 
+   return evt.srcElement ?  evt.srcElement : evt.target;
+}
+//con esta función eliminamos el campo cuyo link de eliminación sea presionado
+elimCamp = function (evt){
+   evt = evento(evt);
+   nCampo = rObj(evt);
+   div = document.getElementById(nCampo.name);
+   div.parentNode.removeChild(div);
+}
+//con esta función recuperamos una instancia del objeto que disparo el evento
+rObj = function (evt) { 
+   return evt.srcElement ?  evt.srcElement : evt.target;
+}
     function subida_archivo_id(id_hoja_vida) {
         //---------------------------------------------------------------------------------------
         //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
@@ -799,7 +866,7 @@ $(function() {
     });
     $("#nombre").keyup(function(event) {
         /* Act on the event */
-        if (((event.keyCode < 65) && (event.keyCode != 8) && (event.keyCode != 32)) || (event.keyCode > 200)) {
+        if (((event.keyCode > 32) && (event.keyCode < 65)) || (event.keyCode > 200)) {
             console.log(String.fromCharCode(event.which));
             alert("El Nombre NO puede llevar valores numericos.");
             $(this).val("");
@@ -807,7 +874,7 @@ $(function() {
     });
     $("#apellido").keyup(function(event) {
         /* Act on the event */
-        if (((event.keyCode < 65) && (event.keyCode != 8) && (event.keyCode != 32)) || (event.keyCode > 200)) {
+        if (((event.keyCode > 32) && (event.keyCode < 65)) || (event.keyCode > 200)) {
             console.log(String.fromCharCode(event.which));
             alert("El Apellido NO puede llevar valores numericos.");
             $(this).val("");
@@ -855,7 +922,6 @@ $(function() {
     $("#btn_nuevoHvida").click(function() {
         $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
         $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
-        $("#btn_actionHvida").attr("data-action", "crear");
         //$("#selectPosgrado").attr('hidden','');
         $("#btn_actionHvida").attr('disabled', 'disabled');
         $("#frm_estudios_hvida").html("");

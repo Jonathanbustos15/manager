@@ -1,39 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>
-        </title>
-    </head>
-    <body>
-        <form>
-            <label for="ZIP">
-                nombre :
-            </label>
-            <input class="form-control" id="nidentificacion" maxlength="10" minlength="5" name="nidentificacion" pattern="[A-Za-z]+" placeholder="Su nombre de usuario" required="" title="Letras y números. Tamaño mínimo: 5. Tamaño máximo: 40" type="text">
-                <label for="Country">
-                    edad :
-                </label>
-                <input max="99999" min="100" name="nombre" pattern="[0-9]+" placeholder="Su nombre de usuario" required="" title="Letras y números. Tamaño mínimo: 5. Tamaño máximo: 40" type="number">
-                    <input type="submit" value="Validar">
-                    </input>
-                </input>
-            </input>
-        </form>
-        <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
-             <dl>            
-           <dt><label>Archivos a Subir:</label></dt>
-                <!-- Esta div contendrá todos los campos file que creemos -->
-           <dd><div id="adjuntos">
-                <!-- Hay que prestar atención a esto, el nombre de este campo debe siempre terminar en []
-                como un vector, y ademas debe coincidir con el nombre que se da a los campos nuevos 
-                en el script -->
-           <input type="file" name="archivos[]" /><br />
-           </div></dd>
-           <dt><a href="#" onClick="addCampo()">Subir otro archivo</a></dt>      
-           <dd><input type="submit" value="Enviar" id="envia" name="envia" /></dd>
-             </dl>
-        </form>
-        <script type="text/javascript">
+<script type="text/javascript">
 var numero = 0; //Esta es una variable de control para mantener nombres
             //diferentes de cada campo creado dinamicamente.
 evento = function (evt) { //esta funcion nos devuelve el tipo de evento disparado
@@ -56,24 +21,16 @@ addCampo = function () {
    nCampo.name = 'archivos[]';
 //Establecemos el tipo de campo
    nCampo.type = 'file';
-   nCampo.style = 'width: 90%;display: inline';
-   b = document.createElement('button');
-   b.className = 'btn btn-danger';
 //Ahora creamos un link para poder eliminar un campo que ya no deseemos
-   a = document.createElement('span');
+   a = document.createElement('a');
 //El link debe tener el mismo nombre de la div padre, para efectos de localizarla y eliminarla
-   b.name = nDiv.id;
+   a.name = nDiv.id;
 //Este link no debe ir a ningun lado
-   b.href = '#';
+   a.href = '#';
 //Establecemos que dispare esta funcion en click
-   b.onclick = elimCamp;
+   a.onclick = elimCamp;
 //Con esto ponemos el texto del link
    a.innerHTML = 'Eliminar';
-
-   b = document.createElement('span');
-   b.class= "glyphicon glyphicon-remove";
-   a.className= 'glyphicon glyphicon-remove';
-   b.appendChild(a);
 //Bien es el momento de integrar lo que hemos creado al documento,
 //primero usamos la función appendChild para adicionar el campo file nuevo
    nDiv.appendChild(nCampo);
@@ -97,5 +54,3 @@ rObj = function (evt) {
    return evt.srcElement ?  evt.srcElement : evt.target;
 }
 </script>
-    </body>
-</html>

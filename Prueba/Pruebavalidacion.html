@@ -5,21 +5,8 @@
         </title>
     </head>
     <body>
-        <form>
-            <label for="ZIP">
-                nombre :
-            </label>
-            <input class="form-control" id="nidentificacion" maxlength="10" minlength="5" name="nidentificacion" pattern="[A-Za-z]+" placeholder="Su nombre de usuario" required="" title="Letras y números. Tamaño mínimo: 5. Tamaño máximo: 40" type="text">
-                <label for="Country">
-                    edad :
-                </label>
-                <input max="99999" min="100" name="nombre" pattern="[0-9]+" placeholder="Su nombre de usuario" required="" title="Letras y números. Tamaño mínimo: 5. Tamaño máximo: 40" type="number">
-                    <input type="submit" value="Validar">
-                    </input>
-                </input>
-            </input>
-        </form>
-        <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
+        
+        <form name="formu" id="formu" action="upload.php" method="POST" enctype="multipart/form-data">
              <dl>            
            <dt><label>Archivos a Subir:</label></dt>
                 <!-- Esta div contendrá todos los campos file que creemos -->
@@ -27,7 +14,7 @@
                 <!-- Hay que prestar atención a esto, el nombre de este campo debe siempre terminar en []
                 como un vector, y ademas debe coincidir con el nombre que se da a los campos nuevos 
                 en el script -->
-           <input type="file" name="archivos[]" /><br />
+           <input type="file" name="archivos[]"  /><br />
            </div></dd>
            <dt><a href="#" onClick="addCampo()">Subir otro archivo</a></dt>      
            <dd><input type="submit" value="Enviar" id="envia" name="envia" /></dd>

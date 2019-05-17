@@ -20,13 +20,16 @@ $(function() {
     var contDetailName = 0;
     var archCoincide = "";
     //--------------------------------------------------------- 
-    function valida_action(action) {
-        if (action === "crear") {
+    function valida_action(action){
+        if(action==="crear"){
+            subida_archivos();
             crea_hvida();
             //subida_foto();
-        } else if (action === "editar") {
-            edita_hvida();
-        };
+        }else if(action==="editar"){
+           subida_archivos();
+           edita_hvida();
+        }
+        ;
     };
     //---------------------------------------------------------
     function crea_consulta() {
@@ -82,10 +85,10 @@ $(function() {
         if (verPkIdHoja()) {
             $("#btn_actionHvida").removeAttr('disabled');
         } else {
-            console.log($("#archivos[]")[0].files[0]);
+            console.log($("#fileupload")[0].files[0]);
             //var hidden = $("#selectEstudioPos").attr('hidden');
             /**/
-            if (($("#archivos[]")[0].files[0] != undefined)) {
+            if (($("#fileupload")[0].files[0] != undefined)) {
                 $("#btn_actionHvida").removeAttr('disabled');
             } else {
                 console.log('falta seleccionar un estudio o cargar archivos!');
@@ -141,71 +144,96 @@ $(function() {
     //-------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------
     //funciones hoja de vida
-    function crea_hvida() {
-        //--------------------------------------
-        //crea el objeto formulario serializado
-        objt_f_hvida = $("#form_hvida").valida();
-        email = $("#email").val();
-        console.log(objt_f_hvida);
-        //console.log(objt_f_adminPublicidad.srlz);
-        //--------------------------------------
-        /**/
-        if ((objt_f_hvida.estado == true) && (validarEmail(email))) {
-            //subida_archivo();	
+    function crea_hvida(){
+
+          //--------------------------------------
+          //crea el objeto formulario serializado
+          objt_f_hvida = $("#form_hvida").valida();
+          email = $("#email").val();
+          console.log(objt_f_hvida);
+          //console.log(objt_f_adminPublicidad.srlz);
+          //--------------------------------------
+          /**/
+          if( (objt_f_hvida.estado == true) && (validarEmail(email)) ){
+
+          //subida_archivo();   
+
             $.ajax({
-                url: "../controller/ajaxController12.php",
-                data: objt_f_hvida.srlz + "&tipo=inserta&nom_tabla=hoja_vida",
-            }).done(function(data) {
-                //---------------------
-                console.log(data);
-                var pkID_hojaVida = data[0].last_id;
-                //-----------------------------------------------------------------------------------
-                //subida_archivo_id(pkID_hojaVida);
-                $("#btn_actionHvida").attr('disabled', 'disabled');
-                var iteracion = $.each(arregloDeArchivos, function(index, val) {
-                    console.log('Subiendo archivo: ' + val);
-                    $('#fileupload').fileupload('send', {}).success(function(result, textStatus, jqXHR) {
+              url: "../controller/ajaxController12.php",
+              data: objt_f_hvida.srlz+"&tipo=inserta&nom_tabla=hoja_vida",
+            })
+            .done(function(data) {            
+              //---------------------
+              console.log(data);
+              
+              var pkID_hojaVida = data[0].last_id;
+             
+              //-----------------------------------------------------------------------------------
+              //subida_archivo_id(pkID_hojaVida);
+
+              $("#btn_actionHvida").attr('disabled','disabled');
+
+              var iteracion = $.each(arregloDeArchivos, function(index, val) {
+                 
+                 console.log('Subiendo archivo: '+val);
+
+                 $('#fileupload').fileupload('send', {files:val})
+                    .success(function (result, textStatus, jqXHR) {                 
                         console.log(result);
                         console.log(textStatus);
                         console.log(jqXHR);
+
                         getValoresDesc(val[0].name);
-                        files: val
-                        insertaArchivo("pkID_hojaVida=" + pkID_hojaVida + "&url_archivo=" + val[0].name + "&des_archivo=" + archCoincide);
-                    }).error(function(jqXHR, textStatus, errorThrown) {
+                        insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+val[0].name+"&des_archivo="+archCoincide );                       
+
+                    })
+                    .error(function (jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
-                    }).complete(function(result, textStatus, jqXHR) {
+                    })
+                    .complete(function (result, textStatus, jqXHR) {
                         console.log(textStatus);
                     });
-                });
-                //-----------------------------------------------------------------------------------	    
-                $.when(iteracion).then(subidaOK, subidaFail);
 
-                function subidaOK() {
+              });
+
+              //-----------------------------------------------------------------------------------     
+              $.when(iteracion).then( subidaOK, subidaFail );
+
+                function subidaOK(){
+
                     //-----------------------------------------------------------------------------------
-                    arrEstudios.forEach(function(element, index) {
+                      arrEstudios.forEach(function(element, index){
                         //statements
-                        var obtHE = {
-                            "pkID_hojaVida": pkID_hojaVida,
-                            "pkID_estudio": element
-                        };
+                        var obtHE = {"pkID_hojaVida":pkID_hojaVida,"pkID_estudio":element};
                         arrHojaEstudios.push(obtHE);
-                    });
-                    console.log(arrHojaEstudios);
-                    var cadenaSerializa = "";
-                    var iteraInsert = $.each(arrHojaEstudios, function(index, val) {
+                      });
+
+                      console.log(arrHojaEstudios);
+
+                      var cadenaSerializa = "";           
+
+                      var iteraInsert = $.each(arrHojaEstudios, function(index, val) {               
+
                         var dataCadena = "";
-                        $.each(val, function(llave, valor) {
-                            console.log("llave=" + llave + " valor=" + valor);
-                            dataCadena = dataCadena + llave + "=" + valor + "&";
-                            //insertaEstudio(cadenaSerializa);
-                        });
-                        dataCadena = dataCadena.substring(0, dataCadena.length - 1);
-                        console.log(dataCadena);
-                        //---------------------------------------------------------
-                        insertaEstudio(dataCadena);
-                        //---------------------------------------------------------
-                    });
-                    $.when(iteraInsert).then(insertaOK, insertaFail);
+
+                         $.each(val, function(llave, valor) {
+                                         
+                             console.log("llave="+llave+" valor="+valor);
+
+                             dataCadena = dataCadena+llave+"="+valor+"&";                                       
+                             //insertaEstudio(cadenaSerializa);
+                         });
+
+                         dataCadena = dataCadena.substring(0,dataCadena.length - 1);
+
+                         console.log(dataCadena);
+                         //---------------------------------------------------------
+                         insertaEstudio(dataCadena);                
+                         //---------------------------------------------------------
+                      });
+
+                      $.when(iteraInsert).then(insertaOK, insertaFail);
+
 
                     function insertaOK() {
                         alert(data[0].mensaje);
@@ -260,10 +288,10 @@ $(function() {
     //cierra funcion eliminar hvida
     function edita_hvida() {
         //--------------------------------------
+        //subida_archivos();
         //crea el objeto formulario serializado
         objt_f_hvida = $("#form_hvida").valida();
         email = $("#email").val();
-        //subida_archivo();
         //--------------------------------------
         /**/
         if ((objt_f_hvida.estado == true) && (validarEmail(email))) {
@@ -283,6 +311,8 @@ $(function() {
                         console.log(textStatus);
                         console.log(jqXHR);
                         getValoresDesc(val[0].name);
+                        console.log("Hello world!");
+                        console.log(nomar);
                         insertaArchivo("pkID_hojaVida=" + id_hvida + "&url_archivo=" + val[0].name + "&des_archivo=" + archCoincide);
                     }).error(function(jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
@@ -361,6 +391,42 @@ $(function() {
     };
     //cierra carga_hvida
     //-----------------------------------------------------------------------------------------------------
+    //funciones enviar formato a url2.php
+    function subida_archivos() {
+        //---------------------------------------------------------------------------------------
+        //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
+        console.log("Ingresando al mundo malo");
+        var formData = new FormData($("#form_hvida")[0]);
+        //la ruta del php que ejecuta ajax
+        var ruta = "../subida_archivo/url2.php";
+        //hacemos la petición ajax
+        $.ajax({
+            url: ruta,
+            type: 'POST',
+            // Form data
+            //datos del formulario
+            data: formData,
+            //necesario para subir archivos via ajax
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            //mientras enviamos el archivo
+            beforeSend: function() {
+                console.log("Subiendo archivo, por favor espere...");
+                $("#not_docs_empresa").html("Subiendo archivo, por favor espere...");
+            },
+            //una vez finalizado correctamente
+            
+            //si ha ocurrido un error
+            error: function() {
+                console.log("Ha ocurrido un error.");
+            }
+        });
+        //---------------------------------------------------------------------------------------
+    };
+
+
     //funciones estudios
     function insertaEstudio(data) {
         $.ajax({
@@ -643,7 +709,7 @@ addCampo = function () {
    nCampo = document.createElement('input');
 //le damos un nombre, es importante que lo nombren como vector, pues todos los campos
 //compartiran el nombre en un arreglo, asi es mas facil procesar posteriormente con php
-   nCampo.name = 'archivos[]';
+   nCampo.name = 'files[]';
 //Establecemos el tipo de campo
    nCampo.type = 'file';
 //Ahora creamos un link para poder eliminar un campo que ya no deseemos
@@ -923,6 +989,7 @@ rObj = function (evt) {
         $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
         $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         //$("#selectPosgrado").attr('hidden','');
+        $("#btn_actionHvida").attr("data-action", "crear");
         $("#btn_actionHvida").attr('disabled', 'disabled');
         $("#frm_estudios_hvida").html("");
         $("#archivos_res").html("");
@@ -931,6 +998,7 @@ rObj = function (evt) {
         validaBtnGuardar();
         $("#form_hvida")[0].reset();
         $("#form_hvida_estudios")[0].reset();
+        $("form_archivo")[0].reset();
     });
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
@@ -979,8 +1047,11 @@ rObj = function (evt) {
     */
     $("#btn_actionHvida").click(function() {
         /**/
+
         action = $(this).attr("data-action");
         valida_action(action);
+        enviarf();
+        vali
         console.log("accion a ejecutar: " + action);
         //subida_archivo();   
     });
@@ -1152,7 +1223,6 @@ rObj = function (evt) {
     });
     //--------------------------------------------------------------------------------------------------
     $('#fileupload').change(function() {
-        subida_archivo();
         validaBtnGuardar();
     });
 

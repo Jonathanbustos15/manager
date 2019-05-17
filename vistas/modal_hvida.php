@@ -132,9 +132,9 @@ $hvidainst->getSelectCertificacion();
           </div>
 
           <div role="tabpanel" class="tab-pane" id="archivos">
-            <div class="">
+            <div class="form-group">
             <br>
-                <form name="formu" action="subida_archivo/url.php" enctype="multipart/form-data">
+                <form id="form_archivo" method="POST" enctype="multipart/form-data">
                                
                  <label>Archivos a Subir:</label>
                       <!-- Esta div contendrá todos los campos file que creemos -->
@@ -142,7 +142,7 @@ $hvidainst->getSelectCertificacion();
                       <!-- Hay que prestar atención a esto, el nombre de este campo debe siempre terminar en []
                       como un vector, y ademas debe coincidir con el nombre que se da a los campos nuevos 
                       en el script -->
-                 <input type="file" name="archivos[]" /><br />
+                 <input type="file" id="fileupload"  name="files[]"  /multiple><br />
                  </div>
                  <a href="#" onClick="addCampo()">Subir otro archivo</a>    
                    
@@ -163,8 +163,10 @@ $hvidainst->getSelectCertificacion();
       </div>
 
       <div class="modal-footer">
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-        <input id="btn_actionHvida" type="submit" class="btn btn-primary btn-limang">
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--> 
+        <button id="btn_actionHvida" type="button" class="btn btn-primary btn-limang" data-action="-" disabled="disabled">
+            <span id="lbl_btn_actionHvida" class="btn-limang">-</span>
+        </button>
       </div>
 
 

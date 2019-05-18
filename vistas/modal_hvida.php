@@ -134,20 +134,20 @@ $hvidainst->getSelectCertificacion();
           <div role="tabpanel" class="tab-pane" id="archivos">
             <div class="form-group">
             <br>
-                <form id="form_archivo" method="POST" enctype="multipart/form-data">
-                               
-                 <label>Archivos a Subir:</label>
-                      <!-- Esta div contendrá todos los campos file que creemos -->
-                 <div id="adjuntos">
-                      <!-- Hay que prestar atención a esto, el nombre de este campo debe siempre terminar en []
-                      como un vector, y ademas debe coincidir con el nombre que se da a los campos nuevos 
-                      en el script -->
-                 <input type="file" id="fileupload"  name="files[]"  /multiple><br />
-                 </div>
-                 <a href="#" onClick="addCampo()">Subir otro archivo</a>    
-                   
-                   <div id="archivos_res"></div>
-              </form>
+          <form name="form1" id="form1" method="post" action="url2.php" enctype="multipart/form-data">
+              <div class="form-group">
+              <div class="col-sm-8">
+                <input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Cargar</button>
+            </div>
+            <div id="not_img" hidden>hola</div>                       
+                        <!--+++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                        <br>
+                        <div id="archivos_res"></div> 
+            
+          </form>
                       
                 <!--<button id="btn_sube_archivos" class="btn btn-primary">Subir</button>
                 <br><br>

@@ -286,78 +286,109 @@ $(function() {
         }
     };
     //cierra funcion eliminar hvida
-    function edita_hvida() {
+    function edita_hvida(){
+
         //--------------------------------------
-        //subida_archivos();
         //crea el objeto formulario serializado
         objt_f_hvida = $("#form_hvida").valida();
         email = $("#email").val();
+
+        //subida_archivo();
         //--------------------------------------
         /**/
-        if ((objt_f_hvida.estado == true) && (validarEmail(email))) {
+        if( (objt_f_hvida.estado == true) && (validarEmail(email)) ){
+
             console.log(objt_f_hvida.srlz);
+
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: objt_f_hvida.srlz + "&tipo=actualizar&nom_tabla=hoja_vida",
-            }).done(function(data) {
-                var iteracionEdita = $.each(arregloDeArchivos, function(index, val) {
-                    console.log('Subiendo archivo: ');
-                    console.log(val);
-                    $('#fileupload').fileupload('send', {
-                        files: val
-                    }).success(function(result, textStatus, jqXHR) {
-                        /**/
-                        console.log(result);
+                data: objt_f_hvida.srlz+"&tipo=actualizar&nom_tabla=hoja_vida",
+            })
+            .done(function(data) {
+
+              var iteracionEdita = $.each(arregloDeArchivos, function(index, val) {
+                 
+                 console.log('Subiendo archivo: ');
+                 console.log(val);
+
+                 $('#fileupload').fileupload('send', {files:val})
+                    .success(function (result, textStatus, jqXHR) {                 
+                        /**/console.log(result);
                         console.log(textStatus);
                         console.log(jqXHR);
+                        var nom = val[0].name;
+                        console.log(nom);
+                        var remplazo = nom.replace(/ /gi, "_");
+                        console.log(remplazo);
+                        
+                        val[0].name = remplazo;
+                        console.log("hola yoooooooo");
+                        console.log(val[0].name);
                         getValoresDesc(val[0].name);
-                        console.log("Hello world!");
-                        console.log(nomar);
-                        insertaArchivo("pkID_hojaVida=" + id_hvida + "&url_archivo=" + val[0].name + "&des_archivo=" + archCoincide);
-                    }).error(function(jqXHR, textStatus, errorThrown) {
+                        insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+val[0].name+"&des_archivo="+archCoincide );                        
+                    })
+                    .error(function (jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
-                    }).complete(function(result, textStatus, jqXHR) {
+                    })
+                    .complete(function (result, textStatus, jqXHR) {
                         console.log(textStatus);
                     });
-                });
-                //-----------------------------------------------------------------------------------
-                //Elimina los estudios de la hvida
-                EliminaHvidaEstudio(id_hvida);
-                arrEstudios.forEach(function(element, index) {
-                    //statements
-                    var obtHE = {
-                        "pkID_hojaVida": id_hvida,
-                        "pkID_estudio": element
-                    };
-                    arrHojaEstudios.push(obtHE);
-                });
-                console.log(arrHojaEstudios);
-                var cadenaSerializa = "";
-                var iteraInsert = $.each(arrHojaEstudios, function(index, val) {
-                    var dataCadena = "";
-                    $.each(val, function(llave, valor) {
-                        console.log("llave=" + llave + " valor=" + valor);
-                        dataCadena = dataCadena + llave + "=" + valor + "&";
-                        //insertaEstudio(cadenaSerializa);
-                    });
-                    dataCadena = dataCadena.substring(0, dataCadena.length - 1);
-                    console.log(dataCadena);
-                    //---------------------------------------------------------
-                    insertaEstudio(dataCadena);
-                    //---------------------------------------------------------
-                });
-                alert(data.mensaje.mensaje);
-                location.reload();
-            }).fail(function() {
+
+              });
+       
+                        //-----------------------------------------------------------------------------------
+                      //Elimina los estudios de la hvida
+                      EliminaHvidaEstudio(id_hvida);
+
+                      arrEstudios.forEach(function(element, index){
+                        //statements
+                        var obtHE = {"pkID_hojaVida":id_hvida,"pkID_estudio":element};
+                        arrHojaEstudios.push(obtHE);
+                      });
+
+                      console.log(arrHojaEstudios);
+
+                      var cadenaSerializa = "";           
+
+                      var iteraInsert = $.each(arrHojaEstudios, function(index, val) {               
+
+                        var dataCadena = "";
+
+                         $.each(val, function(llave, valor) {
+                                         
+                             console.log("llave="+llave+" valor="+valor);
+
+                             dataCadena = dataCadena+llave+"="+valor+"&";                                       
+                             //insertaEstudio(cadenaSerializa);
+                         });
+
+                         dataCadena = dataCadena.substring(0,dataCadena.length - 1);
+
+                         console.log(dataCadena);
+                         //---------------------------------------------------------
+    
+                         insertaEstudio(dataCadena);                
+                         //---------------------------------------------------------
+                      });
+
+              alert(data.mensaje.mensaje);
+              location.reload();
+            })
+            .fail(function() {
                 console.log("error");
-            }).always(function() {
+            })
+            .always(function() {
                 console.log("complete");
             });
-        } else {
-            alert("Faltan " + Object.keys(objt_f_hvida.objt).length + " campos por llenar.");
+
+        }else{
+            alert("Faltan "+Object.keys(objt_f_hvida.objt).length+" campos por llenar.");
         }
+        
         //------------------------------------------------------
+
     };
+    //cierra funcion edita_hvida};
     //cierra funcion edita_hvida
     function verPkIdHoja() {
         var id_hvida_form = $("#pkID").val();
@@ -1250,8 +1281,15 @@ rObj = function (evt) {
             //console.log(data.files);        	        	
             //console.log("validando tipo: "+data.files[0].type+" es valido? -->"+validaTypeFile(data.files[0].type));
             console.log(data.files[0].size);
+            var nom = data.files[0].name;
+            console.log(nom);
+            var remplazo = nom.replace(/ /gi, "_");
+            console.log(remplazo);
+            data.files[0].name = remplazo;
+            console.log("hola yoooooooo");
+            console.log(data.files[0].name);
             if (validaTypeFile(data.files[0].type)) {
-                data.context = $("#res_form").append('<div class="frm_group" id="frm_group' + contDetailName + '">' + '<label class="control-label">Descripción para el archivo: ' + data.files[0].name + '</label>' + '<button name="btn_eliminaArchivo" data-id-archivo="' + contDetailName + '" data-id-frm-group="frm_group' + contDetailName + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>' + '<input type="text" class="form-control" name="detail[' + contDetailName + ']" data-name-file="' + data.files[0].name + '" />' + '</div>');
+                data.context = $("#res_form").append('<div class="frm_group" id="frm_group' + contDetailName + '">' + '<label class="control-label">Descripción para el archivo: ' + remplazo + '</label>' + '<button name="btn_eliminaArchivo" data-id-archivo="' + contDetailName + '" data-id-frm-group="frm_group' + contDetailName + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>' + '<input type="text" class="form-control" name="detail[' + contDetailName + ']" data-name-file="' + data.files[0].name + '" />' + '</div>');
                 contDetailName++;
                 valoresArchivos = [];
                 arregloDeArchivos.push(data.files);

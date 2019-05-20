@@ -134,13 +134,18 @@ $hvidainst->getSelectCertificacion();
           <div role="tabpanel" class="tab-pane" id="archivos">
             <div class="form-group">
             <br>
-          <form name="form1" id="form1" method="post" action="url2.php" enctype="multipart/form-data">
+          <form id="form1" method="post" enctype="multipart/form-data">
               <div class="form-group">
               <div class="col-sm-8">
-                <input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
+                <input type="file" class="form-control" id="archivo" name="archivo[]" multiple="">
               </div>
-              
-              <button type="submit" class="btn btn-primary">Cargar</button>
+              </div>
+              <div class="form-group" hidden="true">
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="pkID" name="pkID">
+                    </div>
+                </div>
+              <!--<button type="submit" class="btn btn-primary">Cargar</button>
             </div>
             <div id="not_img" hidden>hola</div>                       
                         <!--+++++++++++++++++++++++++++++++++++++++++++++++++++-->

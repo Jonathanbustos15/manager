@@ -22,15 +22,74 @@ $(function() {
     //--------------------------------------------------------- 
     function valida_action(action){
         if(action==="crear"){
-            subida_archivos();
-            crea_hvida();
+            subid_archiv("crear");
+            //crea_hvida();
             //subida_foto();
         }else if(action==="editar"){
-           subida_archivos();
-           edita_hvida();
+           subid_archiv("editar");
+           //edita_hvida();
         }
         ;
     };
+function subid_archiv(nom_funcion) {
+        //---------------------------------------------------------------------------------------
+        //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
+        var formData = new FormData($("#form1")[0]);
+        //la ruta del php que ejecuta ajax
+        var ruta = "../subida_archivo/url2.php";
+        //hacemos la petición ajax
+        $.ajax({
+            url: ruta,
+            type: 'POST',
+            // Form data
+            //datos del formulario
+            data: formData,
+            //necesario para subir archivos via ajax
+            cache: false,
+            contentType: false,
+            processData: false,
+            //mientras enviamos el archivo
+            beforeSend: function() {
+                console.log("Subiendo archivo, por favor espere...");
+                //$("#not_docs_empresa").html("Subiendo archivo, por favor espere...");
+            },
+            //una vez finalizado correctamente
+            success: function(data) {
+                console.log(data);
+                //if (data.clase == 'alert alert-success') {
+                $("#not_docs_empresa").html('Subido el archivo...');
+                switch (nom_funcion) {
+                    case "crear":
+                        crea_hvida();
+                        break;
+                    case "editar":
+                        edita_hvida();
+                        break;
+                }
+                // } else{
+                //$("#not_docs_empresa").html(data.estado);
+                //};
+                //alert(data.estado);
+                //$("#not_img").removeAttr('hidden');
+                //$("#not_img").html(' <br /> <br /> <div class="'+data.clase+'" role="alert">'+data.estado+'</div>');
+                /*
+                switch(nom_funcion){
+                    case:"crear"
+                        crea_documento();
+                    break;
+                    case:"editar"
+                        edita_documento();
+                    break;
+                }*/
+            },
+            //si ha ocurrido un error
+            error: function() {
+                console.log("Ha ocurrido un error.");
+            }
+        });
+        //---------------------------------------------------------------------------------------
+    };
+
     //---------------------------------------------------------
     function crea_consulta() {
         if (arrEstudiosBusqueda.length == 0) {
@@ -177,14 +236,18 @@ $(function() {
                  
                  console.log('Subiendo archivo: '+val);
 
-                 $('#fileupload').fileupload('send', {files:val})
+                 $('#form1').fileupload('send', {files:val})
                     .success(function (result, textStatus, jqXHR) {                 
                         console.log(result);
                         console.log(textStatus);
                         console.log(jqXHR);
-
                         getValoresDesc(val[0].name);
-                        insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+val[0].name+"&des_archivo="+archCoincide );                       
+                        var resultado = nomar.replace("%", "_","gi");
+                        nomar = resultado.replace("-", "_","_");
+                        resultado = nomar.replace(";", "_","gi");
+                        nomar = resultado.replace("#", "_","_");
+                        val[0].name = nomar;
+                        insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nomar+"&des_archivo="+archCoincide );                       
 
                     })
                     .error(function (jqXHR, textStatus, errorThrown) {
@@ -299,36 +362,42 @@ $(function() {
         if( (objt_f_hvida.estado == true) && (validarEmail(email)) ){
 
             console.log(objt_f_hvida.srlz);
+            console.log("hola paco")
 
             $.ajax({
                 url: '../controller/ajaxController12.php',
                 data: objt_f_hvida.srlz+"&tipo=actualizar&nom_tabla=hoja_vida",
             })
             .done(function(data) {
-
+                var nomarc = document.getElementById('archivo').files[0].name;
+                //var nomar = nomarc.replace(/ /g,'_');
+                var nomar = nomarc.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi,'_');
+                        insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+nomar+"&des_archivo="+archCoincide );
               var iteracionEdita = $.each(arregloDeArchivos, function(index, val) {
                  
                  console.log('Subiendo archivo: ');
                  console.log(val);
+                 console.log("mal paco")
 
-                 $('#fileupload').fileupload('send', {files:val})
+                 
                     .success(function (result, textStatus, jqXHR) {                 
                         /**/console.log(result);
                         console.log(textStatus);
                         console.log(jqXHR);
-                        var nom = val[0].name;
-                        console.log(nom);
-                        var remplazo = nom.replace(/ /gi, "_");
-                        console.log(remplazo);
-                        
-                        val[0].name = remplazo;
+                        var nomar = val[0].name.replace(" ", "_","gi");
+                        var resultado = nomar.replace("%", "_","gi");
+                        nomar = resultado.replace("-", "_","_");
+                        resultado = nomar.replace(";", "_","gi");
+                        nomar = resultado.replace("#", "_","_");
+                        file[0].name = nomar;
                         console.log("hola yoooooooo");
                         console.log(val[0].name);
                         getValoresDesc(val[0].name);
-                        insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+val[0].name+"&des_archivo="+archCoincide );                        
+                        insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+nomar+"&des_archivo="+archCoincide );                        
                     })
                     .error(function (jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
+                        console.log("mal paco");
                     })
                     .complete(function (result, textStatus, jqXHR) {
                         console.log(textStatus);
@@ -834,6 +903,8 @@ rObj = function (evt) {
         //---------------------------------------------------------------------------------------
     }; //cierra función subida
     function insertaArchivo(data) {
+        console.log("Esta es la data")
+        console.log(data)
         //crear un array con cada uno de los registros
         //de pkID_hojaVida y url_archivo 
         //en un foreach hacer una insercion
@@ -955,9 +1026,9 @@ rObj = function (evt) {
     });
     $("#telefono").keyup(function(event) {
         /* Act on the event */
-        if (((event.keyCode < 48) && (event.keyCode != 8)) || (event.keyCode > 57)) {
+        if (((event.keyCode > 32) && (event.keyCode < 48)) || (event.keyCode > 57)) {
             console.log(String.fromCharCode(event.which));
-            alert("El número de identificación NO puede llevar valores alfanuméricos.");
+            alert("El número de Telefono NO puede llevar valores alfanuméricos.");
             $(this).val("");
         }
     });
@@ -993,7 +1064,7 @@ rObj = function (evt) {
         var valores_idCli = $(this).val().length;
         console.log(valores_idCli);
         if (valores_idCli < 7) {
-            alert("El número de identificación no puede ser menor a 7 valores.");
+            alert("El número de Telefono no puede ser menor a 7 valores.");
             $(this).val("");
             $(this).focus();
         }
@@ -1078,10 +1149,9 @@ rObj = function (evt) {
     */
     $("#btn_actionHvida").click(function() {
         /**/
-
         action = $(this).attr("data-action");
         valida_action(action);
-        enviarf();
+        //enviarf();
         vali
         console.log("accion a ejecutar: " + action);
         //subida_archivo();   
@@ -1271,7 +1341,7 @@ rObj = function (evt) {
             return false;
         }
     }
-    $('#fileupload').fileupload({
+    $('').fileupload({
         dataType: 'json',
         autoUpload: false,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,

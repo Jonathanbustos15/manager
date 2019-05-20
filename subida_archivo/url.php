@@ -1,6 +1,6 @@
 <?php
 if ($_POST) {
-    $id      = $_POST['pkID'];
+    $id      = $_TEXT['pkID'];
     $nombre  = $_FILES['archivo']['name'];
     $tipo    = $_FILES['archivo']['type'];
     $tamanio = $_FILES['archivo']['size'];

@@ -8,7 +8,7 @@ $(function() {
     //variable para el id del registro
     var id_certificacion = "";
     //--------------------------------------------------------- 
-    function valida_action(action) {
+    function valida_action(action) {   
         if (action === "crear") {
             //crea_documento();
             subida_archivo("crear");

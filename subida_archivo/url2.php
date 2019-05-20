@@ -4,10 +4,20 @@
     {
         //Validamos que el archivo exista
         if($_FILES["archivo"]["name"][$key]) {
+            $id= $_POST['pkID'];
             $filename = $_FILES["archivo"]["name"][$key]; //Obtenemos el nombre original del archivo
             $source = $_FILES["archivo"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
             
-            $directorio = 'server/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+            $directorio = '../server/php/files/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+
+            $filename = str_replace(" ", "_", $filename);
+            $filename = str_replace("%", "_", $filename);
+            $filename = str_replace("-", "_", $filename);
+            //$filename  = str_replace(".", "_", $filename);
+            $filename  = str_replace(";", "_", $filename);
+            $filename  = str_replace("#", "_", $filename);
+            $filename  = str_replace("!", "_", $filename);
+            $filename  = $id . '_' . $filename;
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
             if(!file_exists($directorio)){

@@ -48,22 +48,27 @@ function subid_archiv(nom_funcion) {
             cache: false,
             contentType: false,
             processData: false,
+
             //mientras enviamos el archivo
             beforeSend: function() {
+                //var datoarch = json_encode($filename);
                 console.log("Subiendo archivo, por favor espere...");
                 //$("#not_docs_empresa").html("Subiendo archivo, por favor espere...");
             },
             //una vez finalizado correctamente
             success: function(data) {
-                console.log(data);
+                //var data= eval(dato);
+                var nombrelimpio = data
+                console.log("mireme aquiii");
+                
                 //if (data.clase == 'alert alert-success') {
                 $("#not_docs_empresa").html('Subido el archivo...');
                 switch (nom_funcion) {
                     case "crear":
-                        crea_hvida();
+                        crea_hvida(nombrelimpio);
                         break;
                     case "editar":
-                        edita_hvida();
+                        edita_hvida(nombrelimpio);
                         break;
                 }
                 // } else{
@@ -115,6 +120,8 @@ function subid_archiv(nom_funcion) {
                     $("#lbl_btn_actionHvida").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
                     $("#btn_actionHvida").attr("data-action", "editar");
                     $("#form_hvida")[0].reset();
+                    input=document.getElementById("archivo");
+                    input.value = '';
                     id_hvida = $(this).attr('data-id-hvida');
                     $("#btn_actionHvida").removeAttr('disabled');
                     //$("#selectPosgrado").removeAttr('hidden');
@@ -203,7 +210,7 @@ function subid_archiv(nom_funcion) {
     //-------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------
     //funciones hoja de vida
-    function crea_hvida(){
+    function crea_hvida(nombre){
 
           //--------------------------------------
           //crea el objeto formulario serializado
@@ -231,7 +238,8 @@ function subid_archiv(nom_funcion) {
               //subida_archivo_id(pkID_hojaVida);
 
               $("#btn_actionHvida").attr('disabled','disabled');
-
+              var nomb=nombre
+              insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nomb+"&des_archivo="+archCoincide );
               var iteracion = $.each(arregloDeArchivos, function(index, val) {
                  
                  console.log('Subiendo archivo: '+val);
@@ -242,12 +250,7 @@ function subid_archiv(nom_funcion) {
                         console.log(textStatus);
                         console.log(jqXHR);
                         getValoresDesc(val[0].name);
-                        var resultado = nomar.replace("%", "_","gi");
-                        nomar = resultado.replace("-", "_","_");
-                        resultado = nomar.replace(";", "_","gi");
-                        nomar = resultado.replace("#", "_","_");
-                        val[0].name = nomar;
-                        insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nomar+"&des_archivo="+archCoincide );                       
+                        //insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nombre+"&des_archivo="+archCoincide );                       
 
                     })
                     .error(function (jqXHR, textStatus, errorThrown) {
@@ -349,7 +352,7 @@ function subid_archiv(nom_funcion) {
         }
     };
     //cierra funcion eliminar hvida
-    function edita_hvida(){
+    function edita_hvida(nombre){
 
         //--------------------------------------
         //crea el objeto formulario serializado
@@ -369,10 +372,9 @@ function subid_archiv(nom_funcion) {
                 data: objt_f_hvida.srlz+"&tipo=actualizar&nom_tabla=hoja_vida",
             })
             .done(function(data) {
-                var nomarc = document.getElementById('archivo').files[0].name;
-                //var nomar = nomarc.replace(/ /g,'_');
-                var nomar = nomarc.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi,'_');
-                        insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+nomar+"&des_archivo="+archCoincide );
+                var nomb = nombre;
+                insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+nomb+"&des_archivo="+archCoincide );
+        //insertaArchivo("pkID_hojaVida="+id_hvida+"&url_archivo="+nomb+"&des_archivo="+archCoincide );
               var iteracionEdita = $.each(arregloDeArchivos, function(index, val) {
                  
                  console.log('Subiendo archivo: ');
@@ -1101,6 +1103,7 @@ rObj = function (evt) {
         $("#form_hvida")[0].reset();
         $("#form_hvida_estudios")[0].reset();
         $("form_archivo")[0].reset();
+        $("form1")[0].reset();
     });
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
@@ -1114,6 +1117,8 @@ rObj = function (evt) {
         $("#btn_actionHvida").attr("data-action", "editar");
         $("#form_hvida")[0].reset();
         $("#form_hvida_estudios")[0].reset();
+        input=document.getElementById("archivo");
+        input.value = '';
         id_hvida = $(this).attr('data-id-hvida');
         $("#btn_actionHvida").removeAttr('disabled');
         //$("#selectPosgrado").removeAttr('hidden');

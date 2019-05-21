@@ -1,5 +1,7 @@
 <?php
 //Como el elemento es un arreglos utilizamos foreach para extraer todos los valores
+    $num = 0;
+    $tnombre = [];
     foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name)
     {
         //Validamos que el archivo exista
@@ -14,10 +16,13 @@
             $filename = str_replace("%", "_", $filename);
             $filename = str_replace("-", "_", $filename);
             //$filename  = str_replace(".", "_", $filename);
+            $filename  = str_replace("$", "_", $filename);
             $filename  = str_replace(";", "_", $filename);
             $filename  = str_replace("#", "_", $filename);
             $filename  = str_replace("!", "_", $filename);
             $filename  = $id . '_' . $filename;
+            $tnombre =["nombre" $filename];
+            
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
             if(!file_exists($directorio)){
@@ -30,11 +35,13 @@
             //Movemos y validamos que el archivo se haya cargado correctamente
             //El primer campo es el origen y el segundo el destino
             if(move_uploaded_file($source, $target_path)) { 
-                echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
+                //echo "El archivo $filename se ha almacenado en forma exitosa.<br>";       
+                //echo ($filename);
                 } else {    
                 echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
             }
             closedir($dir); //Cerramos el directorio de destino
         }
     }
+    echo ($tnombre);
 ?>

@@ -135,9 +135,10 @@ $hvidainst->getSelectCertificacion();
             <div class="form-group">
             <br>
           <form id="form1" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-              <div class="col-sm-8">
-                <input type="file" class="form-control" id="archivo" name="archivo[]" multiple="">
+              <div class="form-group ">
+              <div class="col-sm-8 custom-file">
+                <input type="file" class="form-control custom-file-input" id="archivo" name="archivo[]" multiple="">
+                <br>
               </div>
               </div>
               <div class="form-group" hidden="true">
@@ -148,7 +149,7 @@ $hvidainst->getSelectCertificacion();
               <!--<button type="submit" class="btn btn-primary">Cargar</button>
             </div>
             <div id="not_img" hidden>hola</div>                       
-                        <!--+++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                      --->
                         <br>
                         <div id="archivos_res"></div> 
             

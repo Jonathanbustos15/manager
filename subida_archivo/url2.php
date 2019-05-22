@@ -15,13 +15,14 @@
             $filename = str_replace(" ", "_", $filename);
             $filename = str_replace("%", "_", $filename);
             $filename = str_replace("-", "_", $filename);
+            $filename = str_replace('"', "_", $filename);
             //$filename  = str_replace(".", "_", $filename);
             $filename  = str_replace("$", "_", $filename);
             $filename  = str_replace(";", "_", $filename);
             $filename  = str_replace("#", "_", $filename);
             $filename  = str_replace("!", "_", $filename);
             $filename  = $id . '_' . $filename;
-            $tnombre =["nombre" $filename];
+        
             
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
@@ -36,12 +37,12 @@
             //El primer campo es el origen y el segundo el destino
             if(move_uploaded_file($source, $target_path)) { 
                 //echo "El archivo $filename se ha almacenado en forma exitosa.<br>";       
-                //echo ($filename);
+                echo ($filename);
+
                 } else {    
                 echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
             }
             closedir($dir); //Cerramos el directorio de destino
         }
-    }
-    echo ($tnombre);
+    } 
 ?>

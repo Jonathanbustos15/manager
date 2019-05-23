@@ -321,6 +321,115 @@ include "modal_cargos.php";
         <!------fin modulo hv------>
       <div role="tabpanel" class="tab-pane" id="contratos">
                   <br>
+                  <div class="modal fade" id="form_modal_busqueda_hvida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <!-- Nav tabs muestra los estudios para la busqueda avanzada -->
+          <ul class="nav nav-tabs nav-modal reg-hv" role="tablist">
+            <li role="presentation" class="active"><a href="#estudios_busqueda" aria-controls="estudios" role="tab" data-toggle="tab">Estudios</a></li>
+          </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="estudios_busqueda">
+                <div class="">
+                  <br>
+                  <!-- Formulario de busqueda de estudio -->
+                  <form id="form_busqueda">
+                      <div class="form-group">
+                          <label for="selectEstudioTecnico" class="control-label">Tecnico</label>
+                              <?php $hvidainst->getSelectTecnicoBusqueda();?>
+                      </div>
+                      <div class="form-group">
+                          <label for="selectEstudioTecnologo" class="control-label">Tecnologo</label>
+                              <?php $hvidainst->getSelectTecnologoBusqueda();?>
+                      </div>
+                      <div class="form-group">
+                          <label for="selectEstudio" class="control-label">Pregrado</label>
+                              <?php $hvidainst->getSelectPregradoBusqueda();?>
+                      </div>
+                      <div id="selectPosgrado" class="form-group">
+                          <label for="selectEstudioPosBusqueda" class="control-label">Posgrado</label>
+                              <?php $hvidainst->getSelectPosgradoBusqueda();?>
+                      </div>
+                      <div id="selectCertificacion" class="form-group">
+                          <label for="selectEstudioCertificacion" class="control-label">Certificacion</label>
+                              <?php $hvidainst->getSelectCertificacionBusqueda();?>
+                      </div>
+                  </form>
+                </div>
+          </div>
+        </div>
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- /Modal -->
+<?php include 'modal_estudios.php';?>
+<!-- +++++++++++Submenu Hojas de vida+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+<div id="page-wrapper">
+            <!-- /.row -->
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                    <div class="panel-body2">
+                        <div class="panel-heading">
+
+                            <div class="row">
+                              <div class="col-md-6">
+
+                              </div>
+
+                              <div class="col-md-6 text-right">
+                                  <!--Boton para crear una nueva hoja de vida-->
+                                  <button id="btn_nuevoHvida" type="button" class="btn btn-primary  btn-limang" data-toggle="modal" data-target="#form_modal_hvida" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span>&nbspCrear Contrato</button>
+                              </div>
+                            </div>
+
+                        </div>
+                        <!-- /.panel Crear H_V -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="tbl_contrato">
+                                    <thead>
+                                        <tr>
+                                            <th class="tabla-form-ancho">Nombres</th>
+                                            <th class="tabla-form-ancho">Cedula</th>
+                                            <th class="tabla-form-ancho">Empresa</th>
+                                            <th class="tabla-form-ancho">Tipo de Contrato</th>
+                                            <th class="tabla-form-ancho">Cargo</th>
+                                            <th class="tabla-form-ancho">Ciudad</th>
+                                            <th class="tabla-form-ancho">Inicio de Contrato</th>
+                                            <th class="tabla-form-ancho">Fin de Contrato</th>
+                                            <th data-orderable="false">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- /.table-hojas de vida -->
+                                    <tbody>
+                                        <?php $hvidainst->getTablahvida($filtro);?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                      </div>
+                      <!-- /.panel-body2 -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+  </div>
 
 
                 </div>

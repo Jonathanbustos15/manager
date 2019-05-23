@@ -839,10 +839,73 @@ class recursosController extends recursos
 		        </div>';
     }
 
-    public function getTablaRecursos()
+    public function getTablahvida($filtro)
     {
 
-        $this->proceso = $this->getContratos();
+        //------------------------------------------------------------------------------------------------
+
+        if ($filtro == '*' || $filtro == '') {
+
+            $tipoUsuario = $_COOKIE['log_lunelAdmin_IDtipo'];
+            if ($tipoUsuario == 13) {
+                $this->hvida = $this->getHvidaFuntecso();
+            } else {
+                $this->hvida = $this->getHvida();
+            }
+
+        } else {
+
+            # code...
+            $cambio = array("AND", "hoja_vida.");
+
+            $campos_str = str_replace($cambio, "", $filtro);
+
+            $arr_campos = explode(" ", $campos_str);
+
+            $arr_completo = array();
+            //print_r ($arr_campos);
+
+            echo "<p>Filtrando por:</p>";
+
+            for ($i = 0; $i < sizeof($arr_campos); $i++) {
+                # code...
+                //echo $arr_campos[$i].'<br>';
+
+                $arr_campos1 = explode("=", $arr_campos[$i]);
+
+                /*print_r($arr_campos1);
+                echo "<br><br>";
+                echo "<br><br>";*/
+
+                if ($arr_campos1[0] == "fkID_estado") {
+                    # code...
+                    $estadoId = $this->getEstadoId($arr_campos1[1]);
+
+                    //print_r($estadoId);
+
+                    echo "<span class='badge'>Estado:" . $estadoId[0]["nombre"] . "</span>";
+                }
+
+            }
+            /*echo "<br><br>";
+            print_r($filtro);    */
+            echo "<br> <br>";
+
+            if ($tipoUsuario == 13) {
+                $this->hvida = $this->getHvidaFiltroFuntecso();
+            } else {
+                $this->hvida = $this->getHvidaFiltro($filtro);
+            }
+
+        }
+
+        //print_r($formatosNoSub);
+        //mete los formatos sin subcategoria
+        //array_merge($this->Formatos, $formatosNoSub);
+
+        //print_r($this->Formatos);
+
+        //valida si hay formatos
 
         //permisos-------------------------------------------------------------------------
         $arrPermisos = $this->permisos($this->id_modulo, $_COOKIE["log_lunelAdmin_IDtipo"]);
@@ -851,83 +914,103 @@ class recursosController extends recursos
         $consulta    = $arrPermisos[0]["consultar"];
         //---------------------------------------------------------------------------------
 
-        //valida si hay proceso
-        if (($this->proceso) && ($consulta == 1)) {
+        //valida si hay hojas de vida
+        if (($this->hvida) && ($consulta == 1)) {
 
-            /**/
-            for ($a = 0; $a < sizeof($this->proceso); $a++) {
-                //variables de los procesos
-                $id                 = $this->proceso[$a]["pkID"];
-                $empleado           = $this->proceso[$a]["empleado"];
-                $empleador          = $this->proceso[$a]["empleador"];
-                $cargo              = $this->proceso[$a]["cargo"];
-                $salario            = $this->proceso[$a]["salario"];
-                $fecha_ingreso      = $this->proceso[$a]["fechaIni"];
-                $fecha_finalizacion = $this->proceso[$a]["fechaFin"];
-                $ciudad             = $this->proceso[$a]["ciudad"];
-                $tipo_contrato      = $this->proceso[$a]["tipoContrato"];
-                $ruta_pdf           = "../../informes/inf_contratos_pdf.php?pkID=" . $id;
-                $ruta_word          = "../../informes/inf_contratos_word.php?pkID=" . $id;
+            for ($a = 0; $a < sizeof($this->hvida); $a++) {
 
-                echo '<tr>';
+                $id         = $this->hvida[$a]["pkID"];
+                $nombres    = $this->hvida[$a]["nombres"];
+                $telefono   = $this->hvida[$a]["telefono"];
+                $nom_estado = $this->hvida[$a]["nom_estado"];
 
-                echo '<td>' . $empleado . '</td>';
+                //Consulta los estudios de tipo tecnico
+                $tecnico      = '';
+                $arrayTecnico = $this->getEstudiosFK($id, 8);
+                for ($b = 0; $b < sizeof($arrayTecnico); $b++) {
+                    $tecnico .= $arrayTecnico[$b]["nombre"] . '<br>';
+                }
 
-                echo '<td>' . $empleador . '</td>';
+                //Consulta los estudios de tipo tecnologo
+                $tecnologo      = '';
+                $arrayTecnologo = $this->getEstudiosFK($id, 9);
+                for ($b = 0; $b < sizeof($arrayTecnologo); $b++) {
+                    $tecnologo .= $arrayTecnologo[$b]["nombre"] . '<br>';
+                }
 
-                echo '<td>' . $cargo . '</td>';
+                //Consulta los estudios de tipo pregrado
+                $pregrado      = '';
+                $arrayPregrado = $this->getEstudiosFK($id, 1);
+                for ($b = 0; $b < sizeof($arrayPregrado); $b++) {
+                    $pregrado .= $arrayPregrado[$b]["nombre"] . '<br>';
+                }
 
-                echo '<td>$ ' . number_format($salario, 0, '.', '.') . '</td>';
+                //Consulta los estudios de tipo certificado
+                $posgrado      = '';
+                $arrayPosgrado = $this->getEstudiosFK($id, '3 OR fkID_tipoEstudio = 4 OR fkID_tipoEstudio = 5 OR fkID_tipoEstudio = 6');
+                for ($b = 0; $b < sizeof($arrayPosgrado); $b++) {
+                    $posgrado .= $arrayPosgrado[$b]["nombre"] . '<br>';
+                }
 
-                echo '<td>' . $fecha_ingreso . '</td>';
+                //Consulta los estudios de tipo certificado
+                $certificado      = '';
+                $arrayCertificado = $this->getEstudiosFK($id, 7);
+                for ($b = 0; $b < sizeof($arrayCertificado); $b++) {
+                    $certificado .= $arrayCertificado[$b]["nombre"] . '<br>';
+                }
 
-                echo '<td>' . $fecha_finalizacion . '</td>';
+                echo '
+                             <tr>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $nombres . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $telefono . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $nom_estado . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $tecnico . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $tecnologo . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $pregrado . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $posgrado . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $certificado . '</td>
 
-                echo '<td>' . $ciudad . '</td>';
+                                 <td>
+                                     <button id="btn_editar" title="Editar" name="edita_hvida" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_hvida" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
 
-                echo '<td>' . $tipo_contrato . '</td>';
-
-                echo '<td>
-                     		<a id="btn_doc" title="Descargar PDF" name="download_documento" type="button" class="btn btn-success" href = "subidas/' . $ruta_pdf . '" target="_blank" ><span class="glyphicon glyphicon-file"></span></a>
-
-                  			<a id="btn_doc" title="Descargar WORD" name="download_documento" type="button" class="btn btn-primary" href = "subidas/' . $ruta_word . '" target="_blank" ><span class="glyphicon glyphicon-save-file"></span></a>
-
-                   			<button id="btn_editar" title="Editar" name="edita_proceso" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_recursos" data-id-contrato = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
-
-		                    <button id="btn_eliminar" title="Eliminar" name="elimina_contrato" type="button" class="btn btn-danger" data-id-contrato = "' . $id . '" ';if ($elimina != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
-		                </td>
-		            </tr>';
+                                     <button id="btn_eliminar" title="Eliminar" name="elimina_hvida" type="button" class="btn btn-danger" data-id-hvida = "' . $id . '" ';if ($elimina != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
+                                 </td>
+                             </tr>';
             };
 
-        } elseif (($this->proceso) && ($consulta == 0)) {
+        } elseif (($this->hvida) && ($consulta == 0)) {
 
             echo "<tr>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		           </tr>
-		           <div class='alert alert-danger' role='alert'>
-		           		En este momento no tiene permiso de <strong>Consulta</strong> para <strong>
-		           		" . $this->id_modulo . " Recursos.</strong>
-				   </div>";
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+                   <div class='alert alert-danger' role='alert'>
+                        En este momento no tiene permiso de <strong>Consulta</strong> para <strong>Hojas de Vida.</strong>
+                   </div>";
         } else {
 
             echo "<tr>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		           </tr>
-		           <div class='alert alert-danger' role='alert'>
-		           		En este momento no hay <strong>Procesos</strong> creados.
-				   </div>";
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                   </tr>
+
+                   <div class='alert alert-danger' role='alert'>
+                        En este momento no hay <strong>Hojas de Vida.</strong>
+                   </div>";
         };
 
     }

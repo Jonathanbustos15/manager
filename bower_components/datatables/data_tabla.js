@@ -235,6 +235,11 @@
                     table.order( [ 1, 'asc' ] ).draw();
                     break;
                     //----------------------------------------------
+                case 'tbl_conte':
+                    //----------------------------------------------
+                    table.order( [ 2, 'asc' ] ).draw();
+                    break;
+                    //----------------------------------------------    
                 case 'tbl_formatos':
                     //----------------------------------------------
                     table.page.len( 10 ).draw();
@@ -410,3 +415,52 @@
             });
         };        
         
+        if (nombre_tabla == 'tbl_conte'){
+
+            function detallescontrato(ver){
+
+                //console.log('Ejecutando como '+ver)
+
+                table.column( 3 ).visible( ver );
+                table.column( 4 ).visible( ver );
+                table.column( 5 ).visible( ver ); 
+                table.column( 6 ).visible( ver );
+                table.column( 7 ).visible( ver );               
+            }
+
+            detallescontrato(false);
+
+
+            $("#tbl_contrato_length").append('&nbsp&nbsp&nbsp&nbsp&nbsp<button id="btn_detallescontrato" data-ver="true" class="btn"><span id="span_detallescontrato" class="glyphicon glyphicon-plus"></span> Detalles</button>')        
+            //$("#tbl_ingresos_gral_filter").insertBefore('selector')
+
+            //var verButtonData = '';
+
+            $("#btn_detallescontrato").click(function(event) {
+                /* Act on the event */
+
+                verButtonData = $(this).data('ver');
+
+                //console.log(verButtonData)
+                
+                //$(this).data('ver','false');
+
+                if (verButtonData == true) {
+                    
+                    
+                    $("#span_detallescontrato").attr('class', 'glyphicon glyphicon-minus');
+                    //$(this).attr('data-ver','false');
+                    $(this).data('ver',false);
+                    detallescontrato(verButtonData);
+
+                } else {
+                                        
+                    $("#span_detallescontrato").attr('class', 'glyphicon glyphicon-plus');
+                    //$(this).attr('data-ver','true');
+                    $(this).data('ver',true);
+                    detallescontrato(verButtonData);
+
+                };
+
+            });
+        };

@@ -66,12 +66,7 @@ class recursos extends GenericoDAO
     public function getContratos()
     {
 
-        $this->q_general = "select contratos.*,contratos.pkID AS pkID,CONCAT(hoja_vida.nombre,' ',hoja_vida.apellido) AS empleado,empresa.nombre AS empleador,cargo.nombre AS cargo,ciudad.nombre AS ciudad,tipo_contrato.nombre AS tipoContrato FROM contratos
-                                INNER JOIN hoja_vida ON hoja_vida.pkID = contratos.fkID_empleado
-                                INNER JOIN empresa ON empresa.pkID = contratos.fkID_empleador
-                                INNER JOIN cargo ON cargo.pkID = contratos.fkID_cargo
-                                INNER JOIN ciudad ON ciudad.pkID = contratos.fkID_ciudad
-                                INNER JOIN tipo_contrato ON tipo_contrato.pkID = contratos.fkID_tipoContrato";
+        $this->q_general = " select contrato.pkID, concat_ws(' ', hoja_vida.nombre,hoja_vida.apellido) as persona, hoja_vida.nidentificacion as cedula, estado.nombre as empresa, tipo_contrato.nombre_tipo_contrato as Tcontrato, cargo.nombre_cargo, ciudad.nombre_ciudad, contrato.fecha_inicio, contrato.fecha_terminacion FROM hoja_vida INNER JOIN estado on estado.pkID = hoja_vida.fkID_estado INNER JOIN contrato on contrato.fkID_hvida = hoja_vida.pkID INNER JOIN tipo_contrato on tipo_contrato.pkID = contrato.fkID_tipo_contrato INNER JOIN cargo on cargo.pkID = contrato.fkID_cargo INNER JOIN ciudad on ciudad.pkID = contrato.fkID_ciudad";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }

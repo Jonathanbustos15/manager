@@ -320,7 +320,6 @@ include "modal_cargos.php";
 </div>
         <!------fin modulo hv------>
       <div role="tabpanel" class="tab-pane" id="contratos">
-                  <br>
                   <div class="modal fade" id="form_modal_busqueda_hvida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -413,7 +412,7 @@ include "modal_cargos.php";
                                     </thead>
                                     <!-- /.table-hojas de vida -->
                                     <tbody>
-                                        <?php $hvidainst->getTablahvida($filtro);?>
+                                        <?php $recursosInst->getTablacontratos($filtro);?>
                                     </tbody>
                                 </table>
                             </div>

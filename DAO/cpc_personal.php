@@ -16,7 +16,7 @@
 		}
 		/*-----------------------------------------*/
 
-		public function getHvida($valor){
+		public function 	getHvida($valor){
 
 			$this->q_general = "select * FROM hoja_vida where nombre like '%".$valor."%' OR apellido LIKE '%".$valor."%' OR nidentificacion LIKE '%".$valor."%'";
 							

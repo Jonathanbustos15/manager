@@ -2,7 +2,7 @@
 	/**/
 	include_once 'GenericoDAO.php';
 	include_once 'PermisosDAO.php';
-		
+		  
 	class actividadesDAO extends GenericoDAO {
 		
 		public $permisos;

@@ -1105,6 +1105,22 @@ rObj = function (evt) {
         $("form_archivo")[0].reset();
         $("form1")[0].reset();
     });
+    $("#btn_nuevocontrato").click(function() {
+        $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
+        $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        //$("#selectPosgrado").attr('hidden','');
+        $("#btn_actionHvida").attr("data-action", "crear");
+        $("#btn_actionHvida").attr('disabled', 'disabled');
+        $("#frm_estudios_hvida").html("");
+        $("#archivos_res").html("");
+        $("#res_form").html("");
+        arrEstudios.length = 0;
+        validaBtnGuardar();
+        $("#form_hvida")[0].reset();
+        $("#form_hvida_estudios")[0].reset();
+        $("form_archivo")[0].reset();
+        $("form1")[0].reset();
+    });
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
     });
@@ -1469,7 +1485,7 @@ rObj = function (evt) {
     uppercaseForm("form_estudios");
     $("#btn_nuevoestudio").jquery_controllerV2({
         nom_modulo: 'estudios',
-        titulo_label: 'Nuevo Estudio'
+        titulo_label: 'Nuevo Estudio'  
     });
     $("#btn_nuevoestudio").click(function(event) {
         //cierra modal ingreso_gral

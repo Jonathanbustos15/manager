@@ -322,6 +322,14 @@ class recursos extends GenericoDAO
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
 
+    public function getCedula()
+    {
+
+        $this->q_general = "select pkID,concat_ws(' ',hoja_vida.nidentificacion, hoja_vida.nombre,hoja_vida.apellido) as nidentificacion FROM `hoja_vida` ORDER BY `nidentificacion` ASC";
+
+        return GenericoDAO::EjecutarConsulta($this->q_general);
+    }
+
     public function getDocumentosProceso($pkID)
     {
 

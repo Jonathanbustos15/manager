@@ -39,22 +39,16 @@ class recursosController extends recursos
     //Consulta los documentos
     public function getDocumentos()
     {
-        $resultado = $this->getListaDocumentos();
-        $items     = '';
-        $j         = 1;
+        $cedulaSelect = $this->getCedula();
 
-        for ($i = 0; $i < sizeof($resultado); $i++) {
-            $items .= '<div class="form-group">
-                    <label class="control-label">' . $resultado[$i]["nomDoc"] . '</label>
-                    <input type="text" class="form-control" placeholder="Fecha" id="fecha' . $j . '">
-                    <input type="file" id="archivo' . $j . '" name="archivo' . $j . '" class="form-control" value="Examinar">
-                    <div id="archivos_res' . $j . '" name="archivos_res' . $j . '"></div>
-                </div>';
-            $j++;
-        }
+        echo '<select name="selectCedula" id="selectCedula" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
+            echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre"] . '">' . $cedulaSelect[$i]["nidentificacion"] . '</option>';
+        };
+        echo '</select>';
+     }
 
-        return $items;
-    }
 
     //Consulta los datos para la certificacion
     public function getCertificacion($id_contrato, $ext)

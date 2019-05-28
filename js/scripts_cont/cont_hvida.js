@@ -31,6 +31,26 @@ $(function() {
         }
         ;
     };
+    //consulta de datos hoja de vida
+    $(document).ready(function(){
+        $("#fkID_cedula").change(function(){
+            ;   
+        var url= '../controller/actualizar.php';
+        //console.log("aqui toy 2");
+        $.getJSON(url, { _num1 : $("#fkID_cedula").val() }, function(clientes) {
+        //console.log("aqui toy");
+        $.each(clientes, function(i,cliente){
+        $("#nombrec").val(cliente.nombre);
+        $("#apellidoc").val(cliente.apellido);
+        $("#telefonoc").val(cliente.telefono);
+        $("#emailc").val(cliente.email);
+        $("#fkID_estadoc").val(cliente.empresa);
+        console.log("aqui toy");
+        });
+        });
+        });
+        });
+    //fin de consultas de datos hoja de vida
 function subid_archiv(nom_funcion) {
         //---------------------------------------------------------------------------------------
         //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario

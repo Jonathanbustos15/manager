@@ -36,7 +36,7 @@ class recursosController extends recursos
         return $resultado;
     }
 
-    //Consulta los documentos
+    //Consulta los documentos del empleado.
     public function getDocumentos()
     {
         $cedulaSelect = $this->getCedula();
@@ -45,6 +45,19 @@ class recursosController extends recursos
                         <option></option>';
         for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
             echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre"] . '">' . $cedulaSelect[$i]["nidentificacion"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+     //Consulta los tipos de contratos.
+     public function getSeleccion_Contrato()
+    {
+        $cedulaSelect = $this->getTipoContrato();
+
+        echo '<select name="selectCedula" id="selectCedula" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
+            echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre_tipo_contrato"] . '">' . $cedulaSelect[$i]["nombre_tipo_contrato"] . '</option>';
         };
         echo '</select>';
      }

@@ -13,6 +13,7 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../img/favicon.ico" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

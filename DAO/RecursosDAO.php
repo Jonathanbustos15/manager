@@ -295,7 +295,7 @@ class recursos extends GenericoDAO
     public function getTipoContrato()
     {
 
-        $this->q_general = "select * FROM `tipo_contrato` ORDER BY nombre";
+        $this->q_general = "select * FROM `tipo_contrato` ORDER BY nombre_tipo_contrato";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
@@ -321,7 +321,7 @@ class recursos extends GenericoDAO
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
-
+    //consulta de las cedulas hv.
     public function getCedula()
     {
 

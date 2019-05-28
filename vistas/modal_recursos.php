@@ -28,39 +28,44 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="selectEstudioTecnico" class="control-label">Cedula</label>
+                        <label for="" class="control-label">Cedula</label>
+                        <select name="fkID_cedula" id="fkID_cedula" class="form-control" required = "true">
+                            <option></option>
                             <?php
-                                  $recursosInst->getDocumentos();
+                                $estadoSelect = $recursosInst->getCedula();
+                                for ($i = 0; $i < sizeof($estadoSelect); $i++) {
+                                    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nidentificacion"] . '</option>';
+                                };
                             ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label">Nombre(s)</label>
-                        <input type="text" readonly="readonly" class="form-control" id="nombre" name="nombre" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
+                        <input type="text" class="form-control" id="nombrec" name="nombrec" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
                     </div>
                     <div class="form-group">
                         <label for="apellido" class="control-label">Apellido(s)</label>
-                        <input type="text" readonly="readonly" class="form-control" id="apellido" name="apellido" placeholder="Apellido(s) de la Persona" maxlength="25" required="true">
+                        <input type="text" readonly="readonly" class="form-control" id="apellidoc" name="apellidoc" placeholder="Apellido(s) de la Persona" maxlength="25" required="true">
                     </div>
                     <div class="form-group">
                         <label for="telefono" class="control-label">Teléfono</label>
-                        <input type="tel" readonly="readonly" class="form-control" id="telefono" name="telefono" placeholder="Número de Teléfono de la Persona" required = "true">
+                        <input type="tel" readonly="readonly" class="form-control" id="telefonoc" name="telefonoc" placeholder="Número de Teléfono de la Persona" required = "true">
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label">Email</label>
-                        <input type="email" readonly="readonly" class="form-control" id="email" name="email" placeholder="Correo electrónico de la Persona">
+                        <input type="email" readonly="readonly" class="form-control" id="emailc" name="emailc" placeholder="Correo electrónico de la Persona">
                     </div>
 
                     <div class="form-group">
                         <label for="" class="control-label">Estado**</label>
-                        <select name="fkID_estado" id="fkID_estado" class="form-control" required = "true">
+                        <select name="fkID_estadoc" id="fkID_estadoc" class="form-control" required = "true">
                             <option></option>
                             <?php
-$estadoSelect = $hvidainst->getEstado();
-for ($i = 0; $i < sizeof($estadoSelect); $i++) {
-    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nombre"] . '</option>';
-}
-;
-?>
+                                $estadoSelect = $hvidainst->getEstado();
+                                for ($i = 0; $i < sizeof($estadoSelect); $i++) {
+                                    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nombre"] . '</option>';
+                                };
+                            ?>
                         </select>
                     </div>
                    <!--<div class="form-group" hidden>
@@ -74,14 +79,14 @@ for ($i = 0; $i < sizeof($estadoSelect); $i++) {
 
           <div role="tabpanel" class="tab-pane" id="estudios">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-          <form id="form_hvida_estudios">
+          <form id="form_contrato_estudios">
                 <div class="">
                 <br>
                     <div class="form-group">
-                        <label for="selectEstudioTecnico" class="control-label">Tecnico</label>
+                        <label for="selectEstudioTecnico" class="control-label">Tipo de Contrato</label>
                             <?php
-$hvidainst->getSelectTecnico();
-?>
+                                  $recursosInst->getSeleccion_Contrato();
+                            ?>
                     </div>
 
                     <div class="form-group">

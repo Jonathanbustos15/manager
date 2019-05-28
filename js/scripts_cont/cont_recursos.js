@@ -26,13 +26,45 @@ $("#btn_nuevocontrato").click(function() {
         //$("#selectPosgrado").attr('hidden','');
         $("#btn_actionHvida").attr("data-action", "crear");
         $("#btn_actionHvida").attr('disabled', 'disabled');
-        $("#frm_estudios_hvida").html("");
+        $("#frm_contrato_hvida").html("");
         $("#archivos_res").html("");
         $("#res_form").html("");
         arrEstudios.length = 0;
         validaBtnGuardar();
         $("#form_hvida")[0].reset();
-        $("#form_hvida_estudios")[0].reset();
+        $("#form_contrato_estudios")[0].reset();
         $("form_archivo")[0].reset();
         $("form1")[0].reset();
     });
+
+
+$(document).ready(function(){
+        $("#fkID_cedula").change(function(){
+                var op = $("#fkID_cedula option:selected").val();
+                console.log(op);
+                console.log("aqui toy");
+        });
+});
+
+
+$(document).ready(function(){
+        $("#fkID_cedula").change(function(){
+            console.log("aqui toy");
+        var url= '../controller/actualizar.php';
+        console.log("aqui toy 2");
+        $.getJSON(url, { _num1 : $("#fkID_cedula option:selected").val() }, function(clientes) {
+        console.log("aqui toy");
+        $.each(clientes, function(i,cliente){
+        $("#nombrec").val(cliente.nombre);
+        $("#apellidoc").val(cliente.apellido);
+        $("#telefonoc").val(cliente.telefono);
+        $("#emailc").val(cliente.email);
+        $("#fkID_estadoc").val(cliente.empresa);
+        console.log("aqui toy");
+        });
+        });
+        });
+        });
+
+
+

@@ -21,6 +21,25 @@ class crea_sql
         return $sql;
     }
 
+    public function crea_selectc($array_campos)
+    {
+
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = ''
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['_num1']);
+        unset($array_campos['nom_tabla']);
+
+        // construye query...
+        $sql = "select hoja_vida.pkID,hoja_vida.telefono,hoja_vida.email,hoja_vida.nombre,hoja_vida.apellido,estado.nombre as empresa FROM `hoja_vida`
+        inner join estado on estado.pkID= estadov where pkID = " . $array_campos['_num1'];
+        //-----------------------------------------------------------
+
+        return $sql;
+    }
+
     public function crea_insert($array_campos)
     {
 

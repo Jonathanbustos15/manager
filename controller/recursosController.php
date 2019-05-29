@@ -54,7 +54,7 @@ class recursosController extends recursos
     {
         $cedulaSelect = $this->getTipoContrato();
 
-        echo '<select name="selectCedula" id="selectCedula" class="form-control" required = "true">
+        echo '<select name="selectC" id="selectCe" class="form-control" required = "true">
                         <option></option>';
         for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
             echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre_tipo_contrato"] . '">' . $cedulaSelect[$i]["nombre_tipo_contrato"] . '</option>';
@@ -62,6 +62,96 @@ class recursosController extends recursos
         echo '</select>';
      }
 
+     //Consulta los cargos.
+     public function getSeleccion_Cargo()
+    {
+        $cargoSelect = $this->getCargos();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($cargoSelect); $i++) {
+            echo '<option value="' . $cargoSelect[$i]["pkID"] . '" data-nom-estudio="' . $cargoSelect[$i]["nombre_cargo"] . '">' . $cargoSelect[$i]["nombre_cargo"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+     //Consulta las ARL.
+     public function getSeleccion_arl()
+    {
+        $arlSelect = $this->getArl();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($arlSelect); $i++) {
+            echo '<option value="' . $arlSelect[$i]["pkID"] . '" data-nom-estudio="' . $arlSelect[$i]["nomarl"] . '">' . $arlSelect[$i]["nomarl"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+     //Consulta las Eps
+     public function getSeleccion_eps()
+    {
+        $epsSelect = $this->getEps();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($epsSelect); $i++) {
+            echo '<option value="' . $epsSelect[$i]["pkID"] . '" data-nom-estudio="' . $epsSelect[$i]["nomeps"] . '">' . $epsSelect[$i]["nomeps"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+     //Consulta la Caja de Compensación
+     public function getSeleccion_cajac()
+    {
+        $cajaSelect = $this->getCajac();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($cajaSelect); $i++) {
+            echo '<option value="' . $cajaSelect[$i]["pkID"] . '" data-nom-estudio="' . $cajaSelect[$i]["nomcc"] . '">' . $cajaSelect[$i]["nomcc"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+      //Consulta las Cesantias
+     public function getSeleccion_cesantias()
+    {
+        $cesanSelect = $this->getCesan();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($cesanSelect); $i++) {
+            echo '<option value="' . $cesanSelect[$i]["pkID"] . '" data-nom-estudio="' . $cesanSelect[$i]["nomce"] . '">' . $cesanSelect[$i]["nomce"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+      //Consulta las Pensiones
+     public function getSeleccion_pensiones()
+    {
+        $penSelect = $this->getPens();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($penSelect); $i++) {
+            echo '<option value="' . $penSelect[$i]["pkID"] . '" data-nom-estudio="' . $penSelect[$i]["nompe"] . '">' . $penSelect[$i]["nompe"] . '</option>';
+        };
+        echo '</select>';
+     }
+
+     //Consulta las Pensiones
+     public function getSeleccion_departamento()
+    {
+        $deparSelect = $this->getDepartamento();
+
+        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+                        <option></option>';
+        for ($i = 0; $i < sizeof($deparSelect); $i++) {
+            echo '<option value="' . $deparSelect[$i]["pkID"] . '" data-nom-estudio="' . $deparSelect[$i]["nombre_departamento"] . '">' . $deparSelect[$i]["nombre_departamento"] . '</option>';
+        };
+        echo '</select>';
+     }
 
     //Consulta los datos para la certificacion
     public function getCertificacion($id_contrato, $ext)

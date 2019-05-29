@@ -4,23 +4,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="icono_modals"></div><h4 class="modal-title" id="lbl_form_Hvida">-</h4>
+        <div class="icono_modals"></div><h4 class="modal-title" id="lbl_form_contrato">-</h4>
       </div>
       <div class="modal-body">
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-modal reg-hv" role="tablist">
-          <li role="presentation" class="active"><a href="#datosGenerales" aria-controls="datosGenerales" role="tab" data-toggle="tab">Datos de Empleado</a></li>
-          <li role="presentation"><a href="#estudios" aria-controls="estudios" role="tab" data-toggle="tab">Contrato</a></li>
-          <li role="presentation"><a href="#archivos" aria-controls="estudios" role="tab" data-toggle="tab">Archivos</a></li>
+          <li role="presentation" class="active"><a href="#datosEmpleados" aria-controls="datosGenerales" role="tab" data-toggle="tab">Datos de Empleado</a></li>
+          <li role="presentation"><a href="#Contrato" aria-controls="estudios" role="tab" data-toggle="tab">Contrato</a></li>
+          <li role="presentation"><a href="#adjuntos" aria-controls="estudios" role="tab" data-toggle="tab">Archivos</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
 
-          <div role="tabpanel" class="tab-pane active" id="datosGenerales">
+          <div role="tabpanel" class="tab-pane active" id="datosEmpleados">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-            <form id="form_hvida" method="POST">
+            <form id="form_contratos"  method="POST">
                 <br>
                     <div class="form-group" hidden>
                         <div class="col-sm-10">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label">Nombre(s)</label>
-                        <input type="text" class="form-control" id="nombrec" name="nombrec" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
+                        <input type="text" readonly="readonly" class="form-control" id="nombrec" name="nombrec" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
                     </div>
                     <div class="form-group">
                         <label for="apellido" class="control-label">Apellido(s)</label>
@@ -55,19 +55,6 @@
                         <label for="email" class="control-label">Email</label>
                         <input type="email" readonly="readonly" class="form-control" id="emailc" name="emailc" placeholder="Correo electrónico de la Persona">
                     </div>
-
-                    <div class="form-group">
-                        <label for="" class="control-label">Estado**</label>
-                        <select name="fkID_estadoc" id="fkID_estadoc" class="form-control" required = "true">
-                            <option></option>
-                            <?php
-                                $estadoSelect = $hvidainst->getEstado();
-                                for ($i = 0; $i < sizeof($estadoSelect); $i++) {
-                                    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nombre"] . '</option>';
-                                };
-                            ?>
-                        </select>
-                    </div>
                    <!--<div class="form-group" hidden>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="fkID_usuario" name="fkID_usuario" value=<?php //echo $_COOKIE["log_lunelAdmin_id"] ?> >
@@ -77,9 +64,9 @@
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
           </div>
 
-          <div role="tabpanel" class="tab-pane" id="estudios">
+          <div role="tabpanel" class="tab-pane" id="Contrato">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-          <form id="form_contrato_estudios">
+          <form id="form_contrato_datos">
                 <div class="">
                 <br>
                     <div class="form-group">
@@ -90,53 +77,108 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="selectEstudioTecnologo" class="control-label">Tecnologo</label>
+                        <label for="" class="control-label">Empresa</label>
+                        <select name="fkID_estado" id="fkID_estado" class="form-control" required = "true">
+                            <option></option>
                             <?php
-$hvidainst->getSelectTecnologo();
-?>
+                            $estadoSelect = $hvidainst->getEstado();
+                            for ($i = 0; $i < sizeof($estadoSelect); $i++) {
+                                echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nombre"] . '</option>';
+                            }
+                            ;
+                            ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="selectEstudio" class="control-label">Pregrado</label>
-                            <?php
-$hvidainst->getSelectPregrado();
-?>
-                    </div>
-                    <div id="selectPosgrado" class="form-group">
-                        <label for="selectEstudioPos" class="control-label">Posgrado</label>
-                            <?php
-$hvidainst->getSelectPosgrado();
-?>
+                        <label for="fechain" class="control-label">Fecha de Ingreso</label>
+                        <input type="date"class="form-control" id="fechain" name="fechain" required = "true">
                     </div>
 
-                    <div id="selectCertificacion" class="form-group">
-                        <label for="selectEstudioCertificacion" class="control-label">Certificacion</label>
-                            <?php
-$hvidainst->getSelectCertificacion();
-?>
+                    <div class="form-group">
+                        <label for="selectEstudio" class="control-label">Fecha Terminación de contrato</label>
+                        <input type="date" class="form-control" name="fechater" id="fechater">
                     </div>
 
-                    <div class="form-group text-right">
-                            <button id="btn_nuevoestudio" type="button" class="btn btn-success" data-toggle="modal" data-target="#form_modal_estudios"><span class="glyphicon glyphicon-plus"></span> Agregar Estudio</button>
+                    <div class="form-group">
+                        <label for="apellido" class="control-label">Salario</label>
+                        <input type="text" class="form-control" id="salarioc" name="salarioc" placeholder="Salario de la Persona" maxlength="25" required="true">
                     </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">Cargo</label>
+                            <?php
+                                  $recursosInst->getSeleccion_Cargo();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">ARL</label>
+                            <?php
+                                  $recursosInst->getSeleccion_arl();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">EPS</label>
+                            <?php
+                                  $recursosInst->getSeleccion_eps();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">Caja de Compensación</label>
+                            <?php
+                                  $recursosInst->getSeleccion_cajac();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">Cesantias</label>
+                            <?php
+                                  $recursosInst->getSeleccion_cesantias();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">Pensiones</label>
+                            <?php
+                                  $recursosInst->getSeleccion_pensiones();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectEstudioTecnico" class="control-label">Departamento</label>
+                            <?php
+                                  $recursosInst->getSeleccion_departamento();
+                            ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="control-label">Ciudad</label>
+                        <select name="ciudad" id="ciudad" class="form-control" required = "true">
+                            <option></option>
+                            <?php
+                                $estadoSelect = $recursosInst->getCedula();
+                                for ($i = 0; $i < sizeof($estadoSelect); $i++) {
+                                    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nidentificacion"] . '</option>';
+                                };
+                            ?>
+                        </select>
+                    </div>
+
              </form>
                     <hr>
-
-                    <div class="form-group">
-                        <form id="frm_estudios_hvida">
-
-                        </form>
-                    </div>
 
 
                 </div>
 
           </div>
 
-          <div role="tabpanel" class="tab-pane" id="archivos">
+          <div role="tabpanel" class="tab-pane" id="adjuntos">
             <div class="form-group">
             <br>
-          <form id="form1" method="post" enctype="multipart/form-data">
+          <form id="formadjuntos" method="post" enctype="multipart/form-data">
               <div class="form-group ">
               <div class="col-sm-8 custom-file">
                 <input type="file" class="form-control custom-file-input" id="archivo" name="archivo[]" multiple="">
@@ -172,8 +214,8 @@ $hvidainst->getSelectCertificacion();
 
       <div class="modal-footer">
         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--> 
-        <button id="btn_actionHvida" type="button" class="btn btn-primary btn-limang" data-action="-" disabled="disabled">
-            <span id="lbl_btn_actionHvida" class="btn-limang">-</span>
+        <button id="btn_actioncontrato" type="button" class="btn btn-primary btn-limang" data-action="-" disabled="disabled">
+            <span id="lbl_btn_actioncontrato" class="btn-limang">-</span>
         </button>
       </div>
 

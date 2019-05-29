@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="form_modal_contrato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="form_modal_contro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,7 +11,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-modal reg-hv" role="tablist">
           <li role="presentation" class="active"><a href="#datosGenerales" aria-controls="datosGenerales" role="tab" data-toggle="tab">Datos Generales</a></li>
-          <li role="presentation"><a href="#estudios" aria-controls="estudios" role="tab" data-toggle="tab">Contrato</a></li>
+          <li role="presentation"><a href="#contrato" aria-controls="estudios" role="tab" data-toggle="tab">Contrato</a></li>
           <li role="presentation"><a href="#archivos" aria-controls="estudios" role="tab" data-toggle="tab">Archivos</a></li>
         </ul>
 
@@ -75,16 +75,16 @@ for ($i = 0; $i < sizeof($estadoSelect); $i++) {
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
           </div>
 
-          <div role="tabpanel" class="tab-pane" id="estudios">
+          <div role="tabpanel" class="tab-pane" id="contrato">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
           <form id="form_hvida_estudios">
                 <div class="">
                 <br>
                     <div class="form-group">
-                        <label for="selectEstudioTecnico" class="control-label">Tecnico</label>
+                        <label for="selectEstudioTecnico" class="control-label">Tipo de Contrato</label>
                             <?php
-$hvidainst->getSelectTecnico();
-?>
+                            $hvidainst->getSelectTecnico();
+                            ?>
                     </div>
 
                     <div class="form-group">

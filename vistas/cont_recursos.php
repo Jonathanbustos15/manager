@@ -391,7 +391,7 @@ include 'modal_recursos.php';
 
                               <div class="col-md-6 text-right">
                                   <!--Boton para crear una nueva hoja de vida-->
-                                  <button id="btn_nuevoHvida" type="button" class="btn btn-primary  btn-limang" data-toggle="modal" data-target="#form_modal_contrato" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span>&nbspCrear Contrato</button>
+                                  <button id="btn_nuevocontrato" type="button" class="btn btn-primary  btn-limang" data-toggle="modal" data-target="#form_modal_contrato" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span>&nbspCrear Contrato</button>
                               </div>
                             </div>
 

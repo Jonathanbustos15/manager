@@ -32,25 +32,33 @@ $(function() {
         ;
     };
     //consulta de datos hoja de vida
-    $(document).ready(function(){
-        $("#fkID_cedula").change(function(){
-            ;   
-        var url= '../controller/actualizar.php';
-        //console.log("aqui toy 2");
-        $.getJSON(url, { _num1 : $("#fkID_cedula").val() }, function(clientes) {
-        //console.log("aqui toy");
-        $.each(clientes, function(i,cliente){
-        $("#nombrec").val(cliente.nombre);
-        $("#apellidoc").val(cliente.apellido);
-        $("#telefonoc").val(cliente.telefono);
-        $("#emailc").val(cliente.email);
-        $("#fkID_estadoc").val(cliente.empresa);
-        console.log("aqui toy");
-        });
-        });
-        });
-        });
-    //fin de consultas de datos hoja de vida
+
+
+function autocomple(dat){
+    var form = $("#fkID_cedula option:selected").val();
+    var ruta = "../controller/actualizar.php";
+    console.log(form);
+    $.ajax({
+        url: ruta,
+        type: 'POST',
+        data: {nombre:form},
+        success: function(respuesta){
+            console.log(respuesta);
+            var tipos = JSON.parse(respuesta);
+            console.log(tipos);
+            console.log(tipos[0].nombre);
+            $("#nombrec").val(tipos[0].nombre);
+            $("#apellidoc").val(tipos[0].apellido);
+            $("#telefonoc").val(tipos[0].telefono);
+            $("#emailc").val(tipos[0].email);
+            $("#fkID_estadoc").val(respuesta[0].empresa);
+            console.log("aqui toy yoo");
+        }
+    })
+};
+
+
+
 function subid_archiv(nom_funcion) {
         //---------------------------------------------------------------------------------------
         //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
@@ -1036,7 +1044,8 @@ rObj = function (evt) {
     }; //cierra función subida*/
     //-------------------------------------------------------------------------------
     //ejecución
-    //------------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------------
+   
     //validacion campos hv++++++++++++++++++++++++++++++++++++++++++++
     $("#nidentificacion").keyup(function(event) {
         /* Act on the event*/
@@ -1126,20 +1135,15 @@ rObj = function (evt) {
         $("form1")[0].reset();
     });
     $("#btn_nuevocontrato").click(function() {
-        $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
-        $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
-        //$("#selectPosgrado").attr('hidden','');
-        $("#btn_actionHvida").attr("data-action", "crear");
-        $("#btn_actionHvida").attr('disabled', 'disabled');
-        $("#frm_estudios_hvida").html("");
-        $("#archivos_res").html("");
-        $("#res_form").html("");
-        arrEstudios.length = 0;
-        validaBtnGuardar();
-        $("#form_hvida")[0].reset();
-        $("#form_hvida_estudios")[0].reset();
-        $("form_archivo")[0].reset();
-        $("form1")[0].reset();
+       console.log("mire aqui");
+       $("#lbl_form_contrato").html("Nuevo Contrato");
+        $("#lbl_btn_actioncontrato").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        $("#btn_actioncontrato").attr("data-action", "crearc");
+        $("#btn_actioncontrato").attr('disabled', 'disabled');
+        $("#form_contratos")[0].reset();
+        $("#form_contrato_datos")[0].reset();
+        $("#formadjuntos")[0].reset();
+        $("#form_modal_contrato")[0].reset();
     });
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
@@ -1177,6 +1181,22 @@ rObj = function (evt) {
         carga_hvida(id_hvida);
         //carga_propiedades(id_hvida);*/
     });
+    $("#btn_nuevocontrato").click(function() {
+        $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
+        $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        //$("#selectPosgrado").attr('hidden','');
+        $("#btn_actionHvida").attr("data-action", "crear");
+        $("#btn_actionHvida").attr('disabled', 'disabled');
+        $("#frm_estudios_hvida").html("");
+        $("#archivos_res").html("");
+        $("#res_form").html("");
+        arrEstudios.length = 0;
+        validaBtnGuardar();
+        $("#form_hvida")[0].reset();
+        $("#form_hvida_estudios")[0].reset();
+        $("form_archivo")[0].reset();
+        $("form1")[0].reset();
+    });
     /*
     Botón que elimina registro
     */
@@ -1185,6 +1205,51 @@ rObj = function (evt) {
         elimina_hvida(id_hvida);
         EliminaHvidaEstudio(id_hvida);
     });
+    function autocomple(dat){
+    var form = $("#fkID_cedula option:selected").val();
+    var ruta = "../controller/actualizar.php";
+    console.log(form);
+    $.ajax({
+        url: ruta,
+        type: 'POST',
+        data: {nombre:form},
+        success: function(respuesta){
+            console.log(respuesta);
+            var tipos = JSON.parse(respuesta);
+            console.log(tipos);
+            console.log(tipos[0].nombre);
+            $("#nombrec").val(tipos[0].nombre);
+            $("#apellidoc").val(tipos[0].apellido);
+            $("#telefonoc").val(tipos[0].telefono);
+            $("#emailc").val(tipos[0].email);
+            $("#fkID_estadoc").val(respuesta[0].empresa);
+            console.log("aqui toy yoo");
+        }
+    })
+};
+
+ $(document).ready(function(){
+        $("#fkID_cedula").change(function(){
+            ;
+            console.log("hola tuu");  
+            var op = $("#fkID_cedula option:selected").val();
+            console.log(op); 
+            autocomple(op);
+        });
+        }); 
+
+
+
+     $(document).ready(function(){
+        $("#ciudad").change(function(){
+            ;
+            console.log("hola tuu ciudad");  
+            //var op = $("#fkID_cedula option:selected").val();
+            //console.log(op); 
+            //autocomple(op);
+        
+        });
+        }); 
     /*
     Botón de accion de formulario
     */

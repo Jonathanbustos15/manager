@@ -1,5 +1,5 @@
 <?php
-  $cod = $_GET['_num1'];
+  $cod = $_POST["nombre"];
 
   		if (!empty($cod)) {
   			comprobar($cod);
@@ -20,9 +20,9 @@ while ($row = mysql_fetch_row($sql)) {
 		$nombre=$row[3];
 		$apellido=$row[4];
 		$telefono=$row[1];
-		$email=$row[2];
+		$email=$row[2];   
 		$empresa=$row[5];
-		$clientes[] = array('codigo'=> $codigo, 'nombre'=> $nombre, 'apellido'=> $apellido, 'telefono'=> $telefono, 'email'=> $email, 'empresa'=> $empresa,).
+		$clientes[] = array('codigo'=> $codigo, 'nombre'=> $nombre, 'apellido'=> $apellido, 'telefono'=> $telefono, 'email'=> $email, 'empresa'=> $empresa);
 }
 		
 	$json_string =json_encode($clientes);

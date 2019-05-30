@@ -191,6 +191,23 @@ function subid_archiv(nom_funcion) {
         }
     }
 
+    function validaBtnGuardarcon() {
+        if (verPkIdHoja()) {
+            console.log("ota vez");
+            $("#btn_actioncontrato").removeAttr('disabled');
+        } else {
+            console.log($("#archivo")[0].files[0]);
+            //var hidden = $("#selectEstudioPos").attr('hidden');
+            /**/
+            if (($("#archivo")[0].files[0] != undefined)) {
+                $("#btn_actioncontrato").removeAttr('disabled');
+            } else {
+                console.log('falta seleccionar un estudio o cargar archivos!');
+                $("#btn_actioncontrato").attr('disabled', 'disabled');
+            }
+        }
+    }
+
     function validaEqualIdentifica(num_id) {
         console.log("busca valor " + encodeURI(num_id));
         var consEqual = "SELECT COUNT(*) as res_equal FROM `hoja_vida` WHERE `nidentificacion` = '" + num_id + "'";
@@ -1140,10 +1157,11 @@ rObj = function (evt) {
         $("#lbl_btn_actioncontrato").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         $("#btn_actioncontrato").attr("data-action", "crearc");
         $("#btn_actioncontrato").attr('disabled', 'disabled');
+        validaBtnGuardarcon();
         $("#form_contratos")[0].reset();
         $("#form_contrato_datos")[0].reset();
         $("#formadjuntos")[0].reset();
-        $("#form_modal_contrato")[0].reset();
+        document.getElementById ("ciudades") .options.length = 0;
     });
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
@@ -1181,22 +1199,6 @@ rObj = function (evt) {
         carga_hvida(id_hvida);
         //carga_propiedades(id_hvida);*/
     });
-    $("#btn_nuevocontrato").click(function() {
-        $("#lbl_form_Hvida").html("Nueva Hoja de Vida");
-        $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
-        //$("#selectPosgrado").attr('hidden','');
-        $("#btn_actionHvida").attr("data-action", "crear");
-        $("#btn_actionHvida").attr('disabled', 'disabled');
-        $("#frm_estudios_hvida").html("");
-        $("#archivos_res").html("");
-        $("#res_form").html("");
-        arrEstudios.length = 0;
-        validaBtnGuardar();
-        $("#form_hvida")[0].reset();
-        $("#form_hvida_estudios")[0].reset();
-        $("form_archivo")[0].reset();
-        $("form1")[0].reset();
-    });
     /*
     Botón que elimina registro
     */
@@ -1205,7 +1207,8 @@ rObj = function (evt) {
         elimina_hvida(id_hvida);
         EliminaHvidaEstudio(id_hvida);
     });
-    function autocomple(dat){
+    //autocompleta el formulario de datos empleado
+    function autocomple(){
     var form = $("#fkID_cedula option:selected").val();
     var ruta = "../controller/actualizar.php";
     console.log(form);
@@ -1227,27 +1230,50 @@ rObj = function (evt) {
         }
     })
 };
+//autocompleta los datos del select ciudad
+function autocompleciudad(){
+    var form = $("#fkID_departamento option:selected").val();
+    console.log(form);
+    var ruta = "../controller/actualizar_ciudad.php";
+    console.log(form);
+    $.ajax({
+        url: ruta,
+        type: 'POST',
+        data: {ciudad:form},
+        success: function(respuesta){
+            console.log(respuesta);
+            var tipos = JSON.parse(respuesta);
+            console.log(tipos);
+            console.log("aqui toy yoo");
+            for(x=0; x<tipos.length; x++) {
+                $('#ciudades').append('<option value="foo" selected="selected">'+tipos[x].nombre+'</option>');
+                console.log(tipos[x].nombre);
+            }
+        }
+    })
+};
 
  $(document).ready(function(){
         $("#fkID_cedula").change(function(){
             ;
             console.log("hola tuu");  
             var op = $("#fkID_cedula option:selected").val();
-            console.log(op); 
-            autocomple(op);
+            console.log(op);
+            $('input[type="text"]').val('');
+            $('input[type="tel"]').val('');
+            $('input[type="email"]').val('');
+            autocomple();
         });
         }); 
-
-
-
+//actualiza las ciudades
      $(document).ready(function(){
-        $("#ciudad").change(function(){
+        $("#fkID_departamento").change(function(){
             ;
             console.log("hola tuu ciudad");  
-            //var op = $("#fkID_cedula option:selected").val();
-            //console.log(op); 
-            //autocomple(op);
-        
+            var ope = $("#fkID_departamento option:selected").val();
+            console.log(ope);
+            document.getElementById ("ciudades") .options.length = 0;
+            autocompleciudad(); 
         });
         }); 
     /*

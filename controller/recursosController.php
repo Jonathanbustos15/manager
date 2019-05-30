@@ -55,7 +55,7 @@ class recursosController extends recursos
         $cedulaSelect = $this->getTipoContrato();
 
         echo '<select name="selectC" id="selectCe" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije el tipo de contrato</option>';
         for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
             echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre_tipo_contrato"] . '">' . $cedulaSelect[$i]["nombre_tipo_contrato"] . '</option>';
         };
@@ -68,7 +68,7 @@ class recursosController extends recursos
         $cargoSelect = $this->getCargos();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije el cargo</option>';
         for ($i = 0; $i < sizeof($cargoSelect); $i++) {
             echo '<option value="' . $cargoSelect[$i]["pkID"] . '" data-nom-estudio="' . $cargoSelect[$i]["nombre_cargo"] . '">' . $cargoSelect[$i]["nombre_cargo"] . '</option>';
         };
@@ -81,7 +81,7 @@ class recursosController extends recursos
         $arlSelect = $this->getArl();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije la arl</option>';
         for ($i = 0; $i < sizeof($arlSelect); $i++) {
             echo '<option value="' . $arlSelect[$i]["pkID"] . '" data-nom-estudio="' . $arlSelect[$i]["nomarl"] . '">' . $arlSelect[$i]["nomarl"] . '</option>';
         };
@@ -94,7 +94,7 @@ class recursosController extends recursos
         $epsSelect = $this->getEps();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije la eps</option>';
         for ($i = 0; $i < sizeof($epsSelect); $i++) {
             echo '<option value="' . $epsSelect[$i]["pkID"] . '" data-nom-estudio="' . $epsSelect[$i]["nomeps"] . '">' . $epsSelect[$i]["nomeps"] . '</option>';
         };
@@ -107,7 +107,7 @@ class recursosController extends recursos
         $cajaSelect = $this->getCajac();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije la caja de compensación</option>';
         for ($i = 0; $i < sizeof($cajaSelect); $i++) {
             echo '<option value="' . $cajaSelect[$i]["pkID"] . '" data-nom-estudio="' . $cajaSelect[$i]["nomcc"] . '">' . $cajaSelect[$i]["nomcc"] . '</option>';
         };
@@ -120,7 +120,7 @@ class recursosController extends recursos
         $cesanSelect = $this->getCesan();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije las cesantias</option>';
         for ($i = 0; $i < sizeof($cesanSelect); $i++) {
             echo '<option value="' . $cesanSelect[$i]["pkID"] . '" data-nom-estudio="' . $cesanSelect[$i]["nomce"] . '">' . $cesanSelect[$i]["nomce"] . '</option>';
         };
@@ -133,7 +133,7 @@ class recursosController extends recursos
         $penSelect = $this->getPens();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije las pensiones</option>';
         for ($i = 0; $i < sizeof($penSelect); $i++) {
             echo '<option value="' . $penSelect[$i]["pkID"] . '" data-nom-estudio="' . $penSelect[$i]["nompe"] . '">' . $penSelect[$i]["nompe"] . '</option>';
         };
@@ -146,7 +146,7 @@ class recursosController extends recursos
         $deparSelect = $this->getDepartamento();
 
         echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
-                        <option></option>';
+                        <option value="">Elije el departamento</option>';
         for ($i = 0; $i < sizeof($deparSelect); $i++) {
             echo '<option value="' . $deparSelect[$i]["pkID"] . '" data-nom-estudio="' . $deparSelect[$i]["nombre_departamento"] . '">' . $deparSelect[$i]["nombre_departamento"] . '</option>';
         };

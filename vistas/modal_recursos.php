@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">Cedula</label>
                         <select name="fkID_cedula" id="fkID_cedula" class="form-control" required = "true">
-                            <option></option>
+                            <option value="">Elije el empleado</option>
                             <?php
                                 $estadoSelect = $recursosInst->getCedula();
                                 for ($i = 0; $i < sizeof($estadoSelect); $i++) {
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">Empresa</label>
                         <select name="fkID_estado" id="fkID_estado" class="form-control" required = "true">
-                            <option></option>
+                            <option value="">Elije la Empresa</option>
                             <?php
                             $estadoSelect = $hvidainst->getEstado();
                             for ($i = 0; $i < sizeof($estadoSelect); $i++) {
@@ -146,25 +146,25 @@
                                   $recursosInst->getSeleccion_pensiones();
                             ?>
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="selectEstudioTecnico" class="control-label">Departamento</label>
+                        <label for="" class="control-label">Departamento</label>
+                        <select name="fkID_departamento" id="fkID_departamento" class="form-control" required = "true">
+                            <option value="">Elije el departamento</option>
                             <?php
-                                  $recursosInst->getSeleccion_departamento();
+                                $deparSelect = $recursosInst->getDepartamento();
+                                for ($i = 0; $i < sizeof($deparSelect); $i++) {
+                                    echo '<option value="' . $deparSelect[$i]["pkID"] . '">' . $deparSelect[$i]["nombre_departamento"] . '</option>';
+                                };
                             ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="" class="control-label">Ciudad</label>
-                        <select name="ciudad" id="ciudad" class="form-control" required = "true">
-                            <option></option>
-                            <?php
-                                $estadoSelect = $recursosInst->getCedula();
-                                for ($i = 0; $i < sizeof($estadoSelect); $i++) {
-                                    echo '<option value="' . $estadoSelect[$i]["pkID"] . '">' . $estadoSelect[$i]["nidentificacion"] . '</option>';
-                                };
-                            ?>
-                        </select>
+                        <select name="ciudades" id="ciudades" class="form-control" required = "true">
+                          <option></option>
+                        </select>  
                     </div>
 
              </form>

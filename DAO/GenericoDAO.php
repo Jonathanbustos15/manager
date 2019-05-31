@@ -22,7 +22,6 @@ class GenericoDAO {
      * @param type String $query 
      * @return Array -> Un array con los datos de la consulta
      */
-
     public static function EjecutarConsulta($query){
       
 		  // $db=$Conector->connect();

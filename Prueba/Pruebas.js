@@ -53,4 +53,89 @@ elimCamp = function (evt){
 rObj = function (evt) { 
    return evt.srcElement ?  evt.srcElement : evt.target;
 }
+
+
+function crea_hvida(nombre){
+
+         var idhv = $("#fkID_cedula option:selected").val();
+         var idticontra = $("#selectC option:selected").val();
+         var fechain = $("#fechain").val();
+         var fechater = $("#fechater").val();
+         var salario = $("#salarioc").val();
+         var idcargo = $("#selectCar option:selected").val();
+         var idarl = $("#selectarl option:selected").val();
+         var ideps = $("#selecteps option:selected").val();
+         var idcaja = $("#selectcaja option:selected").val();
+         var idcesan = $("#selectcesan option:selected").val();
+         var idpensio = $("#selectpensi option:selected").val();
+         var idciudad = $("#ciudades option:selected").val();
+
+
+
+          //--------------------------------------
+          //crea el objeto formulario serializado
+
+
+          objt_f_hvida = $("#form_hvida").val();
+          email = $("#email").val();
+          console.log(objt_f_hvida);
+          //console.log(objt_f_adminPublicidad.srlz);
+          //--------------------------------------
+          /**/
+          if( (objt_f_hvida.estado == true) && (validarEmail(email)) ){
+
+          //subida_archivo();   
+
+            $.ajax({
+              url: "../controller/ajaxController12.php",
+              data: objt_f_hvida.srlz+"&tipo=inserta&nom_tabla=hoja_vida",
+            })
+            .done(function(data) {            
+              //---------------------
+              console.log(data);
+              
+              var pkID_hojaVida = data[0].last_id;
+             
+              //-----------------------------------------------------------------------------------
+              //subida_archivo_id(pkID_hojaVida);
+
+              $("#btn_actionHvida").attr('disabled','disabled');
+              var nomb=nombre
+              insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nomb+"&des_archivo="+archCoincide );
+              var iteracion = $.each(arregloDeArchivos, function(index, val) {
+                 
+                 console.log('Subiendo archivo: '+val);
+
+                 $('#form1').fileupload('send', {files:val})
+                    .success(function (result, textStatus, jqXHR) {                 
+                        console.log(result);
+                        console.log(textStatus);
+                        console.log(jqXHR);
+                        getValoresDesc(val[0].name);
+                        //insertaArchivo("pkID_hojaVida="+pkID_hojaVida+"&url_archivo="+nombre+"&des_archivo="+archCoincide );                       
+
+                    })
+                    .error(function (jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    })
+                    .complete(function (result, textStatus, jqXHR) {
+                        console.log(textStatus);
+                    });
+
+              });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

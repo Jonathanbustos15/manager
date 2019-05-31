@@ -54,7 +54,7 @@ class recursosController extends recursos
     {
         $cedulaSelect = $this->getTipoContrato();
 
-        echo '<select name="selectC" id="selectCe" class="form-control" required = "true">
+        echo '<select name="selectC" id="selectC" class="form-control" required = "true">
                         <option value="">Elije el tipo de contrato</option>';
         for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
             echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre_tipo_contrato"] . '">' . $cedulaSelect[$i]["nombre_tipo_contrato"] . '</option>';
@@ -67,7 +67,7 @@ class recursosController extends recursos
     {
         $cargoSelect = $this->getCargos();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectCar" id="selectCar" class="form-control" required = "true">
                         <option value="">Elije el cargo</option>';
         for ($i = 0; $i < sizeof($cargoSelect); $i++) {
             echo '<option value="' . $cargoSelect[$i]["pkID"] . '" data-nom-estudio="' . $cargoSelect[$i]["nombre_cargo"] . '">' . $cargoSelect[$i]["nombre_cargo"] . '</option>';
@@ -80,7 +80,7 @@ class recursosController extends recursos
     {
         $arlSelect = $this->getArl();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectarl" id="selectarl" class="form-control" required = "true">
                         <option value="">Elije la arl</option>';
         for ($i = 0; $i < sizeof($arlSelect); $i++) {
             echo '<option value="' . $arlSelect[$i]["pkID"] . '" data-nom-estudio="' . $arlSelect[$i]["nomarl"] . '">' . $arlSelect[$i]["nomarl"] . '</option>';
@@ -93,7 +93,7 @@ class recursosController extends recursos
     {
         $epsSelect = $this->getEps();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selecteps" id="selecteps" class="form-control" required = "true">
                         <option value="">Elije la eps</option>';
         for ($i = 0; $i < sizeof($epsSelect); $i++) {
             echo '<option value="' . $epsSelect[$i]["pkID"] . '" data-nom-estudio="' . $epsSelect[$i]["nomeps"] . '">' . $epsSelect[$i]["nomeps"] . '</option>';
@@ -106,7 +106,7 @@ class recursosController extends recursos
     {
         $cajaSelect = $this->getCajac();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectcaja" id="selectcaja" class="form-control" required = "true">
                         <option value="">Elije la caja de compensación</option>';
         for ($i = 0; $i < sizeof($cajaSelect); $i++) {
             echo '<option value="' . $cajaSelect[$i]["pkID"] . '" data-nom-estudio="' . $cajaSelect[$i]["nomcc"] . '">' . $cajaSelect[$i]["nomcc"] . '</option>';
@@ -119,7 +119,7 @@ class recursosController extends recursos
     {
         $cesanSelect = $this->getCesan();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectcesan" id="selectcesan" class="form-control" required = "true">
                         <option value="">Elije las cesantias</option>';
         for ($i = 0; $i < sizeof($cesanSelect); $i++) {
             echo '<option value="' . $cesanSelect[$i]["pkID"] . '" data-nom-estudio="' . $cesanSelect[$i]["nomce"] . '">' . $cesanSelect[$i]["nomce"] . '</option>';
@@ -132,7 +132,7 @@ class recursosController extends recursos
     {
         $penSelect = $this->getPens();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectpensi" id="selectpensi" class="form-control" required = "true">
                         <option value="">Elije las pensiones</option>';
         for ($i = 0; $i < sizeof($penSelect); $i++) {
             echo '<option value="' . $penSelect[$i]["pkID"] . '" data-nom-estudio="' . $penSelect[$i]["nompe"] . '">' . $penSelect[$i]["nompe"] . '</option>';
@@ -978,9 +978,9 @@ class recursosController extends recursos
                                  <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $Fterminacion . '</td>
 
                                  <td>
-                                     <button id="btn_editar" title="Editar" name="edita_hvida" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_hvida" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
+                                     <button id="btn_editar_contrato" title="Editar"  name="edita_contrato" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_contrato" data-id-contrato = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
 
-                                     <button id="btn_eliminar" title="Eliminar" name="elimina_hvida" type="button" class="btn btn-danger" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
+                                     <button id="btn_eliminar_contrato" title="Eliminar" name="elimina_hvida" type="button" class="btn btn-danger" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
                                  </td>
                              </tr>';
             };

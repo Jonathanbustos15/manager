@@ -41,19 +41,19 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label">Nombre(s)</label>
-                        <input type="text" readonly="readonly" class="form-control" id="nombrec" name="nombrec" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
+                        <input type="text" readonly="readonly" class="form-control" id="nombre" name="nombre" placeholder="Nombre(s) de la Persona" maxlength="25"  title="El nombre no contiene letras" required="true">
                     </div>
                     <div class="form-group">
                         <label for="apellido" class="control-label">Apellido(s)</label>
-                        <input type="text" readonly="readonly" class="form-control" id="apellidoc" name="apellidoc" placeholder="Apellido(s) de la Persona" maxlength="25" required="true">
+                        <input type="text" readonly="readonly" class="form-control" id="apellido" name="apellido" placeholder="Apellido(s) de la Persona" maxlength="25" required="true">
                     </div>
                     <div class="form-group">
                         <label for="telefono" class="control-label">Teléfono</label>
-                        <input type="tel" readonly="readonly" class="form-control" id="telefonoc" name="telefonoc" placeholder="Número de Teléfono de la Persona" required = "true">
+                        <input type="tel" readonly="readonly" class="form-control" id="telefono" name="telefono" placeholder="Número de Teléfono de la Persona" required = "true">
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label">Email</label>
-                        <input type="email" readonly="readonly" class="form-control" id="emailc" name="emailc" placeholder="Correo electrónico de la Persona">
+                        <input type="email" readonly="readonly" class="form-control" id="email" name="email" placeholder="Correo electrónico de la Persona">
                     </div>
                    <!--<div class="form-group" hidden>
                         <div class="col-sm-10">

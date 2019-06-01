@@ -24,7 +24,7 @@ class GenericoDAO {
      */
     public static function EjecutarConsulta($query){
       
-		  // $db=$Conector->connect();
+		  // $db=$Conector->Cconnect();
 		$Conector = new Conexion();
 		$db=$Conector->connect();
         

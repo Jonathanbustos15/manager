@@ -954,7 +954,8 @@ class recursosController extends recursos
 
             for ($a = 0; $a < sizeof($this->recursos); $a++) {
 
-                $id         = $this->recursos[$a]["pkID"];
+                $id         = $this->recursos[$a]["pk"];
+                $idc  = $this->recursos[$a]["pkID"];
                 $nombres    = $this->recursos[$a]["persona"];
                 $cedula   = $this->recursos[$a]["cedula"];
                 $nom_estado = $this->recursos[$a]["empresa"];
@@ -968,17 +969,17 @@ class recursosController extends recursos
                 echo '
 
                              <tr>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $nombres . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $cedula . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $nom_estado . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $tcontra . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $Ncargo . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $Nciudad . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $Finicio . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $id . '" class="detail">' . $Fterminacion . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $nombres . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $cedula . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $nom_estado . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $tcontra . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Ncargo . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Nciudad . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Finicio . '</td>
+                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Fterminacion . '</td>
 
                                  <td>
-                                     <button id="btn_editar_contrato" title="Editar"  name="edita_contrato" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_contrato" data-id-contrato = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
+                                     <button id="btn_editar_contrato" title="Editar"  name="edita_contrato" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_contrato" data-id-contrato = "'. $idc .'"data-id-contratoh = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
 
                                      <button id="btn_eliminar_contrato" title="Eliminar" name="elimina_hvida" type="button" class="btn btn-danger" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
                                  </td>

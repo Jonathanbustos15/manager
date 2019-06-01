@@ -152,7 +152,7 @@ function subid_archiv(nom_funcion) {
                     EliminaHvidaEstudio(id_hvida);
                 });
                 //Crea funcion con el click de editar
-                $("[name*='edita_hvida']").click(function(event) {
+                $("[c_hvida']").click(function(event) {
                     $("#lbl_form_Hvida").html("Editar Registro Hoja de Vida");
                     $("#lbl_btn_actionHvida").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
                     $("#btn_actionHvida").attr("data-action", "editar");
@@ -595,10 +595,23 @@ function subid_archiv(nom_funcion) {
             url: '../controller/ajaxController12.php',
             data: "pkID=" + id_hvida + "&tipo=consultarcon",
         }).done(function(data) {
-            /**/
-            $.each(data.mensaje[0], function(key, value) {
-                console.log(key + "--" + value);
-                $("#" + key).val(value);
+            /**/idc = 0;
+            $.each(data.mensaje[0], function(key, valu) {
+                var valor = valu;
+                console.log(key + "--" + valor);
+                if (key == "pkID") { 
+                    idc = valor
+                    console.log(idc);
+                }
+                if (key == "fkID_cedula") {
+                    nombre = key;
+                    console.log(idc)
+                     $("#fkID_cedula option[value="+ idc +"]").attr("selected", true);
+                     console.log("aquie es")
+                } else {
+                $("#" + key).val(valor);  
+                }
+                
             });
             id_hvida = data.mensaje[0].pkID;
         }).fail(function() {
@@ -1266,7 +1279,7 @@ rObj = function (evt) {
         $("#formadjuntos")[0].reset();
         input=document.getElementById("archivo");
         input.value = '';
-        id_contrato = $(this).attr('data-id-contrato');
+        id_contrato = $(this).attr('data-id-contratoh');
         $("#btn_actionHvida").removeAttr('disabled');
         //$("#selectPosgrado").removeAttr('hidden');
         console.log(id_contrato);

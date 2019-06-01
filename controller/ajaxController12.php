@@ -134,7 +134,7 @@
 
             $generico = new GenericoDAO();
                   
-            $q_carga = "select concat_ws(' ', nidentificacion,nombre,apellido) as documento,nombre,apellido,telefono,email FROM `hoja_vida` WHERE pkID =" . $_GET; 
+            $q_carga = "select pkID, concat_ws(' ', nidentificacion,nombre,apellido) as fkID_cedula,nombre as nombrec,apellido as apellidoc,telefono as telefonoc,email as emailc FROM `hoja_vida` WHERE pkID =" . $_GET["pkID"]; 
 
             $resultado = $generico->EjecutarConsulta($q_carga);
             /**/

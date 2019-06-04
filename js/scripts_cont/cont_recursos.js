@@ -20,44 +20,4 @@ $(function() {
     var contDetailName = 0;
     var archCoincide = "";
 
-$(document).ready(function(){
-    $("#btn_nuevocontrato").click(function() {
-        console.log("miremeee")
-    });
-    });
-
-
-$(document).ready(function(){
-        $("#fkID_cedula").change(function(){
-                var op = $("#fkID_cedula option:selected").val();
-                console.log(op);
-                console.log("aqui toy");
-        });
 });
-
-$("#btn_nuevocontrato").click(function() {
-        console.log("miremeee")
-    });
-
-
-$(document).ready(function(){
-        $("#fkID_cedula").change(function(){
-            console.log("aqui toy");
-        var url= '../controller/actualizar.php';
-        console.log("aqui toy 2");
-        $.getJSON(url, { _num1 : $("#fkID_cedula option:selected").val() }, function(clientes) {
-        console.log("aqui toy");
-        $.each(clientes, function(i,cliente){
-        $("#nombrec").val(cliente.nombre);
-        $("#apellidoc").val(cliente.apellido);
-        $("#telefonoc").val(cliente.telefono);
-        $("#emailc").val(cliente.email);
-        $("#fkID_estadoc").val(cliente.empresa);
-        console.log("aqui toy");
-        });
-        });
-        });
-        });
-
-
-

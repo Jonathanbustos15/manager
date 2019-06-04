@@ -953,8 +953,6 @@ class recursosController extends recursos
             
             $cuento=sizeof($this->recursos);
             if (empty($this->recursos)) {
-                
-
             } else {
                 for ($a = 0; $a < sizeof($this->recursos); $a++) {
 

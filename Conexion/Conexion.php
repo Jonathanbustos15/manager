@@ -11,7 +11,7 @@ class Conexion{
      /*
      * La base de datos principal
      */
-    private $dbconection;
+    private $dbconection;   
     /*
      * El usuario con el que se conecta a la base de datos
      */

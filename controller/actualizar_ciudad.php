@@ -6,9 +6,11 @@
   		}
 
   		function comprobar($cod) {
-  			require("../Conexion/Conexion2.php");
+  			include_once '../Conexion/Conexion.php';
+        $Conector = new Conexion();
+        $db=$Conector->connect();
   			
-  			$sql = mysqli_query($con,"select * FROM `ciudad` WHERE fkID_departamento = '".$cod."'ORDER BY nombre_ciudad");
+  			$sql = mysqli_query($db,"select * FROM `ciudad` WHERE fkID_departamento = '".$cod."'ORDER BY nombre_ciudad");
 
   	$clientes = array();
 

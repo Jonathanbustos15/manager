@@ -6,11 +6,13 @@
   		}
 
   		function comprobar($cod) {
-  			require("../Conexion/Conexion2.php");
+  			include_once '../Conexion/Conexion.php';
+  			$Conector = new Conexion();
+		    $db=$Conector->connect();
   			
-  			$sql = mysqli_query($con,"select hoja_vida.pkID,hoja_vida.telefono,hoja_vida.email,hoja_vida.nombre,hoja_vida.apellido,estado.nombre as empresa FROM `hoja_vida`
+  			$sql = mysqli_query($db,"select hoja_vida.pkID,hoja_vida.telefono,hoja_vida.email,hoja_vida.nombre,hoja_vida.apellido,estado.nombre as empresa FROM `hoja_vida`
 			inner join estado on estado.pkID= estadov
-			 where hoja_vida.pkID = '".$cod."'");
+			 where hoja_vida.pkID = '".$cod."'");   
 
   	$clientes = array();
 

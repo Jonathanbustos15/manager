@@ -46,7 +46,7 @@
             return $sql_rep;
         }       
 
-        function crea_update($array_campos){
+        function crea_update($array_campos){  
             
             //-----------------------------------------------------------
             //toma el nombre de la tabla
@@ -70,6 +70,21 @@
             return $sql;
 
         }
+
+     function crea_deletelog($array_campos)
+    {
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['tipo']);
+        unset($array_campos['nom_tabla']);
+        // construye query...
+        $sql = "update `" . $nom_tabla . "` SET estadoV='2' where pkID = " . $array_campos['pkID'];
+        //-----------------------------------------------------------
+        return $sql;
+    }
 
         function crea_delete($array_campos){
             

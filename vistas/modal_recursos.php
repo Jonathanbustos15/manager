@@ -78,7 +78,7 @@
 
                     <div class="form-group">
                         <label for="" class="control-label">Empresa</label>
-                        <select name="fkID_estado" id="fkID_estado" class="form-control" required = "true">
+                        <select name="fkID_estadoc" id="fkID_estadoc" class="form-control" required = "true">
                             <option value="">Elije la Empresa</option>
                             <?php
                             $estadoSelect = $hvidainst->getEstado();

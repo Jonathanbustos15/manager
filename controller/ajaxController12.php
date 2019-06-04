@@ -102,6 +102,7 @@
             }
 
         break;
+        
         //----------------------------------------------------------------------------------------------------
 
 
@@ -134,7 +135,33 @@
 
             $generico = new GenericoDAO();
                   
-            $q_carga = "select pkID, concat_ws(' ', nidentificacion,nombre,apellido) as fkID_cedula,nombre as nombrec,apellido as apellidoc,telefono as telefonoc,email as emailc FROM `hoja_vida` WHERE pkID =" . $_GET["pkID"]; 
+            $q_carga = "select pkID, fkID_estado as fkID_estadoc, concat_ws(' ', nidentificacion,nombre,apellido) as fkID_cedula,nombre as nombrec,apellido as apellidoc,telefono as telefonoc,email as emailc FROM `hoja_vida` WHERE pkID =" . $_GET["pkID"]; 
+
+            $resultado = $generico->EjecutarConsulta($q_carga);
+            /**/
+            if($resultado){
+
+                $r["estado"] = "ok";
+                $r["mensaje"] = $resultado;
+
+            }else{
+
+                $r["estado"] = "Error";
+                $r["mensaje"] = "No hay registros.";
+            }
+
+        break;
+        //----------------------------------------------------------------------------------------------------
+
+        //----------------------------------------------------------------------------------------------------
+        case 'consultarcontrato':
+
+            $generico = new GenericoDAO();
+                  
+            $q_carga = "select contrato.pkID, fkID_tipo_contrato as selectC, fkID_cargo as selectCar, fkID_arl as selectarl, fkID_eps as selecteps,fkID_caja_compensacion as selectcaja, fkID_cesantias as selectcesan, fkID_pensiones as selectpensi, departamento.pkID as fkID_departamento, fkID_ciudad as pkciudad, ciudad.nombre_ciudad as ciudades, fecha_inicio as fechain, fecha_terminacion as fechater, salario_base as salarioc  FROM contrato
+                INNER JOIN ciudad ON ciudad.pkID = contrato.fkID_ciudad
+                INNER JOIN departamento ON departamento.pkID = ciudad.fkID_departamento
+                WHERE contrato.pkID =" . $_GET["pkID"]; 
 
             $resultado = $generico->EjecutarConsulta($q_carga);
             /**/
@@ -227,6 +254,22 @@
                 $r["mensaje"] = "No se eliminó.";
             }
 
+        break;
+
+        case 'eliminarlogico':
+        $generico = new GenericoDAO();
+        $crea_sql = new crea_sql();
+        $q_elimina = $crea_sql->crea_deletelog($_GET);
+        $r["query"] = $q_elimina;
+        $resultado = $generico->EjecutaEliminar($q_elimina);
+        /**/
+        if ($resultado) {
+            $r["estado"]  = "ok";
+            $r["mensaje"] = $resultado;
+        } else {
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se eliminó.";
+        }
         break;
         //----------------------------------------------------------------------------------------------------
 

@@ -145,7 +145,7 @@ class recursosController extends recursos
     {
         $deparSelect = $this->getDepartamento();
 
-        echo '<select name="selectCar" id="selectCarg" class="form-control" required = "true">
+        echo '<select name="selectDep" id="selectDep" class="form-control" required = "true">
                         <option value="">Elije el departamento</option>';
         for ($i = 0; $i < sizeof($deparSelect); $i++) {
             echo '<option value="' . $deparSelect[$i]["pkID"] . '" data-nom-estudio="' . $deparSelect[$i]["nombre_departamento"] . '">' . $deparSelect[$i]["nombre_departamento"] . '</option>';
@@ -981,7 +981,7 @@ class recursosController extends recursos
                                  <td>
                                      <button id="btn_editar_contrato" title="Editar"  name="edita_contrato" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_contrato" data-id-contrato = "'. $idc .'"data-id-contratoh = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>
 
-                                     <button id="btn_eliminar_contrato" title="Eliminar" name="elimina_hvida" type="button" class="btn btn-danger" data-id-hvida = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
+                                     <button id="btn_eliminar_contrato" title="Eliminar" name="elimina_contrato" type="button" class="btn btn-danger" data-id-contrato = "'. $idc .'"data-id-contratoh = "' . $id . '" ';if ($edita != 1)  {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-remove"></span></button>
                                  </td>
                              </tr>';
             };

@@ -277,9 +277,10 @@ function subid_archiv(nom_funcion) {
          var idcesan = $("#selectcesan option:selected").val();
          var idpensio = $("#selectpensi option:selected").val();
          var idciudad = $("#ciudades option:selected").val();
+         var funcion = "Insertar_Con"
          var cadena = "idhv=" + idhv + "&idticontra=" + idticontra + "&fechain=" + fechain + "&fechater=" + fechater +
                 "&salario=" + salario + "&idcargo=" + idcargo + "&idarl=" + idarl + "&ideps=" + ideps +
-                "&idcaja=" + idcaja + "&idcesan=" + idcesan + "&idpensio=" + idpensio + "&idciudad=" +idciudad;
+                "&idcaja=" + idcaja + "&idcesan=" + idcesan + "&idpensio=" + idpensio + "&idciudad=" +idciudad+ "&tipoaccion=" +funcion; 
          console.log(cadena);       
          $.ajax({  
               type: "POST",
@@ -301,6 +302,37 @@ function subid_archiv(nom_funcion) {
 
 
     function editar_contrato(){
+        console.log("hola voy a crear contrato");
+        var idhv = $("#fkID_cedula option:selected").val();
+         var idticontra = $("#selectC option:selected").val();
+         var idempresa = $("#fkID_estado option:selected").val();
+         var fechain = $("#fechain").val();
+         var fechater = $("#fechater").val();
+         var salario = $("#salarioc").val();
+         var idcargo = $("#selectCar option:selected").val();
+         var idarl = $("#selectarl option:selected").val();
+         var ideps = $("#selecteps option:selected").val();
+         var idcaja = $("#selectcaja option:selected").val();
+         var idcesan = $("#selectcesan option:selected").val();
+         var idpensio = $("#selectpensi option:selected").val();
+         var idciudad = $("#ciudades option:selected").val();
+         var funcion = "actualizar";
+         var ntabla = "contrato";
+         console.log("el contrato es"+id_contrato);
+         var cadena = "pkID=" +id_contrato+ "&fkID_hvida=" + idhv + "&fkID_tipo_contrato=" + idticontra + "&fecha_inicio=" + fechain + "&fecha_terminacion=" + fechater +
+                "&salario_base=" + salario + "&fkID_cargo=" + idcargo + "&fkID_arl=" + idarl + "&fkID_eps=" + ideps +
+                "&fkID_caja_compensacion=" + idcaja + "fkID_cesantias=" + idcesan + "&fkID_pensiones=" + idpensio + "&fkID_ciudad=" +idciudad+ "&tipo=" +funcion+ "&nom_tabla="+ntabla; 
+         console.log(cadena);       
+         $.ajax({  
+              type: "GET",
+              url: "../controller/ajaxController12.php",
+              data: cadena,
+              success:function(r){
+                    window.alert("Guardado correctamente.");
+                    location.reload();
+              }
+            })
+
 
     }
 
@@ -434,6 +466,31 @@ function subid_archiv(nom_funcion) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
                 data: "pkID=" + id_hvida + "&tipo=eliminarlogico&nom_tabla=hoja_vida",
+            }).done(function(data) {
+                //---------------------
+                console.log(data);
+                alert(data.mensaje.mensaje);
+                location.reload();
+            }).fail(function() {
+                console.log("error");
+            }).always(function() {
+                console.log("complete");
+            });
+        } else {
+            //no hace nada
+        }
+    };
+
+    function elimina_contrato(id_contrato) {
+        console.log('Eliminar el hvida: ' + id_contrato);
+        var confirma = confirm("En realidad quiere eliminar esta hoja de vida?");
+        console.log(confirma);
+        /**/
+        if (confirma == true) {
+            //si confirma es true ejecuta ajax
+            $.ajax({
+                url: '../controller/ajaxController12.php',
+                data: "pkID=" + id_contrato + "&tipo=eliminarlogico&nom_tabla=contrato",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
@@ -589,6 +646,7 @@ function subid_archiv(nom_funcion) {
         });
     };
     //cierra carga_hvida
+    //carga la primer ventada de contrato
     function carga_contrato(id_hvida) {
         console.log("Carga el hvida " + id_hvida);
         $.ajax({
@@ -603,10 +661,11 @@ function subid_archiv(nom_funcion) {
                     idc = valor
                     console.log(idc);
                 }
-                if (key == "fkID_cedula") {
-                    nombre = key;
-                    console.log(idc)
-                     $("#fkID_cedula option[value="+ idc +"]").attr("selected", true);
+                if (key == "fkID_estado") { 
+                    $("#"+ key +" option[value="+ valor +"]").attr("selected", true);
+                }
+                if (key == "fkID_cedula" ) {
+                     $("#"+ key +" option[value="+ idc +"]").attr("selected", true);
                      console.log("aquie es")
                 } else {
                 $("#" + key).val(valor);  
@@ -614,6 +673,39 @@ function subid_archiv(nom_funcion) {
                 
             });
             id_hvida = data.mensaje[0].pkID;
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    };
+    //-----------------------------------------------------------------------------------------------------
+    //carga la segunda ventada de contrato
+    function carga_contratos2(id_contrato) {
+        console.log("Carga el contrato " + id_contrato);
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "pkID=" + id_contrato + "&tipo=consultarcontrato",
+        }).done(function(data) {
+            idc = 0;
+            $.each(data.mensaje[0], function(key, valu) {
+                var valor = valu;
+                console.log(key + "--" + valor);
+                if (key == "pkciudad") {
+                    llave = valor;
+                }
+                if (key == "ciudades") {
+                     $('#ciudades').append('<option value='+llave+' selected="selected">'+valor+'</option>');
+                }
+                if (key == "fechain" || key == "fechater" || key == "salarioc" ) { 
+                    $("#" + key).val(valor); 
+                }
+                else{
+                     $("#"+ key +" option[value="+ valor +"]").attr("selected", true);
+                     console.log("aquie es")
+                }
+                
+            });
         }).fail(function() {
             console.log("error");
         }).always(function() {
@@ -1279,11 +1371,14 @@ rObj = function (evt) {
         $("#formadjuntos")[0].reset();
         input=document.getElementById("archivo");
         input.value = '';
-        id_contrato = $(this).attr('data-id-contratoh');
+        id_hvidac = $(this).attr('data-id-contratoh');
+        id_contrato = $(this).attr('data-id-contrato');
         $("#btn_actionHvida").removeAttr('disabled');
         //$("#selectPosgrado").removeAttr('hidden');
         console.log(id_contrato);
-        carga_contrato(id_contrato);
+        carga_contrato(id_hvidac);
+        carga_contratos2(id_contrato);
+        $("#btn_actioncontrato").removeAttr('disabled');
         
         //carga_propiedades(id_hvida);
     });
@@ -1313,10 +1408,14 @@ rObj = function (evt) {
         elimina_hvida(id_hvida);
         EliminaHvidaEstudio(id_hvida);
     });
+    $("[name*='elimina_contrato']").click(function(event) {
+        id_contrato = $(this).attr('data-id-contrato');
+        elimina_contrato(id_contrato);
+    });
     //autocompleta el formulario de datos empleado
     function autocomple(){
     var form = $("#fkID_cedula option:selected").val();
-    var ruta = "../controller/actualizar.php";
+    var ruta = "../controller/cargar_empleado.php";
     console.log(form);
     $.ajax({
         url: ruta,

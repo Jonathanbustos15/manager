@@ -12,12 +12,16 @@
   $idcesan = $_POST['idcesan'];
   $idpensio = $_POST['idpensio'];
   $idciudad = $_POST['idciudad'];
+  $accion = $_POST['tipoaccion'];
 
-  			require('../Conexion/Conexion2.php');
+  
+            include_once '../Conexion/Conexion.php';
+            $Conector = new Conexion();
+            $db=$Conector->connect();
 
-        $sql = "INSERT into contrato (fkID_hvida, fkID_tipo_contrato, fecha_inicio, fecha_terminacion, salario_base, fkID_cargo, fkID_arl, fkID_eps, fkID_caja_compensacion, fkID_cesantias, fkID_pensiones, fkID_ciudad) VALUES ('$idhv', '$idticontra', '$fechain', '$fechater', '$salario', '$idcargo', '$idarl', '$ideps', '$idcaja', '$idcesan', '$idpensio', '$idciudad')";
+            $sql = "INSERT into contrato (fkID_hvida, fkID_tipo_contrato, fecha_inicio, fecha_terminacion, salario_base, fkID_cargo, fkID_arl, fkID_eps, fkID_caja_compensacion, fkID_cesantias, fkID_pensiones, fkID_ciudad) VALUES ('$idhv', '$idticontra', '$fechain', '$fechater', '$salario', '$idcargo', '$idarl', '$ideps', '$idcaja', '$idcesan', '$idpensio', '$idciudad')";
 
-        echo $result = mysqli_query($con,$sql);
+            echo $result = mysqli_query($db,$sql);
  
 ?>
          

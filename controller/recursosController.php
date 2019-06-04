@@ -951,8 +951,12 @@ class recursosController extends recursos
             $elimina     = $arrPermisos[0]["eliminar"];
             $consulta    = $arrPermisos[0]["consultar"];
             
+            $cuento=sizeof($this->recursos);
+            if (empty($this->recursos)) {
+                
 
-            for ($a = 0; $a < sizeof($this->recursos); $a++) {
+            } else {
+                for ($a = 0; $a < sizeof($this->recursos); $a++) {
 
                 $id         = $this->recursos[$a]["pk"];
                 $idc  = $this->recursos[$a]["pkID"];
@@ -985,7 +989,8 @@ class recursosController extends recursos
                                  </td>
                              </tr>';
             };
-
+            }
+            
     }
 
     public function getTablaCertificaciones()

@@ -293,6 +293,7 @@ function subid_archiv(nom_funcion) {
                     location.reload();
                 } else {
                     console.log("fallo servidor");
+                    window.alert("Faltan Campos por diligenciar.");
                 }
               }
             })
@@ -1247,6 +1248,7 @@ rObj = function (evt) {
             $(this).val("");
         }
     });
+    $('#salarioc').mask('000.000.000.000.000', {reverse: true});
     $("#telefono").keyup(function(event) {
         /* Act on the event */
         if (((event.keyCode > 32) && (event.keyCode < 48)) || (event.keyCode > 57)) {

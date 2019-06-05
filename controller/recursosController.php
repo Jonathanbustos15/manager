@@ -971,14 +971,14 @@ class recursosController extends recursos
                 echo '
 
                              <tr>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $nombres . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $cedula . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $nom_estado . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $tcontra . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Ncargo . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Nciudad . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Finicio . '</td>
-                                 <td title="Click Ver Detalles" href="hvidaDetalles.php?id_hoja=' . $idc . '" class="detail">' . $Fterminacion . '</td>
+                                 <td >' . $nombres . '</td>
+                                 <td >' . $cedula . '</td>
+                                 <td >' . $nom_estado . '</td>
+                                 <td >' . $tcontra . '</td>
+                                 <td >' . $Ncargo . '</td>
+                                 <td >' . $Nciudad . '</td>
+                                 <td >' . $Finicio . '</td>
+                                 <td >' . $Fterminacion . '</td>
 
                                  <td>
                                      <button id="btn_editar_contrato" title="Editar"  name="edita_contrato" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_contrato" data-id-contrato = "'. $idc .'"data-id-contratoh = "' . $id . '" ';if ($edita != 1) {echo 'disabled="disabled"';}echo '><span class="glyphicon glyphicon-pencil"></span></button>

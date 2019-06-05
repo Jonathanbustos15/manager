@@ -55,7 +55,7 @@ class recursosController extends recursos
         $cedulaSelect = $this->getTipoContrato();
 
         echo '<select name="selectC" id="selectC" class="form-control" required = "true">
-                        <option value="">Elije el tipo de contrato</option>';
+                        <option value="" selected>Elije el tipo de contrato</option>';
         for ($i = 0; $i < sizeof($cedulaSelect); $i++) {
             echo '<option value="' . $cedulaSelect[$i]["pkID"] . '" data-nom-estudio="' . $tecnicoSelect[$i]["nombre_tipo_contrato"] . '">' . $cedulaSelect[$i]["nombre_tipo_contrato"] . '</option>';
         };
@@ -68,7 +68,7 @@ class recursosController extends recursos
         $cargoSelect = $this->getCargos();
 
         echo '<select name="selectCar" id="selectCar" class="form-control" required = "true">
-                        <option value="">Elije el cargo</option>';
+                        <option value="" selected>Elije el cargo</option>';
         for ($i = 0; $i < sizeof($cargoSelect); $i++) {
             echo '<option value="' . $cargoSelect[$i]["pkID"] . '" data-nom-estudio="' . $cargoSelect[$i]["nombre_cargo"] . '">' . $cargoSelect[$i]["nombre_cargo"] . '</option>';
         };

@@ -184,6 +184,31 @@ function subid_archiv(nom_funcion) {
         return this.attr(name) !== undefined;
     };
 
+    function validarcontrato(){
+        var empleado = $("#fkID_cedula option:selected").val();
+        var t_contrato = $("#selectC option:selected").val();
+        var empresa = $("#fkID_estadoc option:selected").val();
+        var cargo = $("#selectCar option:selected").val();
+        var arl = $("#selectarl option:selected").val();
+        var eps = $("#selecteps option:selected").val();
+        var caja = $("#selectcaja option:selected").val();
+        var cesantias = $("#selectcesan option:selected").val();
+        var pensiones = $("#selectpensi option:selected").val();
+        var departamento = $("#fkID_departamento option:selected").val();
+        var ciudad = $("#ciudades option:selected").val();
+        var salario = $("#salarioc").val(); 
+        var fecha = $("#fechain").val();
+        console.log ("la fecha es"+fecha);
+        var respuesta;
+        if (empleado === "" || t_contrato === "" || empresa === "" || cargo === "" || arl === "" || eps === "" || caja === "" || cesantias === "" || pensiones === "" || departamento === "" || ciudad === "" || salario === "" || fecha === "") {
+            respuesta = "no"
+            return respuesta
+        }else{
+            respuesta = "ok"
+            return respuesta
+        }
+    }
+
     function validaBtnGuardar() {
         if (verPkIdHoja()) {
             $("#btn_actionHvida").removeAttr('disabled');
@@ -293,7 +318,6 @@ function subid_archiv(nom_funcion) {
                     location.reload();
                 } else {
                     console.log("fallo servidor");
-                    window.alert("Faltan Campos por diligenciar.");
                 }
               }
             })
@@ -306,7 +330,7 @@ function subid_archiv(nom_funcion) {
         console.log("hola voy a crear contrato");
         var idhv = $("#fkID_cedula option:selected").val();
          var idticontra = $("#selectC option:selected").val();
-         var idempresa = $("#fkID_estado option:selected").val();
+         var idempresa = $("#fkID_estadoc option:selected").val();
          var fechain = $("#fechain").val();
          var fechater = $("#fechater").val();
          var salario = $("#salarioc").val();
@@ -322,19 +346,35 @@ function subid_archiv(nom_funcion) {
          console.log("el contrato es"+id_contrato);
          var cadena = "pkID=" +id_contrato+ "&fkID_hvida=" + idhv + "&fkID_tipo_contrato=" + idticontra + "&fecha_inicio=" + fechain + "&fecha_terminacion=" + fechater +
                 "&salario_base=" + salario + "&fkID_cargo=" + idcargo + "&fkID_arl=" + idarl + "&fkID_eps=" + ideps +
-                "&fkID_caja_compensacion=" + idcaja + "fkID_cesantias=" + idcesan + "&fkID_pensiones=" + idpensio + "&fkID_ciudad=" +idciudad+ "&tipo=" +funcion+ "&nom_tabla="+ntabla; 
+                "&fkID_caja_compensacion=" + idcaja + "&fkID_cesantias=" + idcesan + "&fkID_pensiones=" + idpensio + "&fkID_ciudad=" +idciudad+ "&tipo=" +funcion+ "&nom_tabla="+ntabla; 
          console.log(cadena);       
          $.ajax({  
               type: "GET",
               url: "../controller/ajaxController12.php",
               data: cadena,
               success:function(r){
+                    editar_empresa();
+              }
+            })
+    }
+    //editar empresa
+    function editar_empresa(){
+        console.log("hola voy a crear contrato");
+        var id = $("#fkID_cedula option:selected").val();
+        var idempres = $("#fkID_estadoc option:selected").val();
+
+        var funcio = "actualizar";
+        var ntabl = "hoja_vida";
+        var caden = "pkID="+id + "&fkID_estado=" +idempres+ "&tipo=" +funcio+ "&nom_tabla="+ntabl; 
+        $.ajax({  
+              type: "GET",
+              url: "../controller/ajaxController12.php",
+              data: caden,
+              success:function(p){
                     window.alert("Guardado correctamente.");
                     location.reload();
               }
-            })
-
-
+            }) 
     }
 
 
@@ -1317,30 +1357,43 @@ rObj = function (evt) {
         $("#lbl_btn_actionHvida").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         //$("#selectPosgrado").attr('hidden','');
         $("#btn_actionHvida").attr("data-action", "crear");
-        $("#btn_actionHvida").attr('disabled', 'disabled');
+        //$("#btn_actionHvida").removeAttr('disabled');
+        //$("#btn_actionHvida").attr('disabled', 'disabled');
         $("#frm_estudios_hvida").html("");
         $("#archivos_res").html("");
         $("#res_form").html("");
         arrEstudios.length = 0;
-        validaBtnGuardar();
+        //validaBtnGuardar();
+        $("#btn_actionHvida").removeAttr('disabled');
         $("#form_hvida")[0].reset();
         $("#form_hvida_estudios")[0].reset();
         $("form_archivo")[0].reset();
         $("form1")[0].reset();
     });
+    $(document).ready(function(){
     $("#btn_nuevocontrato").click(function() {
        console.log("mire aqui");
        $("#lbl_form_contrato").html("Nuevo Contrato");
         $("#lbl_btn_actioncontrato").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         $("#btn_actioncontrato").attr("data-action", "crearc");
-        //$("#btn_actioncontrato").attr('disabled', 'disabled');
         $("#btn_actioncontrato").removeAttr('disabled', 'disabled');
-        //validaBtnGuardarcon();
         $("#form_contratos")[0].reset();
         $("#form_contrato_datos")[0].reset();
         $("#formadjuntos")[0].reset();
+        $("#fkID_cedula").val("");
+        $("#selectC").val("");
+        $("#fkID_estadoc").val("");
+        $("#selectCar").val("");
+        $("#selectarl").val("");
+        $("#selecteps").val("");
+        $("#selectcaja").val("");
+        $("#selectcesan").val("");
+        $("#selectpensi").val("");
+        $("#fkID_departamento").val("");
         document.getElementById ("ciudades") .options.length = 0;
     });
+    });
+
     $("[name='archivo_sube']").change(function() {
         validaArchivo();
     });
@@ -1356,7 +1409,7 @@ rObj = function (evt) {
         input=document.getElementById("archivo");
         input.value = '';
         id_hvida = $(this).attr('data-id-hvida');
-        $("#btn_actionHvida").removeAttr('disabled');
+        //$("#btn_actionHvida").removeAttr('disabled');
         //$("#selectPosgrado").removeAttr('hidden');
         carga_hvida(id_hvida);
         //carga_propiedades(id_hvida);
@@ -1371,12 +1424,8 @@ rObj = function (evt) {
         $("#form_contratos")[0].reset();
         $("#form_contrato_datos")[0].reset();
         $("#formadjuntos")[0].reset();
-        input=document.getElementById("archivo");
-        input.value = '';
         id_hvidac = $(this).attr('data-id-contratoh');
         id_contrato = $(this).attr('data-id-contrato');
-        $("#btn_actionHvida").removeAttr('disabled');
-        //$("#selectPosgrado").removeAttr('hidden');
         console.log(id_contrato);
         carga_contrato(id_hvidac);
         carga_contratos2(id_contrato);
@@ -1453,8 +1502,9 @@ function autocompleciudad(){
             var tipos = JSON.parse(respuesta);
             console.log(tipos);
             console.log("aqui toy yoo");
+            $('#ciudades').append('<option value="" selected="selected">Elije la Ciudad</option>');
             for(x=0; x<tipos.length; x++) {
-                $('#ciudades').append('<option value='+tipos[x].codigo+' selected="selected">'+tipos[x].nombre+'</option>');
+                $('#ciudades').append('<option value='+tipos[x].codigo+'>'+tipos[x].nombre+'</option>');
                 console.log(tipos[x].nombre);
             }
         }
@@ -1488,7 +1538,6 @@ function autocompleciudad(){
     Botón de accion de formulario
     */
     $("#btn_actionHvida").click(function() {
-        /**/
         action = $(this).attr("data-action");
         valida_action(action);
         //enviarf();
@@ -1499,10 +1548,15 @@ function autocompleciudad(){
     Botón de accion de formulario contrato
     */
     $("#btn_actioncontrato").click(function() {
-        /**/
+        var validacioncon = validarcontrato();
+        if (validacioncon === "no") {
+            window.alert("Faltan Campos por diligenciar.");
+        } else {
         action = $(this).attr("data-action");
         valida_actioncon(action);
         console.log("accion a ejecutar: " + action); 
+        }
+        
     });
     /*
     Botón de accion de busqueda de estudios

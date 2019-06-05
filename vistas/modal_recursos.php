@@ -20,7 +20,7 @@
 
           <div role="tabpanel" class="tab-pane active" id="datosEmpleados">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-            <form id="form_contratos"  method="POST">
+            <form id="form_contratos" name="form_contratos">
                 <br>
                     <div class="form-group" hidden>
                         <div class="col-sm-10">
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">Cedula</label>
                         <select name="fkID_cedula" id="fkID_cedula" class="form-control" required = "true">
-                            <option value="">Elije el empleado</option>
+                            <option value="" selected>Elije el empleado</option>
                             <?php
                                 $estadoSelect = $recursosInst->getCedula();
                                 for ($i = 0; $i < sizeof($estadoSelect); $i++) {
@@ -66,7 +66,7 @@
 
           <div role="tabpanel" class="tab-pane" id="Contrato">
           <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-          <form id="form_contrato_datos">
+          <form id="form_contrato_datos" name="form_contrato_datos" >
                 <div class="">
                 <br>
                     <div class="form-group">
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">Empresa</label>
                         <select name="fkID_estadoc" id="fkID_estadoc" class="form-control" required = "true">
-                            <option value="">Elije la Empresa</option>
+                            <option value="" selected>Elije la Empresa</option>
                             <?php
                             $estadoSelect = $hvidainst->getEstado();
                             for ($i = 0; $i < sizeof($estadoSelect); $i++) {
@@ -87,6 +87,7 @@
                             }
                             ;
                             ?>
+                            <option value="" selected>Elije la Empresa</option>
                         </select>
                     </div>
 
@@ -97,7 +98,7 @@
 
                     <div class="form-group">
                         <label for="selectEstudio" class="control-label">Fecha Terminación de contrato</label>
-                        <input type="date" class="form-control" name="fechater" id="fechater">
+                        <input type="date" class="form-control" name="fechater" id="fechater" required="true">
                     </div>
 
                     <div class="form-group">
@@ -163,7 +164,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">Ciudad</label>
                         <select name="ciudades" id="ciudades" class="form-control" required = "true">
-                          <option></option>
+                          <option value="" selected>Elije la ciudad</option>;
                         </select>  
                     </div>
 

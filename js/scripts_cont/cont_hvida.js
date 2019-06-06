@@ -305,9 +305,7 @@ function subid_archiv(nom_funcion) {
               data: cadena,
               success:function(r){
                 if (r==1) {
-                    console.log("agregado con exito");
-                    window.alert("Guardado correctamente.");
-                    location.reload();
+                    editar_empresa();
                 } else {
                     console.log("fallo servidor");
                 }

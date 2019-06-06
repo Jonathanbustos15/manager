@@ -180,12 +180,10 @@
             <div class="form-group">
             <br>
           <form id="formadjuntos" method="post" enctype="multipart/form-data">
-              <div class="form-group ">
-              <div class="col-sm-8 custom-file">
-                <input type="file" class="form-control custom-file-input" id="archivo" name="archivo[]" multiple="">
-                <br>
-              </div>
-              </div>
+              
+                    <?php
+                          $recursosInst->getArchivos_Contratos();
+                    ?>
               <div class="form-group" hidden="true">
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="pkID" name="pkID">

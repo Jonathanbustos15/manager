@@ -6,11 +6,13 @@ if($_POST){
 		$tipo = $_FILES['archivo'.$i]['type'];
 		$tamanio = $_FILES['archivo'.$i]['size'];
 		$ruta = $_FILES['archivo'.$i]['tmp_name'];
+		$id = $_POST['pkID'];
+
 		//Reemplaza los ' ','%','-' por guiones al piso
 		$nombre = str_replace(" ", "_", $nombre);
 		$nombre = str_replace("%", "_", $nombre);
 		$nombre = str_replace("-", "_", $nombre);
-		$nombre = $nombre;
+		$nombre = $id + $nombre;
 		$destino = "../vistas/subidas/" . $nombre;
 
 		//Copia el archivo al servidor

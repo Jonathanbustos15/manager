@@ -139,6 +139,24 @@ class recursosController extends recursos
         };
         echo '</select>';
      }
+     //Consulta archivos
+     public function getArchivos_Contratos()
+    {
+        $archSelect = $this->getArchivo();
+
+        for ($i = 0; $i < sizeof($archSelect); $i++) {
+            echo'<div class="form-group ">
+                <div class="col-sm-8 custom-file">';
+            echo '<label for="" class="custom-control-label">'.$archSelect[$i]["nombre_archivo_contrato"].'</label>';
+            echo '<input type="file" value="' . $archSelect[$i]["pkID"] . '" class="form-control  custom-file-input" data-nom-archivo="' . $archSelect[$i]["pkID"].'"id="' . $archSelect[$i]["id_input"].'" name="' . $archSelect[$i]["id_input"].'" multiple="">';
+            echo '</div>
+            <br>
+                    </div>
+                    <br>
+                    <br>';
+
+        };
+     }
 
      //Consulta las Pensiones
      public function getSeleccion_departamento()

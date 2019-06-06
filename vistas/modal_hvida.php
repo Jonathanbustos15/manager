@@ -132,28 +132,26 @@ $hvidainst->getSelectCertificacion();
           </div>
 
           <div role="tabpanel" class="tab-pane" id="archivos">
-            <div class="form-group">
+            <div class="">
             <br>
-          <form id="form1" method="post" enctype="multipart/form-data">
-              <div class="form-group ">
-              <div class="col-sm-8 custom-file">
-                <input type="file" class="form-control custom-file-input" id="archivo" name="archivo[]" multiple="">
-                <br>
-              </div>
-              </div>
-              <div class="form-group" hidden="true">
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="pkID" name="pkID">
-                    </div>
-                </div>
-              <!--<button type="submit" class="btn btn-primary">Cargar</button>
-            </div>
-            <div id="not_img" hidden>hola</div>                       
-                      --->
+                <form id="form_archivo" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="archivo_sube" class="control-label">Archivo</label>
+                        <!--<input id="archivo" multiple="multiple" type="file" name="archivo[]">-->
+
+                        <input id="fileupload" type="file" name="files[]" data-url="../server/php/" multiple>
+                        <!--+++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                        <div id="not_img" hidden>hola</div>                       
+                        <!--+++++++++++++++++++++++++++++++++++++++++++++++++++-->
                         <br>
-                        <div id="archivos_res"></div> 
-            
-          </form>
+                        <div id="archivos_res"></div>             
+                    </div>
+                </form>
+                <!--<button id="btn_sube_archivos" class="btn btn-primary">Subir</button>
+                <br><br>
+                <button id="btn_subir" data-nombre-archivo="-">buscar nombre</button>-->
+                <br>
+                <div id="res_form"></div>
                       
                 <!--<button id="btn_sube_archivos" class="btn btn-primary">Subir</button>
                 <br><br>

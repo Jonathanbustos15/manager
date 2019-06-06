@@ -348,6 +348,14 @@ class recursos extends GenericoDAO
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
 
+    public function getArchivo()
+    {
+
+        $this->q_general = "select * FROM `tipo_archivo_contrato`";
+
+        return GenericoDAO::EjecutarConsulta($this->q_general);
+    }
+
     public function getDepartamento()
     {
 

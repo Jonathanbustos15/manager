@@ -72,7 +72,7 @@ function subid_archiv(nom_funcion) {
         //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
         id_hvida = $(this).attr('data-id-hvida');
         var formData = new FormData($("#form1")[0]);
-        var data = formData + "&pkID="+id_hvida;
+        var data = formData + "&pkID="+id_hvida;  
         //la ruta del php que ejecuta ajax
         var ruta = "../subida_archivo/url2.php";
         //hacemos la petición ajax
@@ -344,6 +344,7 @@ function subid_archiv(nom_funcion) {
               data: cadena,
               success:function(r){
                     editar_empresa();
+                    cargar_documentos_contratos();
               }
             })
     }
@@ -362,13 +363,57 @@ function subid_archiv(nom_funcion) {
               data: caden,
               success:function(p){
                     window.alert("Guardado correctamente.");
-                    location.reload();
+                    //location.reload();
               }
             }) 
     }
 
+    //editar empresa
+    function cargar_documentos_contratos(){
+        var caden = "tipo=consultarA&nom_tabla=tipo_archivo_contrato"; 
+        console.log(caden);
+        $.ajax({  
+              type: "POST",
+              url: "../controller/document_contrato.php",
+              data: caden,
+              success:function(a){
+                    var tipos = JSON.parse(a);
+                    console.log(tipos[0].id_input);
+                    var num= tipos.length;
+                    //console.log(tipos[0].nombre);
+                    for(x=0; x < tipos.length; x++) {
+                        var valo = document.getElementById (tipos[x].id_input);
+                        if (valo.value==="") {} 
+                            else {
+                                var ruta = valo.value
+                                var filename = ruta.replace(/^.*[\\\/]/, '');
+                                console.log(filename)
+                                console.log(valo)
+                                subir_documentos_contratos(filename,tipos[x].id_input,ruta)
+                        }
+                    }   
+              }
+            }) 
+    }
 
-    //funciones hoja de vida
+    function subir_documentos_contratos(nombre,clave,ruta){
+        console.log(id_contrato);
+        var parametros = new FormData($("#formadjuntos")[0]);
+        parametros.append =('valor', clave);
+        //parametros.append = "nombre="+nombre+"&pkID="+id_contrato+"&valor="+clave+"&ruta="+ruta;
+        //console.log(caden);
+        $.ajax({  
+              type: "POST",
+              url: "../subida_archivo/documentos.php",
+              data: parametros,
+              contentType: false,
+              processData: false,
+              success:function(a){
+                      console.log(a);
+              }
+            }) 
+    }
+    
     //crea hoja de vida
     function crea_hvida(){
 
@@ -514,7 +559,7 @@ function subid_archiv(nom_funcion) {
 
     function elimina_contrato(id_contrato) {
         console.log('Eliminar el hvida: ' + id_contrato);
-        var confirma = confirm("En realidad quiere eliminar esta hoja de vida?");
+        var confirma = confirm("En realidad quiere eliminar este contrato?");
         console.log(confirma);
         /**/
         if (confirma == true) {

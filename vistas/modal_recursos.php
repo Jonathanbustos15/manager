@@ -179,7 +179,7 @@
           <div role="tabpanel" class="tab-pane" id="adjuntos">
             <div class="form-group">
             <br>
-          <form id="formadjuntos" method="post" enctype="multipart/form-data">
+          <form id="formadjuntos" name="formadjuntos" method="post" enctype="multipart/form-data">
               
                     <?php
                           $recursosInst->getArchivos_Contratos();

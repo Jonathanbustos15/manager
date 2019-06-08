@@ -148,7 +148,7 @@ class recursosController extends recursos
             echo'<div class="form-group ">
                 <div class="col-sm-8 custom-file">';
             echo '<label for="" class="custom-control-label">'.$archSelect[$i]["nombre_archivo_contrato"].'</label>';
-            echo '<input type="file" value="' . $archSelect[$i]["pkID"] . '" class="form-control  custom-file-input" data-nom-archivo="' . $archSelect[$i]["pkID"].'"id="' . $archSelect[$i]["id_input"].'" name="' . $archSelect[$i]["id_input"].'" multiple="">';
+            echo '<input type="file" value="' . $archSelect[$i]["pkID"] . '" class="form-control  custom-file-input" data-nom-archivo="' . $archSelect[$i]["pkID"].'"id="' . $archSelect[$i]["id_input"].'" name="' . $archSelect[$i]["id_input"].'">';
             echo '</div>
             <br>
                     </div>

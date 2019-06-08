@@ -2,7 +2,7 @@
   $cod = $_POST["ciudad"];
 
   		if (!empty($cod)) {
-  			comprobar($cod);
+  			comprobar($cod);  
   		}
 
   		function comprobar($cod) {

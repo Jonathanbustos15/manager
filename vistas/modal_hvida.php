@@ -153,11 +153,6 @@ $hvidainst->getSelectCertificacion();
                 <br>
                 <div id="res_form"></div>
                       
-                <!--<button id="btn_sube_archivos" class="btn btn-primary">Subir</button>
-                <br><br>
-                <button id="btn_subir" data-nombre-archivo="-">buscar nombre</button>-->
-                <br>
-                <div id="res_form"></div>
 
             </div>
           </div>

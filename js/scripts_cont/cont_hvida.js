@@ -287,6 +287,7 @@ function subid_archiv(nom_funcion) {
          var fechain = $("#fechain").val();
          var fechater = $("#fechater").val();
          var salario = $("#salarioc").val();
+         salario = replaceAll(salario, ".", "" );
          var idcargo = $("#selectCar option:selected").val();
          var idarl = $("#selectarl option:selected").val();
          var ideps = $("#selecteps option:selected").val();
@@ -297,18 +298,16 @@ function subid_archiv(nom_funcion) {
          var funcion = "Insertar_Con"
          var cadena = "idhv=" + idhv + "&idticontra=" + idticontra + "&fechain=" + fechain + "&fechater=" + fechater +
                 "&salario=" + salario + "&idcargo=" + idcargo + "&idarl=" + idarl + "&ideps=" + ideps +
-                "&idcaja=" + idcaja + "&idcesan=" + idcesan + "&idpensio=" + idpensio + "&idciudad=" +idciudad+ "&tipoaccion=" +funcion; 
-         console.log(cadena);       
+                "&idcaja=" + idcaja + "&idcesan=" + idcesan + "&idpensio=" + idpensio + "&idciudad=" +idciudad+ "&tipoaccion=" +funcion;        
          $.ajax({  
               type: "POST",
               url: "../controller/ajaxContrato.php",
               data: cadena,
               success:function(r){
-                if (r==1) {
+                    var tipo = JSON.parse(r);
+                    id_contrato = tipo[0].codigo;
                     editar_empresa();
-                } else {
-                    console.log("fallo servidor");
-                }
+                    cargar_documentos_contratos();
               }
             })
     }
@@ -324,6 +323,7 @@ function subid_archiv(nom_funcion) {
          var fechain = $("#fechain").val();
          var fechater = $("#fechater").val();
          var salario = $("#salarioc").val();
+         salario = replaceAll(salario, ".", "" );
          var idcargo = $("#selectCar option:selected").val();
          var idarl = $("#selectarl option:selected").val();
          var ideps = $("#selecteps option:selected").val();
@@ -363,12 +363,12 @@ function subid_archiv(nom_funcion) {
               data: caden,
               success:function(p){
                     window.alert("Guardado correctamente.");
-                    //location.reload();
+                    location.reload();
               }
             }) 
     }
 
-    //editar empresa
+    //consulta los file que estan con archivos
     function cargar_documentos_contratos(){
         var caden = "tipo=consultarA&nom_tabla=tipo_archivo_contrato"; 
         console.log(caden);
@@ -385,33 +385,43 @@ function subid_archiv(nom_funcion) {
                         var valo = document.getElementById (tipos[x].id_input);
                         if (valo.value==="") {} 
                             else {
+                                var fkid = tipos[x].codigo;
                                 var ruta = valo.value
                                 var filename = ruta.replace(/^.*[\\\/]/, '');
                                 console.log(filename)
                                 console.log(valo)
-                                subir_documentos_contratos(filename,tipos[x].id_input,ruta)
+                                subir_documentos_contratos(filename,tipos[x].id_input,ruta,fkid)
                         }
                     }   
               }
             }) 
     }
-
-    function subir_documentos_contratos(nombre,clave,ruta){
+    //carga los archivos en el servidor 
+    function subir_documentos_contratos(nombre,clave,ruta,fkid){
         console.log(id_contrato);
-        var parametros = new FormData($("#formadjuntos")[0]);
-        parametros.append =('valor', clave);
-        //parametros.append = "nombre="+nombre+"&pkID="+id_contrato+"&valor="+clave+"&ruta="+ruta;
-        //console.log(caden);
+        var data = new FormData();
+        var fk = fkid
+        data.append('file', $("#"+clave).get(0).files[0]);
+        data.append('nombre', nombre);
+        data.append('ruta', ruta);
+        data.append('pkID', id_contrato);
         $.ajax({  
               type: "POST",
               url: "../subida_archivo/documentos.php",
-              data: parametros,
+              data: data,
               contentType: false,
               processData: false,
               success:function(a){
                       console.log(a);
+                      var url = a.replace(/['"]+/g, '')
+                      console.log(url);
+                      insertaArchivocon("fkID_contrato="+id_contrato+"&url="+url+"&fkID_tipo_archivo_contrato="+fk);
               }
             }) 
+    }
+    //carga los archivos en la base de datos
+    function insertar_documentos_contratos(id_contrato,url,fk){
+        
     }
     
     //crea hoja de vida
@@ -678,6 +688,12 @@ function subid_archiv(nom_funcion) {
 
     };
     //cierra funcion edita_hvida};
+    //remplaza los puntos en el string
+    function replaceAll( text, busca, reemplaza ){
+      while (text.toString().indexOf(busca) != -1)
+          text = text.toString().replace(busca,reemplaza);
+      return text;
+    }
     //cierra funcion edita_hvida
     function verPkIdHoja() {
         var id_hvida_form = $("#pkID").val();
@@ -1189,7 +1205,7 @@ rObj = function (evt) {
         //---------------------------------------------------------------------------------------
     }; //cierra función subida
     function insertaArchivo(data) {
-        console.log("Esta es la data")
+        console.log("Esta es la data")  
         console.log(data)
         //crear un array con cada uno de los registros
         //de pkID_hojaVida y url_archivo 
@@ -1197,6 +1213,25 @@ rObj = function (evt) {
         $.ajax({
             url: "../controller/ajaxController12.php",
             data: data + "&tipo=inserta&nom_tabla=archivo",
+        }).done(function(data) {
+            //---------------------
+            console.log(data);
+            //alert(data[0].mensaje);
+            //location.reload();          
+        }).fail(function(data) {
+            console.log(data);
+            //alert(data[0].mensaje);          
+        }).always(function() {
+            console.log("complete");
+        });
+    }
+    //inserta archivos de contrato
+    function insertaArchivocon(data) {
+        console.log("Esta es la data")  
+        console.log(data)
+        $.ajax({
+            url: "../controller/ajaxController12.php",
+            data: data + "&tipo=inserta&nom_tabla=archivos_contrato",
         }).done(function(data) {
             //---------------------
             console.log(data);

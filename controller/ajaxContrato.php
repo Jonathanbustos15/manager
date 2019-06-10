@@ -20,8 +20,14 @@
             $db=$Conector->connect();
 
             $sql = "INSERT into contrato (fkID_hvida, fkID_tipo_contrato, fecha_inicio, fecha_terminacion, salario_base, fkID_cargo, fkID_arl, fkID_eps, fkID_caja_compensacion, fkID_cesantias, fkID_pensiones, fkID_ciudad) VALUES ('$idhv', '$idticontra', '$fechain', '$fechater', '$salario', '$idcargo', '$idarl', '$ideps', '$idcaja', '$idcesan', '$idpensio', '$idciudad')";
-
-            echo $result = mysqli_query($db,$sql);
+            $result = mysqli_query($db,$sql);
+            $clientes = array();
+           $resulta = mysqli_query($db,"select pkID FROM `contrato` ORDER by pkID DESC LIMIT 1");
+           while ($row = mysqli_fetch_row($resulta)) {
+            $codigo=$row[0];
+            $clientes[] = array('codigo'=> $codigo, 'nombre'=> "pkID", 'id'=> "texto");
+            }
+           echo json_encode($clientes);
  
 ?>
          

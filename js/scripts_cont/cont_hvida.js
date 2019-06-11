@@ -396,6 +396,8 @@ function subid_archiv(nom_funcion) {
               }
             }) 
     }
+
+    
     //carga los archivos en el servidor 
     function subir_documentos_contratos(nombre,clave,ruta,fkid){
         console.log(id_contrato);
@@ -768,7 +770,7 @@ function subid_archiv(nom_funcion) {
             data: "pkID=" + id_contrato + "&tipo=consultarcontrato",
         }).done(function(data) {
             idc = 0;
-            $.each(data.mensaje[0], function(key, valu) {
+            $.each(data.mensaje[0], function(key, valu) {  
                 var valor = valu;
                 console.log(key + "--" + valor);
                 if (key == "pkciudad") {
@@ -1482,14 +1484,16 @@ rObj = function (evt) {
         $("#lbl_form_contrato").html("Editar Registro de Contrato");
         $("#lbl_btn_actioncontrato").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
         $("#btn_actioncontrato").attr("data-action", "editarc");
-        $("#form_contratos")[0].reset();
-        $("#form_contrato_datos")[0].reset();
-        $("#formadjuntos")[0].reset();
+        $("#res_form_contrato").remove();
         id_hvidac = $(this).attr('data-id-contratoh');
         id_contrato = $(this).attr('data-id-contrato');
-        console.log(id_contrato);
         carga_contrato(id_hvidac);
         carga_contratos2(id_contrato);
+        console.log(id_contrato);
+        
+        cargar_documentos_contrato();
+        $("#formadjuntos")[0].reset();
+        document.getElementById('res_form_contrato').innerHTML="";
         $("#btn_actioncontrato").removeAttr('disabled');
         
         //carga_propiedades(id_hvida);
@@ -1570,6 +1574,65 @@ function autocompleciudad(){
             }
         }
     })
+};
+//trae la lista de documentos
+function cargar_documentos_contrato(){
+    var caden = "tipo=consultarA&nom_tabla=tipo_archivo_contrato"; 
+        $.ajax({  
+              type: "POST",
+              url: "../controller/document_contrato.php",
+              data: caden,
+              success:function(a){
+                    var tipos = JSON.parse(a);
+                    console.log(tipos);
+                    crear_files_contrato(a);   
+              }
+            }) 
+};
+//crea los input segun los registros de archivos_contratos
+function crear_files_contrato(a){
+    var tipos = JSON.parse(a);
+    var caden = "tipo=consultararchivo&nom_tabla=archivos_contrato&pkID="+id_contrato; 
+    console.log(id_contrato)
+    console.log("chavito")
+        $.ajax({  
+              type: "POST",
+              url: "../controller/document_contrato.php",
+              data: caden,
+              success:function(ro){
+                var segumiento = 1;
+                console.log(tipos[0].codigo)
+                var tipo = JSON.parse(ro);
+                console.log(tipo)
+                for(x=0; x<tipos.length; x++) {
+                for(y=0; y<tipo.length; y++) {
+                if (tipos[x].codigo === tipo[y].id_input) {
+                    $("#res_form_contrato").append(
+
+                    '<div class="frm_group" id="frm_group'+tipos[x].id_input+'">'+
+
+                    '<label class="control-label">Descripción para el archivo: '+tipos[x].nombre+'</label>'+
+
+                    '<button name="btn_eliminaArchivo" data-id-archivo="'+tipos[x].nombre+'" data-id-frm-group="frm_group'+tipos[x].id_input+'" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>'+
+
+                    '<input type="text" class="form-control" name="detail['+tipos[x].nombre+']" data-name-file="'+tipo[y].nombre+'" />'+
+
+                    '</div>'
+
+                    );
+                    //$()[0].remove();
+                    $("#"+tipos[x].codigo).prop("disabled", true);
+                    //document.getElementById(tipos[x].codigo).disabled = true;
+                    segumiento = 2;
+                } 
+                if (segumiento === 1) {
+
+                }
+            }
+
+            } 
+              }
+            }) 
 };
 
  $(document).ready(function(){

@@ -145,15 +145,15 @@ class recursosController extends recursos
         $archSelect = $this->getArchivo();
 
         for ($i = 0; $i < sizeof($archSelect); $i++) {
-            echo'<div class="form-group ">
+            echo'<div class="form-group" id="' . $archSelect[$i]["pkID"] . '" >
                 <div class="col-sm-8 custom-file">';
             echo '<label for="" class="custom-control-label">'.$archSelect[$i]["nombre_archivo_contrato"].'</label>';
             echo '<input type="file" value="' . $archSelect[$i]["pkID"] . '" class="form-control  custom-file-input" data-nom-archivo="' . $archSelect[$i]["pkID"].'"id="' . $archSelect[$i]["id_input"].'" name="' . $archSelect[$i]["id_input"].'">';
             echo '</div>
-            <br>
-                    </div>
+            <br><br>
                     <br>
-                    <br>';
+                    </div>
+                    ';
 
         };
      }
@@ -993,7 +993,7 @@ class recursosController extends recursos
                                  <td >' . $cedula . '</td>
                                  <td >' . $nom_estado . '</td>
                                  <td >' . $tcontra . '</td>
-                                 <td >' . $Ncargo . '</td>
+                                 <td >' . $Ncargo . '</td>  
                                  <td >' . $Nciudad . '</td>
                                  <td >' . $Finicio . '</td>
                                  <td >' . $Fterminacion . '</td>

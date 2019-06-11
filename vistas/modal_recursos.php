@@ -194,7 +194,7 @@
             <div id="not_img" hidden>hola</div>                       
                       --->
                         <br>
-                        <div id="res_form_contrato" name="res_form_contrato"></div> 
+                        <div id="archivos_res_contra"></div> 
             
           </form>
                       

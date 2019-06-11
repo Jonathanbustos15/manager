@@ -1274,6 +1274,35 @@ rObj = function (evt) {
         });
     }
 
+    function carga_archivos_contrato(id) {
+        console.log("que molesta mijo"+id)
+        var query_archivos = "select * FROM `archivos_contrato` WHERE fkID_contrato =" + id;
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "query=" + query_archivos + "&tipo=consulta_gen",
+        }).done(function(data) {
+            console.log("esta es la data"+data.estado);
+            $("#archivos_res_contra").html("");
+            if (data.estado != "Error") {
+                /**/
+                //arrEstudios.length=0;
+                for (var i = 0; i < data.mensaje.length; i++) {
+
+                    $("#archivos_res_contra").append('<div class="form-group" id="frm_group' + data.mensaje[i].pkID + '">' + '<input type="text" style="width: 90%;display: inline;" class="form-control" id="pkID_archivo_' + data.mensaje[i].pkID + '" name="btn_RmArchivo[]" value="' + data.mensaje[i].url + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + data.mensaje[i].url + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmArchivo" data-id-archivo="' + data.mensaje[i].pkID + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button>' + '</div>' + '<div class="form-group">' + ' <br>' + '</div>');
+                }
+                $("[name*='btn_actionRmArchivo']").click(function(event) {
+                    /* Act on the event */
+                    var id_archivo = $(this).attr('data-id-archivo');
+                    elimina_archivo(id_archivo);
+                });
+            }
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    }
+
     function elimina_archivo(id_archivo) {
         console.log('Eliminar el archivo: ' + id_archivo);
         var confirma = confirm("En realidad quiere eliminar este archivo de la hoja de vida?");
@@ -1465,7 +1494,7 @@ rObj = function (evt) {
         $("#lbl_form_Hvida").html("Editar Registro Hoja de Vida");
         $("#lbl_btn_actionHvida").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
         $("#btn_actionHvida").attr("data-action","editar");
-
+        $("#btn_actioncontrato").removeAttr('disabled', 'disabled');
         $("#form_hvida")[0].reset();
         $("#form_hvida_estudios")[0].reset();
         $("#form_archivo")[0].reset();
@@ -1490,10 +1519,10 @@ rObj = function (evt) {
         carga_contrato(id_hvidac);
         carga_contratos2(id_contrato);
         console.log(id_contrato);
-        
-        cargar_documentos_contrato();
+        carga_archivos_contrato(id_contrato)
+        //cargar_documentos_contrato();
         $("#formadjuntos")[0].reset();
-        document.getElementById('res_form_contrato').innerHTML="";
+        //document.getElementById('res_form_contrato').innerHTML="";
         $("#btn_actioncontrato").removeAttr('disabled');
         
         //carga_propiedades(id_hvida);
@@ -1556,7 +1585,7 @@ function autocompleciudad(){
     var form = $("#fkID_departamento option:selected").val();
     console.log(form);
     var ruta = "../controller/actualizar_ciudad.php";
-    console.log(form);
+    console.log(form);  
     $.ajax({
         url: ruta,
         type: 'POST',  

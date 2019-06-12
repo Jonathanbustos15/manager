@@ -37,6 +37,19 @@ switch ($fun) {
     $json_string =json_encode($cliente);
     echo $json_string;
       break;
+      case 'Cargarfiles':
+        $db=$Conector->connect();
+    $sqli = mysqli_query($db,"select * FROM `tipo_archivo_contrato`");
+    $client = array();
+      while ($row = mysqli_fetch_row($sqli)) {
+          $idpk=$row[0];
+          $nombre=$row[1];
+          $codigoinput=$row[2];
+          $client[] = array('id'=>$idpk,'nombre'=>$nombre,'id_input'=>$codigoinput);
+      }
+    $json_string =json_encode($client);
+    echo $json_string;
+        break;
   default:
     
     break;

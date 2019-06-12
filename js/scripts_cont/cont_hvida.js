@@ -312,7 +312,28 @@ function subid_archiv(nom_funcion) {
             })
     }
 
-
+    function cargar_adjuntos(){
+        var cadena="tipo=Cargarfiles&nom_tabla=tipo_archivo_contrato";
+        $.ajax({  
+              type: "POST",
+              url: "../controller/document_contrato.php",
+              data: cadena,
+              success:function(a){
+                console.log(a);
+                var tipo = JSON.parse(a);
+                for(x=0; x < tipo.length; x++) {
+                $("#formadjuntos").append(
+                    '<div class="col-sm-8 custom-file">'+
+                     '<label for="" class="custom-control-label>'+'</label>'+
+                    '<input type="file" value="' + tipo[x].id + '" class="form-control  custom-file-input" data-nom-archivo="' + tipo[x].id +'"id="' + tipo[x].id_input+'" name="' + tipo[x].id_input+'">'+
+                     '</div>'+
+                    '<br>'+'<br>'+'<br>'+
+                    '</div>'+'<br>'
+                    );
+            }
+              }
+            })
+    }
 
 
     function editar_contrato(){
@@ -382,7 +403,8 @@ function subid_archiv(nom_funcion) {
                     var num= tipos.length;
                     //console.log(tipos[0].nombre);
                     for(x=0; x < tipos.length; x++) {
-                        var valo = document.getElementById (tipos[x].id_input);
+                        if($("#"+tipos[x].id_input).length){
+                            var valo = document.getElementById (tipos[x].id_input);
                         if (valo.value==="") {} 
                             else {
                                 var fkid = tipos[x].codigo;
@@ -391,6 +413,8 @@ function subid_archiv(nom_funcion) {
                                 console.log(filename)
                                 console.log(valo)
                                 subir_documentos_contratos(filename,tipos[x].id_input,ruta,fkid)
+                        }
+  
                         }
                     }   
               }
@@ -1276,7 +1300,7 @@ rObj = function (evt) {
 
     function carga_archivos_contrato(id) {
         console.log("que molesta mijo"+id)
-        var query_archivos = "select * FROM `archivos_contrato` WHERE fkID_contrato =" + id;
+        var query_archivos = "select *,archivos_contrato.pkID as idi, tipo_archivo_contrato.nombre_archivo_contrato as titulo FROM archivos_contrato INNER JOIN tipo_archivo_contrato ON tipo_archivo_contrato.pkID = archivos_contrato.fkID_tipo_archivo_contrato WHERE fkID_contrato=" + id;
         $.ajax({
             url: '../controller/ajaxController12.php',
             data: "query=" + query_archivos + "&tipo=consulta_gen",
@@ -1288,12 +1312,12 @@ rObj = function (evt) {
                 //arrEstudios.length=0;
                 for (var i = 0; i < data.mensaje.length; i++) {
 
-                    $("#archivos_res_contra").append('<div class="form-group" id="frm_group' + data.mensaje[i].pkID + '">' + '<input type="text" style="width: 90%;display: inline;" class="form-control" id="pkID_archivo_' + data.mensaje[i].pkID + '" name="btn_RmArchivo[]" value="' + data.mensaje[i].url + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + data.mensaje[i].url + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmArchivo" data-id-archivo="' + data.mensaje[i].pkID + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button>' + '</div>' + '<div class="form-group">' + ' <br>' + '</div>');
+                $("#archivos_res_contra").append('<div class="form-group" id="frm_group' + data.mensaje[i].pkID + '">' + '<label for="" class="custom-control-label">'+data.mensaje[i].titulo+'</label>'+'<br>'+'<input type="text" style="width: 90%;display: inline;" class="form-control" id="pkID_archivo_' + data.mensaje[i].pkID + '" name="btn_RmContrato" value="' + data.mensaje[i].url + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + data.mensaje[i].url + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmContrato" data-id-contratos="' + data.mensaje[i].idi + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button>' + '</div>' + '<div class="form-group">' + ' <br>' + '</div>');
                 }
-                $("[name*='btn_actionRmArchivo']").click(function(event) {
-                    /* Act on the event */
-                    var id_archivo = $(this).attr('data-id-archivo');
-                    elimina_archivo(id_archivo);
+                $("[name*='btn_actionRmContrat']").click(function(event) {
+                    var id_archivo = $(this).attr('data-id-contratos');
+                    console.log("este es el numero"+id_archivo);
+                    elimina_archivo_contrato(id_archivo);
                 });
             }
         }).fail(function() {
@@ -1313,6 +1337,31 @@ rObj = function (evt) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
                 data: "pkID=" + id_archivo + "&tipo=eliminar&nom_tabla=archivo",
+            }).done(function(data) {
+                //---------------------
+                console.log(data);
+                alert(data.mensaje.mensaje);
+                location.reload();
+            }).fail(function() {
+                console.log("error");
+            }).always(function() {
+                console.log("complete");
+            });
+        } else {
+            //no hace nada
+        }
+    };
+
+    function elimina_archivo_contrato(id_archivo) {
+        console.log('Eliminar el archivo: ' + id_archivo);
+        var confirma = confirm("En realidad quiere eliminar este archivo de Contratación?");
+        console.log(confirma);
+        /**/
+        if (confirma == true) {
+            //si confirma es true ejecuta ajax
+            $.ajax({
+                url: '../controller/ajaxController12.php',
+                data: "pkID=" + id_archivo + "&tipo=eliminar&nom_tabla=archivos_contrato",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
@@ -1462,11 +1511,11 @@ rObj = function (evt) {
 
     $(document).ready(function(){
     $("#btn_nuevocontrato").click(function() {
-       console.log("mire aqui");
        $("#lbl_form_contrato").html("Nuevo Contrato");
         $("#lbl_btn_actioncontrato").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         $("#btn_actioncontrato").attr("data-action", "crearc");
         $("#btn_actioncontrato").removeAttr('disabled', 'disabled');
+        cargar_adjuntos();
         $("#form_contratos")[0].reset();
         $("#form_contrato_datos")[0].reset();
         $("#formadjuntos")[0].reset();
@@ -1513,15 +1562,16 @@ rObj = function (evt) {
         $("#lbl_form_contrato").html("Editar Registro de Contrato");
         $("#lbl_btn_actioncontrato").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
         $("#btn_actioncontrato").attr("data-action", "editarc");
-        $("#res_form_contrato").remove();
+        //$("#res_form_contrato").remove();
+        $("#formadjuntos").empty();
+        $("#formadjuntos").append('<div id="archivos_res_contra"></div>')
         id_hvidac = $(this).attr('data-id-contratoh');
         id_contrato = $(this).attr('data-id-contrato');
         carga_contrato(id_hvidac);
         carga_contratos2(id_contrato);
         console.log(id_contrato);
         carga_archivos_contrato(id_contrato)
-        //cargar_documentos_contrato();
-        $("#formadjuntos")[0].reset();
+        cargar_documentos_contrato();
         //document.getElementById('res_form_contrato').innerHTML="";
         $("#btn_actioncontrato").removeAttr('disabled');
         
@@ -1629,39 +1679,31 @@ function crear_files_contrato(a){
               url: "../controller/document_contrato.php",
               data: caden,
               success:function(ro){
-                var segumiento = 1;
                 console.log(tipos[0].codigo)
+                var seguimiento =1 ;
                 var tipo = JSON.parse(ro);
                 console.log(tipo)
                 for(x=0; x<tipos.length; x++) {
                 for(y=0; y<tipo.length; y++) {
                 if (tipos[x].codigo === tipo[y].id_input) {
-                    $("#res_form_contrato").append(
-
-                    '<div class="frm_group" id="frm_group'+tipos[x].id_input+'">'+
-
-                    '<label class="control-label">Descripción para el archivo: '+tipos[x].nombre+'</label>'+
-
-                    '<button name="btn_eliminaArchivo" data-id-archivo="'+tipos[x].nombre+'" data-id-frm-group="frm_group'+tipos[x].id_input+'" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>'+
-
-                    '<input type="text" class="form-control" name="detail['+tipos[x].nombre+']" data-name-file="'+tipo[y].nombre+'" />'+
-
-                    '</div>'
-
-                    );
-                    //$()[0].remove();
-                    $("#"+tipos[x].codigo).prop("disabled", true);
-                    //document.getElementById(tipos[x].codigo).disabled = true;
-                    segumiento = 2;
+                    seguimiento = 2;
+                }  
                 } 
-                if (segumiento === 1) {
-
+                if (seguimiento === 1){
+                    $("#formadjuntos").append(
+                    '<div class="col-sm-8 custom-file">'+
+                     '<label for="" class="custom-control-label">'+tipos[x].nombre+'</label>'+
+                    '<input type="file" value="' + tipos[x].codigo + '" class="form-control  custom-file-input" data-nom-archivo="' + tipos[x].codigo +'"id="' + tipos[x].id_input+'" name="' + tipos[x].id_input+'">'+
+                     '</div>'+
+                    '<br>'+'<br>'+'<br>'+
+                    '</div>'+'<br>'
+                    );
                 }
+                seguimiento=1;
             }
 
             } 
-              }
-            }) 
+              }) 
 };
 
  $(document).ready(function(){
@@ -1920,7 +1962,7 @@ function crear_files_contrato(a){
 
                     '<label class="control-label">Descripción para el archivo: '+data.files[0].name+'</label>'+
 
-                    '<button name="btn_eliminaArchivo" data-id-archivo="'+contDetailName+'" data-id-frm-group="frm_group'+contDetailName+'" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>'+
+                    '<button name="btn_eliminaContrato" data-id-archivo="'+contDetailName+'" data-id-frm-group="frm_group'+contDetailName+'" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button><br>'+
 
                     '<input type="text" class="form-control" name="detail['+contDetailName+']" data-name-file="'+data.files[0].name+'" />'+
 
@@ -1971,6 +2013,15 @@ function crear_files_contrato(a){
             //data.context.text('Upload finished.');
             console.log('Upload finished.');
         }
+    });
+
+    $("[name*='btn_eliminaContrato']").click(function(event) {
+                    console.log('click remover archivo ' + $(this).data('id-frm-group'));
+                    removeArchivo($(this).data('id-frm-group'));
+                    var idArchivo = $(this).attr("data-id-archivo");
+                    console.log('el elemento es:' + idArchivo);
+
+
     });
 
     function getValoresDesc(nomArch) {

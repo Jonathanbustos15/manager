@@ -181,9 +181,7 @@
             <br>
           <form id="formadjuntos" name="formadjuntos" method="POST" enctype="multipart/form-data">
               
-                    <?php
-                          $recursosInst->getArchivos_Contratos();
-                    ?>
+                    
               <div class="form-group" hidden="true">
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="pkID" name="pkID">

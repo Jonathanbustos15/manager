@@ -192,7 +192,7 @@
             <div id="not_img" hidden>hola</div>                       
                       --->
                         <br>
-                        <div id="archivos_res_contra"></div> 
+                        <div id="archivos_res_contra"></div>
             
           </form>
                       

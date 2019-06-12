@@ -322,9 +322,10 @@ function subid_archiv(nom_funcion) {
                 console.log(a);
                 var tipo = JSON.parse(a);
                 for(x=0; x < tipo.length; x++) {
+                    console.log("se jodio")
                 $("#formadjuntos").append(
                     '<div class="col-sm-8 custom-file">'+
-                     '<label for="" class="custom-control-label>'+'</label>'+
+                     '<label for="" class="custom-control-label">'+tipo[x].nombre+'</label>'+
                     '<input type="file" value="' + tipo[x].id + '" class="form-control  custom-file-input" data-nom-archivo="' + tipo[x].id +'"id="' + tipo[x].id_input+'" name="' + tipo[x].id_input+'">'+
                      '</div>'+
                     '<br>'+'<br>'+'<br>'+
@@ -1308,8 +1309,6 @@ rObj = function (evt) {
             console.log("esta es la data"+data.estado);
             $("#archivos_res_contra").html("");
             if (data.estado != "Error") {
-                /**/
-                //arrEstudios.length=0;
                 for (var i = 0; i < data.mensaje.length; i++) {
 
                 $("#archivos_res_contra").append('<div class="form-group" id="frm_group' + data.mensaje[i].pkID + '">' + '<label for="" class="custom-control-label">'+data.mensaje[i].titulo+'</label>'+'<br>'+'<input type="text" style="width: 90%;display: inline;" class="form-control" id="pkID_archivo_' + data.mensaje[i].pkID + '" name="btn_RmContrato" value="' + data.mensaje[i].url + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + data.mensaje[i].url + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmContrato" data-id-contratos="' + data.mensaje[i].idi + '" type="button" class="btn btn-danger"><span class="fa fa-remove"></span></button>' + '</div>' + '<div class="form-group">' + ' <br>' + '</div>');
@@ -1515,6 +1514,8 @@ rObj = function (evt) {
         $("#lbl_btn_actioncontrato").html("Guardar <span class='glyphicon glyphicon-save'></span>");
         $("#btn_actioncontrato").attr("data-action", "crearc");
         $("#btn_actioncontrato").removeAttr('disabled', 'disabled');
+        $("#formadjuntos").empty();
+        $("#formadjuntos").append('<div id="archivos_res_contra"></div>');
         cargar_adjuntos();
         $("#form_contratos")[0].reset();
         $("#form_contrato_datos")[0].reset();

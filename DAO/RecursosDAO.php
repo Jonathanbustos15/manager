@@ -311,7 +311,7 @@ class recursos extends GenericoDAO
     public function getArl()
     {
 
-        $this->q_general = "select arl.pkID, concat_ws('  ',arl.codigo_arl, arl.nombre_arl) as nomarl FROM arl ORDER BY nombre_arl";
+        $this->q_general = "select arl.pkID,  arl.nombre_arl as nomarl FROM arl ORDER BY nombre_arl";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
@@ -319,7 +319,7 @@ class recursos extends GenericoDAO
     public function getEps()
     {
 
-        $this->q_general = "select eps.pkID, concat_ws('  ',eps.codigo_eps, eps.nombre_eps) as nomeps FROM eps ORDER BY nombre_eps";
+        $this->q_general = "select eps.pkID,  eps.nombre_eps as nomeps FROM eps ORDER BY eps.nombre_eps";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
@@ -327,7 +327,7 @@ class recursos extends GenericoDAO
     public function getCajac()
     {
 
-        $this->q_general = "select caja_compensacion.pkID, concat_ws('  ',caja_compensacion.codigo_caja_compensacion, caja_compensacion.nombre_caja_compensacion) as nomcc FROM caja_compensacion ORDER BY nombre_caja_compensacion";
+        $this->q_general = "select caja_compensacion.pkID,  caja_compensacion.nombre_caja_compensacion as nomcc FROM caja_compensacion ORDER BY nombre_caja_compensacion";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
@@ -335,7 +335,7 @@ class recursos extends GenericoDAO
     public function getCesan()
     {
 
-        $this->q_general = "select cesantias.pkID, concat_ws('  ',cesantias.codigo_cesantias, cesantias.nombre_cesantias) as nomce FROM cesantias ORDER BY nombre_cesantias";
+        $this->q_general = "select cesantias.pkID,  cesantias.nombre_cesantias as nomce FROM cesantias ORDER BY nombre_cesantias";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }
@@ -343,7 +343,7 @@ class recursos extends GenericoDAO
     public function getPens()
     {
 
-        $this->q_general = "select pensiones.pkID, concat_ws('  ',pensiones.codigo_pensiones, pensiones.nombre_pensiones) as nompe FROM pensiones ORDER BY nombre_pensiones";
+        $this->q_general = "select pensiones.pkID, pensiones.nombre_pensiones as nompe FROM pensiones ORDER BY nombre_pensiones";
 
         return GenericoDAO::EjecutarConsulta($this->q_general);
     }

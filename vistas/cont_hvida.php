@@ -200,7 +200,7 @@ include 'modal_estudios.php';
                                             <th data-orderable="false">Opciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>  
                                         <?php
 //print_r($_COOKIE);
 $hvidainst->

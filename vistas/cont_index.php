@@ -45,7 +45,7 @@
                     <?php } ?>
 
                     <!-- links nuevos-->
-                    <?php if(($tipoUsuario == 1) || ($tipoUsuario == 10) || ($tipoUsuario == 13) ){?> 
+                    <?php if(($tipoUsuario == 1) || ($tipoUsuario == 10) || ($tipoUsuario == 15) || ($tipoUsuario == 13) ){?> 
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="ingresos_gral.php?filter=*">
                             <img src="../img/b-ingresos.png" alt="Facturas" >                        
@@ -55,7 +55,7 @@
 
 
                     <?php 
-                        if(($tipoUsuario == 1) || ($tipoUsuario == 2) || ($tipoUsuario == 10) || ($tipoUsuario == 13) ){
+                        if(($tipoUsuario == 1) || ($tipoUsuario == 2) || ($tipoUsuario == 10) || ($tipoUsuario == 15) || ($tipoUsuario == 13) ){
                     ?>
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="gastos_gral.php?filter=gasto_gral.aprobado=0">
@@ -85,7 +85,7 @@
                    
 
                    <?php 
-                        if(($tipoUsuario == 1) || ($tipoUsuario == 4) || ($tipoUsuario == 8) || ($tipoUsuario == 9) || ($tipoUsuario == 10) ){
+                        if(($tipoUsuario == 1) || ($tipoUsuario == 4) || ($tipoUsuario == 8) || ($tipoUsuario == 9) || ($tipoUsuario == 10) || ($tipoUsuario == 15) ){
                     ?>
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="formatos.php">
@@ -95,7 +95,7 @@
                     <?php } ?>
 
                     
-                    <?php if($tipoUsuario == 1 || $tipoUsuario == 2 || $tipoUsuario == 3 || $tipoUsuario == 4 || $tipoUsuario == 5 || $tipoUsuario == 8 || $tipoUsuario == 9 || $tipoUsuario == 10 || $tipoUsuario == 11 || $tipoUsuario == 13 || $tipoUsuario == 14){?>
+                    <?php if($tipoUsuario == 1 || $tipoUsuario == 2 || $tipoUsuario == 3 || $tipoUsuario == 4 || $tipoUsuario == 5 || $tipoUsuario == 8 || $tipoUsuario == 9 || $tipoUsuario == 10 || $tipoUsuario == 15 || $tipoUsuario == 11 || $tipoUsuario == 13 || $tipoUsuario == 14){?>
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="hvida.php?s=*">
                             <img src="../img/b-hojasdevida.png" alt="Hojas de Vida">                    
@@ -103,7 +103,7 @@
                     </div> 
                     <?php } ?>           
 
-                     <?php if($tipoUsuario == 1 || $tipoUsuario == 8 || $tipoUsuario == 9 || $tipoUsuario == 10 || $tipoUsuario == 13){?>
+                     <?php if($tipoUsuario == 1 || $tipoUsuario == 8 || $tipoUsuario == 9 || $tipoUsuario == 10 || $tipoUsuario == 15 || $tipoUsuario == 13){?>
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="contactos.php">
                             <img src="../img/b-contactos.png" alt="Contactos" >
@@ -113,7 +113,7 @@
 
 
                     <?php 
-                        if(($tipoUsuario == 1) || ($tipoUsuario == 8) || ($tipoUsuario == 9) || ($tipoUsuario == 10) || ($tipoUsuario == 13) || ($tipoUsuario == 14)){
+                        if(($tipoUsuario == 1) || ($tipoUsuario == 8) || ($tipoUsuario == 9) || ($tipoUsuario == 10) || ($tipoUsuario == 15) || ($tipoUsuario == 13) || ($tipoUsuario == 14)){
                     ?>
                     <div class="col-md-4 ajuste_index">
                         <a class="" href="empresa.php">

@@ -40,7 +40,7 @@ $tipoUsuario = $_COOKIE['log_lunelAdmin_IDtipo'];
                     </div>
                 </div>
 
-                <?php if ($tipoUsuario != 13) {
+                <?php if ($tipoUsuario != 13 ) {
     ?>
                 <div class="form-group">
                     <label for="fkID_empresa" class="control-label">Empresa</label>
@@ -49,6 +49,11 @@ $gastos_gralInst->getSelectEmpresas();
     ?>
                     <button id="btn_nuevoempresa" type="button" class="btn btn-success" data-toggle="modal" data-target="#form_modal_empresa"><span class="glyphicon glyphicon-plus"></span></button>
                 </div>
+              <?php } else if ($tipoUsuario == 15 ) {?>
+                        <div class="form-group" hidden="true">
+                            <input type="text" class="form-control" id="fkID_empresa" name="fkID_empresa" value="3">
+                        </div>
+
               <?php } else {?>
                         <div class="form-group" hidden="true">
                             <input type="text" class="form-control" id="fkID_empresa" name="fkID_empresa" value="2">
@@ -255,12 +260,12 @@ include "form_novedades.php";
                                 <h4 class="text-left"><span class="glyphicon glyphicon-filter"></span><strong>Filtro</strong></h4>
 
                                 <?php
-if ($tipoUsuario != 13) {
+if ($tipoUsuario != 13 && $tipoUsuario != 15) {
 
     ?>
                                 <label for="empresa_filtro" class="control-label">Empresas</label>
                                     <?php
-$gastos_gralInst->getSelectEmpresasFiltro();
+$gastos_gralInst->getSelectEmpresasFiltro();   
 }?>
 
                                 <label for="aprobado_filtro" class="control-label">Aprobado</label>
@@ -282,6 +287,8 @@ $gastos_gralInst->getSelectEmpresasFiltro();
                                 <?php
 if ($tipoUsuario != 13) {
     $gastos_gralInst->getSelectFechasFiltro();
+} else if ($tipoUsuario == 15 ){
+      $gastos_gralInst->getSelectFechasFiltroProco();
 } else {
     $gastos_gralInst->getSelectFechasFiltroFuntecso();
 }
@@ -333,6 +340,8 @@ $gastos_gralInst->getSelectAnioFiltro();
 //print_r($_COOKIE);
 if ($tipoUsuario == 13) {
     $gastos_gralInst->getTablagastos_gralFuntecso($filtro);
+} else if ($tipoUsuario == 15 ){
+  $gastos_gralInst->getTablagastos_gralProco($filtro);
 } else {
     $gastos_gralInst->getTablagastos_gral($filtro);
 }
@@ -344,12 +353,14 @@ if ($tipoUsuario == 13) {
                             <hr>
                             <div class="col-md-6"></div>
                             <div class="col-md-6">
-                                <label for="total_ingresos" class="control-label">Total</label>
+                                <label for="total_estudiantes" class="control-label">Total</label>
                                 <div class="input-group">
                                   <span class="input-group-addon">$</span>
                                   <input type="text" class="form-control" id="total_gastos" name="total_gastos" readonly="true" value=<?php
 if ($tipoUsuario == 13) {
     echo $gastos_gralInst->getSumagastosValFuntecso($filtro);
+}  else if ($tipoUsuario == 15 ){
+    echo $gastos_gralInst->getSumagastosValProco($filtro);
 } else {
     echo $gastos_gralInst->getSumagastosVal($filtro);
 }
@@ -388,6 +399,8 @@ if ($encontrado == false) {
                                   <input type="text" class="form-control" id="total_pagos" name="total_pagos" readonly="true" value=<?php
 if ($tipoUsuario == 13) {
     echo $gastos_gralInst->getSumaValPagosFuntecso($filtro);
+} else if ($tipoUsuario == 15 ){
+    echo $gastos_gralInst->getSumaValPagos($filtro);
 } else {
     echo $gastos_gralInst->getSumaValPago($filtro);
 }

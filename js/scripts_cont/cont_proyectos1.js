@@ -73,7 +73,7 @@ $(function(){
   		tipo:'inserta/edita',
   		nom_modulo:'proyecto',
   		nom_tabla:'proyectos',
-  		recarga:false,
+  		recarga:false, 
   		ejecutarFunction:true,
   		functionResCrear:function(){
             console.log('El id creado <es></es>: '+this.id_resCrear);
@@ -95,7 +95,7 @@ $(function(){
         	};        	
         }  		 		  
   	});
-
+  
   	
   	//-----------------------------------------------------------------------------------
 
@@ -252,9 +252,7 @@ $(function(){
 	    	$("#frm_usuarios_proyecto").html("");
 
 	    	$("#fkID_usuario").attr('data-accion', 'load');
-
 		    arrUsuarios.length=0;
-
 	    	if(data.estado != "Error"){	    	
 		    	/**/
 		    	for(var i = 0; i < data.mensaje.length; i++){

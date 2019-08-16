@@ -48,7 +48,12 @@
                      ?>                    
                     <button id="btn_nuevoempresa" type="button" class="btn btn-success" data-toggle="modal" data-target="#form_modal_empresa"><span class="glyphicon glyphicon-plus"></span></button>
                 </div>
-              <?php }else{ ?>
+              <?php } else if ($tipoUsuario == 15 ){?>
+                <div class="form-group" hidden="true">
+                            <input type="text" class="form-control" id="fkID_empresa" name="fkID_empresa" value="3">
+                        </div>
+
+              <?php } else{ ?>
                         <div class="form-group" hidden="true">
                             <input type="text" class="form-control" id="fkID_empresa" name="fkID_empresa" value="2">
                         </div>
@@ -61,7 +66,9 @@
                     <?php
                         if($tipoUsuario == 13){
                           $ingresos_gralInst->getSelectProyectosFuntecso();
-                        }else{
+                        } else if ($tipoUsuario == 15 ){
+                          $ingresos_gralInst->getSelectProyectosProco();
+                        } else{
                           $gastos_gralInst->getSelectProyectos();
                         }
                      ?>
@@ -337,7 +344,7 @@
                                   <h4 class="text-left"><span class="glyphicon glyphicon-filter"></span><strong>Filtro</strong></h4>
                                   
                                   <?php 
-                                  if($tipoUsuario != 13){ 
+                                  if($tipoUsuario != 13 && $tipoUsuario != 15){ 
                                   
                                 ?>
                                   <label for="empresa_filtro" class="control-label">Empresas</label>                                            
@@ -349,13 +356,15 @@
                                    <?php
                                       if($tipoUsuario == 13){
                                        $gastos_gralInst->getSelectProyectosFuntecso();
-                                      }else{
+                                      }else if ($tipoUsuario == 15) {
+                                        $gastos_gralInst->getSelectProyectosProco();
+                                      } else {
                                         $gastos_gralInst->getSelectProyectosFiltro();
                                       }
                                    ?>                                
                                      
                                            
-                               
+                               <br><br>
 
                                 <label for="pagado_filtro" class="control-label">Pagado</label> 
                                 
@@ -375,7 +384,7 @@
 
                                 
                                 <?php
-                                    if($tipoUsuario != 13){ ?>
+                                    if($tipoUsuario != 13 && $tipoUsuario != 15){ ?>
                                 <label for="fechas_filtro" class="control-label">Año</label>                                            
                                 <?php
                                     $ingresos_gralInst->getSelectAnio();
@@ -383,7 +392,7 @@
                                 ?>
                                 <br><br>
                                  <?php
-                                    if($tipoUsuario != 13){ ?>
+                                    if($tipoUsuario != 13 && $tipoUsuario != 15){ ?>
                                 <label for="periodo_filtro" class="control-label">Periodo</label>                                            
                                 <?php
                                     $ingresos_gralInst->getSelectPeriodoFiltro();
@@ -428,7 +437,9 @@
                                               //print_r($_COOKIE); 
                                               if($tipoUsuario == 13){
                                                 $ingresos_gralInst->getTablaingresos_gralFuntecso($filtro); 
-                                              }else{  
+                                              } else if ($tipoUsuario == 15 ){
+                                                $ingresos_gralInst->getTablaingresos_gralProco($filtro);
+                                              } else{  
                                                 $ingresos_gralInst->getTablaingresos_gral($filtro); 
                                               }                          
                                            ?>

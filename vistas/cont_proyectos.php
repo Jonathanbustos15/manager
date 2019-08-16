@@ -171,7 +171,7 @@
                     </select>                                                
                 </div>
                                                                                    
-        </form>
+        </form>  
         
         <div id='select_usuarios'>
           <label class="control-label">Usuarios Asignados</label> 

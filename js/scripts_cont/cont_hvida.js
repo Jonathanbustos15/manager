@@ -398,7 +398,7 @@ function subid_archiv(nom_funcion) {
               type: "POST",
               url: "../controller/document_contrato.php",
               data: caden,
-              success:function(a){
+              success:function(a){  
                     var tipos = JSON.parse(a);
                     console.log(tipos[0].id_input);
                     var num= tipos.length;
@@ -587,7 +587,7 @@ function subid_archiv(nom_funcion) {
             }).fail(function() {
                 console.log("error");
             }).always(function() {
-                console.log("complete");
+                console.log("complete"); 
             });
         } else {
             //no hace nada
@@ -607,7 +607,7 @@ function subid_archiv(nom_funcion) {
             }).done(function(data) {
                 //---------------------
                 console.log(data);
-                alert(data.mensaje.mensaje);
+                alert(data.mensaje);
                 location.reload();
             }).fail(function() {
                 console.log("error");
@@ -693,7 +693,7 @@ function subid_archiv(nom_funcion) {
                          console.log(dataCadena);
                          //---------------------------------------------------------
     
-                         insertaEstudio(dataCadena);                
+                         insFertaEstudio(dataCadena);                
                          //---------------------------------------------------------
                       });
 
@@ -1470,7 +1470,6 @@ rObj = function (evt) {
             $(this).val("");
             $(this).focus();
         }
-        validaEqualIdentifica($(this).val());
     });
     /*
     /*
@@ -1549,10 +1548,8 @@ rObj = function (evt) {
         $("#form_hvida_estudios")[0].reset();
         $("#form_archivo")[0].reset();
         id_hvida = $(this).attr('data-id-hvida');
-
         $("#btn_actionHvida").removeAttr('disabled');
         //$("#selectPosgrado").removeAttr('hidden');
-
         carga_hvida(id_hvida);
         //carga_propiedades(id_hvida);
     });
@@ -1637,13 +1634,13 @@ function autocompleciudad(){
     console.log(form);
     var ruta = "../controller/actualizar_ciudad.php";
     console.log(form);  
-    $.ajax({
+    $.ajax({ 
         url: ruta,
         type: 'POST',  
         data: {ciudad:form},
         success: function(respuesta){
             console.log(respuesta);
-            //convierte la cadena que se resive json
+            //convierte la cadena que se recibe json
             var tipos = JSON.parse(respuesta);
             console.log(tipos);
             console.log("aqui toy yoo");

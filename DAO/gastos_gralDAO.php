@@ -219,6 +219,23 @@
             return GenericoDAO::EjecutarConsulta($this->q_general);
         }
 
+        public function getGastosProco(){
+            
+            $this->q_general = "select gasto_gral.*, empresa.nombre as nom_empresa, externo.nombre nom_externo 
+
+                                FROM `gasto_gral`
+
+                                INNER JOIN empresa ON empresa.pkID = gasto_gral.fkID_empresa
+
+                                INNER JOIN externo ON externo.pkID = gasto_gral.fkID_externo    
+
+                                WHERE gasto_gral.fecha_aprobacion IS NOT NULL AND gasto_gral.fkID_empresa = 3                        
+
+                                ORDER BY gasto_gral.pkID DESC";        
+            
+            return GenericoDAO::EjecutarConsulta($this->q_general);
+        }
+
         public function getGastosFiltroFuntecso($filtro){
 
             $this->q_general = "select gasto_gral.*, empresa.nombre as nom_empresa, externo.nombre nom_externo 
@@ -236,9 +253,33 @@
             return GenericoDAO::EjecutarConsulta($this->q_general);
         }
 
+        public function getGastosFiltroProco($filtro){
+
+            $this->q_general = "select gasto_gral.*, empresa.nombre as nom_empresa, externo.nombre nom_externo 
+
+                                FROM `gasto_gral` 
+
+                                INNER JOIN empresa ON empresa.pkID = gasto_gral.fkID_empresa 
+
+                                INNER JOIN externo ON externo.pkID = gasto_gral.fkID_externo
+
+                                WHERE ".$filtro." AND gasto_gral.fecha_aprobacion IS NOT NULL AND gasto_gral.fkID_empresa = 3
+
+                                ORDER BY gasto_gral.pkID DESC";
+            
+            return GenericoDAO::EjecutarConsulta($this->q_general); 
+        }
+
         public function getFechasFuntecso(){
             
             $this->q_general = "select DISTINCT fecha_aprobacion FROM gasto_gral WHERE fecha_aprobacion IS NOT NULL AND fecha_aprobacion <> '0000-00-00' AND gasto_gral.fkID_empresa = 2 ";        
+            
+            return GenericoDAO::EjecutarConsulta($this->q_general);
+        }
+
+        public function getFechasProco(){
+            
+            $this->q_general = "select DISTINCT fecha_aprobacion FROM gasto_gral WHERE fecha_aprobacion IS NOT NULL AND fecha_aprobacion <> '0000-00-00' AND gasto_gral.fkID_empresa = 3 ";        
             
             return GenericoDAO::EjecutarConsulta($this->q_general);
         }
@@ -261,6 +302,23 @@
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 
+		public function getProyectosProco(){			
+
+			$this->q_general = "select proyectos.*, entidades.pkID as pkID_entidad, entidades.nombre_entidad as nom_entidad, estado_proyecto.pkID as pkID_estado, estado_proyecto.nombre nom_estado 
+
+				FROM `proyectos`
+
+				INNER JOIN entidades ON entidades.pkID = proyectos.fkID_entidad
+
+				INNER JOIN estado_proyecto ON estado_proyecto.pkID = proyectos.fkID_estado 
+
+				WHERE fkID_estado<>1 AND proyectos.fkID_empresa = 3
+
+				ORDER BY entidades.nombre_entidad";	
+			
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
 
 		public function getSumaGastosFuntecso(){
 
@@ -271,12 +329,30 @@
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 
+		public function getSumaGastosProco(){
+
+			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
+
+			$this->q_general = "select SUM(valor) as total_gastos FROM `gasto_gral` WHERE gasto_gral.fecha_aprobacion IS NOT NULL
+								AND fkID_empresa = 3 ";		
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
 		public function getSumaPagosFuntecso(){
 
 			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
 
 			$this->q_general = "select SUM(pago) as total_pagos FROM `gasto_gral` WHERE gasto_gral.fecha_aprobacion IS NOT NULL
 								AND fkID_empresa = 2 ";		
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
+		public function getSumaPagosProco(){
+
+			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
+
+			$this->q_general = "select SUM(pago) as total_pagos FROM `gasto_gral` WHERE gasto_gral.fecha_aprobacion IS NOT NULL
+								AND fkID_empresa = 3 ";		
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 
@@ -297,6 +373,14 @@
 
 			$this->q_general = "select SUM(valor) as total_gastos FROM `gasto_gral` WHERE ".$filtro." AND gasto_gral.fecha_aprobacion IS NOT NULL AND fkID_empresa = 2 ";
 				return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
+		public function getSumaGastosFiltroProco($filtro){
+
+			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
+
+			$this->q_general = "select SUM(valor) as total_gastos FROM `gasto_gral` WHERE ".$filtro." AND gasto_gral.fecha_aprobacion IS NOT NULL AND fkID_empresa = 3 ";
+				return GenericoDAO::EjecutarConsulta($this->q_general);
 		}	
 
 		public function getSumaPagosFiltroFuntecso($filtro){
@@ -304,6 +388,14 @@
 			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
 
 			$this->q_general = "select SUM(pago) as total_pagos FROM `gasto_gral` WHERE ".$filtro." AND gasto_gral.fecha_aprobacion IS NOT NULL AND fkID_empresa = 2 ";
+				return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
+		public function getSumaPagosFiltroProco($filtro){
+
+			//SELECT SUM(valor) as total_ingresos FROM `ingreso_gral`
+
+			$this->q_general = "select SUM(pago) as total_pagos FROM `gasto_gral` WHERE ".$filtro." AND gasto_gral.fecha_aprobacion IS NOT NULL AND fkID_empresa = 3 ";
 				return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 

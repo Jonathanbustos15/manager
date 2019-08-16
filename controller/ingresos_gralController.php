@@ -486,9 +486,194 @@
 
 	    }
 
+	    public function getTablaingresos_gralProco($filtro){
+
+	    	if ($filtro == '*') {
+				# code...
+				$this->ingreso = $this->getIngresosProco();
+
+			} else {
+
+				# code...
+				$cambio = array("AND", "ingreso_gral.");			
+
+				$campos_str = str_replace($cambio, "", $filtro);
+
+				$arr_campos = explode(" ",$campos_str);
+
+				$arr_completo = array();
+				//print_r ($arr_campos);
+
+				echo "<p>Filtrando por:</p>";
+
+				for ($i=0; $i < sizeof($arr_campos) ; $i++) { 
+					# code...
+					
+
+					$arr_campos1 = explode("=",$arr_campos[$i]);				
+
+					//print_r($arr_campos1);
+
+					/*if ($arr_campos1[0] == "fkID_empresa") {
+						# code...
+						$empresaId = $this->getEmpresasId($arr_campos1[1]);
+
+						//print_r($empresaId);
+
+						echo "<span class='badge'>Empresa:".$empresaId[0]["nombre"]."</span>";
+					}*/
+
+					if ($arr_campos1[0] == "fkID_proyecto") {
+						# code...
+						$proyectoId = $this->getProyectosId($arr_campos1[1]);
+
+						//print_r($proyectoId);
+
+						echo "<span class='badge'>Fuente:".$proyectoId[0]["nom_entidad"].": ".$proyectoId[0]["nombre"]."</span>";
+					}
+
+					if ($arr_campos1[0] == "pagado") {
+
+						if ($arr_campos1[1] == "0") {
+							# code...
+
+							echo "<span class='badge'>Pagado:No</span>";
+						}else{
+							echo "<span class='badge'>Pagado:Sí</span>";
+						}
+					}
+
+					if ($arr_campos1[0] == "pagado_impuesto") {
+
+						if ($arr_campos1[1] == "0") {
+							# code...
+
+							echo "<span class='badge'>Declarado:No</span>";
+						}else{
+							echo "<span class='badge'>Declarado:Sí</span>";
+						}
+					}
+
+				}
+
+				echo "<br> <br>";
+
+				$this->ingreso = $this->getIngresosFiltroProco($filtro);
+			}	    	
+	    	
+	    	//print_r($formatosNoSub);
+	    	//mete los formatos sin subcategoria
+	    	//array_merge($this->Formatos, $formatosNoSub);
+
+	    	//print_r($this->Formatos);	    	
+
+	    	//valida si hay formatos
+
+	    	//permisos-------------------------------------------------------------------------
+    		$arrPermisos = $this->permisos($this->id_modulo, $_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$edita = $arrPermisos[0]["editar"];
+    		$elimina = $arrPermisos[0]["eliminar"];
+    		$consulta = $arrPermisos[0]["consultar"];
+    		//--------------------------------------------------------------------------------- 
+
+	    	if( ($this->ingreso) && ($consulta==1) ){
+
+	    		for($a=0;$a<sizeof($this->ingreso);$a++){
+
+                 $id = $this->ingreso[$a]["pkID"];                 
+                 $empresa = $this->ingreso[$a]["nom_empresa"];
+                 $nom_proyecto = $this->ingreso[$a]["nom_proyecto"];
+                 $descripcion = $this->ingreso[$a]["descripcion"];
+                 $fecha_ingreso = $this->ingreso[$a]["fecha_ingreso"];
+                 $fecha_pago = $this->ingreso[$a]["fecha_pago"];
+                 $fecha_radicacion = $this->ingreso[$a]["fecha_radicacion"];
+                 $subtotal = $this->ingreso[$a]["subtotal"];
+                 $iva = $this->ingreso[$a]["iva"];
+                 $total = $this->ingreso[$a]["total"];
+                 $total_recibido = $this->ingreso[$a]["total_recibido"];                 
+                 $pagado = $this->ingreso[$a]["pagado"];                 
+
+                 echo '
+                             <tr>
+                             	 
+                                 <td>'.$empresa.'</td>
+                                 <td>'.$nom_proyecto.'</td>                                                    
+                                 <td>'.$descripcion.'</td>
+                                 <td>';
+                                 if ($pagado==1){
+                                 	echo "SI";
+
+                                 }else{
+                                 	echo "NO";
+
+                                 }
+
+                                 echo '</td>
+                                 <td hidden="true">'.$total_recibido.'</td> 
+                                 <td>'.$fecha_radicacion.'</td>
+                                 <td>'.$fecha_pago.'</td>
+                                 <td>'.'$'.number_format($subtotal, 0, '', '.').'</td>
+                                 <td>'.'$'.number_format($total_recibido, 0, '', '.').'</td>
+                                 <td>		                         	
+		                             <button id="btn_editar" title="Editar" name="edita_ingreso_gral" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_ingreso_gral" data-id-ingreso_gral = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
+		                             <button id="btn_eliminar" title="Eliminar" name="elimina_ingreso_gral" type="button" class="btn btn-danger" data-id-ingreso_gral = "'.$id.'" ';  if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
+		                         </td> 
+		                     </tr>';
+                };                
+
+
+	    	}elseif(($this->ingreso) && ($consulta==0)){
+
+             echo "<tr>
+		               
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               		               		               		                                          
+		           </tr>
+		           <div class='alert alert-danger' role='alert'>
+		           		En este momento no tiene permiso de <strong>Consulta</strong> para <strong>Ingresos General.</strong>  						
+				   </div>";
+            }else{
+
+             echo "<tr>		               
+		               
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               		               		                                           
+		           </tr>
+		           
+		           <div class='alert alert-danger' role='alert'>
+		           		En este momento no hay <strong>Ingresos</strong> creados o no coincide con este <strong>Filtro</strong>.
+				   </div>";
+            };
+
+	    }
+
 	    public function getSelectProyectosFuntecso(){
 
 			$proyectoSelect = $this->getProyectosFuntecso();
+
+			echo '<select name="fkID_proyecto" id="fkID_proyecto" class="form-control">
+                        <option></option>';
+                        for ($i=0; $i < sizeof($proyectoSelect); $i++) {
+                                echo '<option value="'.$proyectoSelect[$i]["pkID"].'" >'.$proyectoSelect[$i]["nom_entidad"].' : '.$proyectoSelect[$i]["nombre"].'</option>';
+                            };
+            echo '</select>';
+		}
+
+		public function getSelectProyectosProco(){
+
+			$proyectoSelect = $this->getProyectosProco();
 
 			echo '<select name="fkID_proyecto" id="fkID_proyecto" class="form-control">
                         <option></option>';

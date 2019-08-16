@@ -207,7 +207,7 @@
                 <div class="form-group">
                     <label for="fkID_tipo" class="control-label">Categoría</label>                        
                     <select name="fkID_tipo" id="fkID_tipo" class="form-control add-selectElement" required = "true">
-                        <option></option>
+                        <option></option>  
                         <?php 
                             //$inst->getSelectTipoDocumento();
                          ?>

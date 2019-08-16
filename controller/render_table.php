@@ -49,7 +49,7 @@
 					
 					//Valida el array campo "title" para poner valor o no	
 					if(isset($this->array_options["title"])){
-						$title = $this->array_options["title"];
+						$title = $this->array_options["title"];  
 					} else {
 						$title = '';
 					}	

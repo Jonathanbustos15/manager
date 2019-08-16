@@ -219,6 +219,33 @@
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 
+		public function getIngresosProco(){
+			
+			$this->q_general = "select ingreso_gral.*, empresa.nombre as nom_empresa, proyectos.nombre nom_proyecto
+
+								FROM `ingreso_gral`
+
+								INNER JOIN empresa ON empresa.pkID = ingreso_gral.fkID_empresa
+
+								INNER JOIN proyectos ON proyectos.pkID = ingreso_gral.fkID_proyecto
+
+								WHERE proyectos.fkID_estado <> 1  AND ingreso_gral.fkID_empresa = 3 
+
+								UNION
+
+								SELECT ingreso_gral.*,empresa.nombre as nom_empresa, proyectos.nombre nom_proyecto
+
+								FROM `ingreso_gral` 
+
+								INNER JOIN empresa ON empresa.pkID = ingreso_gral.fkID_empresa
+
+								LEFT JOIN proyectos ON proyectos.pkID = ingreso_gral.fkID_proyecto
+ 
+								WHERE ingreso_gral.fkID_proyecto < 1 AND ingreso_gral.fkID_empresa = 3 ";
+
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
 		public function getIngresosFiltroFuntecso($filtro){
 			
 			$this->q_general = "select ingreso_gral.*, empresa.nombre as nom_empresa, proyectos.nombre nom_proyecto 
@@ -248,6 +275,35 @@
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 
+		public function getIngresosFiltroProco($filtro){
+			
+			$this->q_general = "select ingreso_gral.*, empresa.nombre as nom_empresa, proyectos.nombre nom_proyecto 
+
+								FROM `ingreso_gral`
+
+								INNER JOIN empresa ON empresa.pkID = ingreso_gral.fkID_empresa
+
+								LEFT OUTER JOIN proyectos ON proyectos.pkID = ingreso_gral.fkID_proyecto
+
+								WHERE proyectos.fkID_estado != 1 AND ".$filtro." AND ingreso_gral.fkID_empresa = 3 
+
+
+								UNION
+
+								SELECT ingreso_gral.*,empresa.nombre as nom_empresa, proyectos.nombre nom_proyecto
+
+								FROM `ingreso_gral` 
+
+								INNER JOIN empresa ON empresa.pkID = ingreso_gral.fkID_empresa
+
+								LEFT JOIN proyectos ON proyectos.pkID = ingreso_gral.fkID_proyecto
+ 
+								WHERE ingreso_gral.fkID_proyecto < 1  AND ingreso_gral.fkID_empresa = 3 AND ".$filtro."";	
+
+			
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
+
 		public function getProyectosFuntecso(){			
 
 			$this->q_general = "select proyectos.*, entidades.pkID as pkID_entidad, entidades.nombre_entidad as nom_entidad, estado_proyecto.pkID as pkID_estado, estado_proyecto.nombre nom_estado 
@@ -263,6 +319,20 @@
 			return GenericoDAO::EjecutarConsulta($this->q_general);
 		}
 		/*20180104: Fin Agregado Funtectso*/
+		public function getProyectosProco(){			
+
+			$this->q_general = "select proyectos.*, entidades.pkID as pkID_entidad, entidades.nombre_entidad as nom_entidad, estado_proyecto.pkID as pkID_estado, estado_proyecto.nombre nom_estado 
+
+				FROM `proyectos` INNER JOIN entidades ON entidades.pkID = proyectos.fkID_entidad
+
+				INNER JOIN estado_proyecto ON estado_proyecto.pkID = proyectos.fkID_estado 
+
+				WHERE fkID_estado<>1 AND proyectos.fkID_empresa = 3 
+
+				ORDER BY entidades.nombre_entidad";	
+			
+			return GenericoDAO::EjecutarConsulta($this->q_general);
+		}
 
 		public function getAnio(){
 			
